@@ -290,12 +290,34 @@ namespace _Main.CalculatorSys.Sys
         {
             int arrayIndex = currentCalculatorOperationAndValueCount-1;
 
-            for (int i = arrayIndex; i < 1; i--)
+            // 從後面開始檢測乘除號
+            // for (int i = arrayIndex; i >= 1; i--)
+            // {
+            //     if (currentOperators[i] == CalculatorOperator.Multiply)
+            //     {
+            //         numbersInBox[i-1] *= numbersInBox[i];
+            //         recordSkipNumber.Add(i);
+            //     }
+            //     else if (currentOperators[i] == CalculatorOperator.Divide)
+            //     {
+            //         if (numbersInBox[i - 1] == 0)
+            //         {
+            //             Debug.Log("Cannot divide by zero");
+            //             continue;
+            //         }
+            //         
+            //         numbersInBox[i-1] /= numbersInBox[i];
+            //         recordSkipNumber.Add(i);
+            //     }
+            // }
+            
+            // 從前面開始檢測乘除號
+            for (int i = 1; i <= arrayIndex; i++)
             {
                 if (currentOperators[i] == CalculatorOperator.Multiply)
                 {
-                    numbersInBox[i-1] *= numbersInBox[i];
-                    recordSkipNumber.Add(i);
+                    numbersInBox[i] *= numbersInBox[i+1];
+                    recordSkipNumber.Add(i+1);
                 }
                 else if (currentOperators[i] == CalculatorOperator.Divide)
                 {
@@ -305,8 +327,8 @@ namespace _Main.CalculatorSys.Sys
                         continue;
                     }
                     
-                    numbersInBox[i-1] /= numbersInBox[i];
-                    recordSkipNumber.Add(i);
+                    numbersInBox[i] /= numbersInBox[i+1];
+                    recordSkipNumber.Add(i+1);
                 }
             }
         }
