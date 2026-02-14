@@ -57,6 +57,9 @@ namespace _Main.CalculatorSys.View
                 case CalculatorButtonType.Operator:
                     DetectOperator(button.CalculatorOperator);
                     break;
+                case CalculatorButtonType.Feature:
+                    DetectFeature(button.CalculatorFeature);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -70,10 +73,19 @@ namespace _Main.CalculatorSys.View
                 CalculatorOperator.Subtract => "-",
                 CalculatorOperator.Multiply => "*",
                 CalculatorOperator.Divide => "/",
-                CalculatorOperator.Equal => "=",
-                CalculatorOperator.DelOperator => "DelO",
-                CalculatorOperator.DelNumber => "DelN",
+
                 _ => throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null)
+            };
+        }
+        
+        private void DetectFeature(CalculatorFeature calculatorFeature)
+        {
+            _buttonText.text = calculatorFeature switch
+            {
+                CalculatorFeature.Equal => "=",
+                CalculatorFeature.DelOperator => "DelO",
+                CalculatorFeature.DelNumber => "DelN",
+                _ => throw new ArgumentOutOfRangeException(nameof(calculatorFeature), calculatorFeature, null)
             };
         }
         

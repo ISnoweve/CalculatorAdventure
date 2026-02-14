@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Sys;
 using _Main.CalculatorSys.Sys.EventData;
+using _Main.CalculatorSys.Sys.Runtime;
 using BolingsUnityTools;
 using MessagePipe;
 using ToolKit;
@@ -9,7 +10,7 @@ using UnityEngine;
 
 namespace _Main.CalculatorSys.View
 {
-    public sealed class CalculatorButtonViewControl : SingletonMonoBehaviour<CalculatorButtonViewControl>
+    public class CalculatorButtonViewControl : SingletonMonoBehaviour<CalculatorButtonViewControl>
     {
         [SerializeField] private List<CalculatorButtonView> _calculatorButtonViews;
         private Dictionary<byte, CalculatorButtonView> CalculatorButtonViews;
@@ -18,25 +19,23 @@ namespace _Main.CalculatorSys.View
 
         protected override void Awake()
         {
-            Initialize();
             SubscribeEvent();
-            CalculatorSystem.Instance.Test();
             base.Awake();
         }
 
-        private void Initialize()
+        public static void InitializeView(List<CalculatorButton> data)
         {
-            CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
-            foreach (var buttonView in _calculatorButtonViews)
+            Instance.CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
+            foreach (var buttonView in Instance._calculatorButtonViews)
             {
-                CalculatorButtonViews.Add(buttonView.index, buttonView);
+                Instance.CalculatorButtonViews.Add(buttonView.index, buttonView);
             }
             
-            foreach (var calculatorButton in CalculatorButtonManager.Instance.GetAllButtonData())
+            foreach (var calculatorButton in data)
             {
-                if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
+                if (Instance.CalculatorButtonViews.ContainsKey(calculatorButton.Index))
                 {
-                    CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
+                    Instance.CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
                 }
             }
         }
@@ -47,7 +46,6 @@ namespace _Main.CalculatorSys.View
         {
             _disposable?.Dispose();
             DisposableBagBuilder bag = DisposableBag.CreateBuilder();
-            //GlobalMessagePipe.GetSubscriber<ButtonsSpawn>().Subscribe(InitializeButton).AddTo(bag);
             _disposable = bag.Build();
         }
         
@@ -55,21 +53,6 @@ namespace _Main.CalculatorSys.View
         {
             base.OnDestroy();
             _disposable?.Dispose();
-        }
-
-        #endregion
-
-        #region Behaviour
-
-        private void InitializeButton(ButtonsSpawn data)
-        {
-            foreach (var calculatorButton in data.Buttons)
-            {
-                if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
-                {
-                    CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
-                }
-            }
         }
 
         #endregion

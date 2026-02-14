@@ -13,10 +13,7 @@ namespace ToolKit
         private static readonly object _lock = new object();
         protected virtual bool IsDontDestroyOnLoad => false;
         public static bool HasInstance => _hasInstance;
-
-        /// <summary>
-        /// 獲取單例實例。
-        /// </summary>
+        
         public static T Instance {
             get {
                 if (_instance != null) return _instance;
@@ -45,9 +42,6 @@ namespace ToolKit
             }
         }
 
-        /// <summary>
-        /// 保證在 Awake 時初始化。
-        /// </summary>
         protected virtual void Awake() {
             if (_instance == null) {
                 _instance = this as T;
@@ -61,10 +55,7 @@ namespace ToolKit
                 Destroy(gameObject);
             }
         }
-
-        /// <summary>
-        /// 在銷毀時釋放資源。
-        /// </summary>
+        
         protected virtual void OnDestroy() {
             if (_instance == this) {
                 _instance = null;

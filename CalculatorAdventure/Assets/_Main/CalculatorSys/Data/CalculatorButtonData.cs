@@ -10,16 +10,20 @@ namespace _Main.CalculatorSys.Data
         [SerializeField] private byte index;
         public byte Index => index;
         
-        [SerializeField] private CalculatorButtonType _calculatorButtonType;
-        public CalculatorButtonType CalculatorButtonType => _calculatorButtonType;
+        [SerializeField] private CalculatorButtonType calculatorButtonType;
+        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
         
-        [ShowIf("_calculatorButtonType", CalculatorButtonType.Operator)]
-        [SerializeField] private CalculatorOperator _calculatorOperator;
-        public CalculatorOperator CalculatorOperator => _calculatorOperator;
+        [ShowIf("calculatorButtonType", CalculatorButtonType.Operator)]
+        [SerializeField] private CalculatorOperator calculatorOperator;
+        public CalculatorOperator CalculatorOperator => calculatorOperator;
 
         
-        [HideIf("_calculatorButtonType", CalculatorButtonType.Operator)] 
-        [SerializeField] private int _originalValue;
-        public int OriginalValue => _originalValue;
+        [ShowIf("calculatorButtonType", CalculatorButtonType.NumberActivate)] 
+        [SerializeField] private int originalValue;
+        public int OriginalValue => originalValue;
+        
+        [ShowIf("calculatorButtonType", CalculatorButtonType.Feature)] 
+        [SerializeField] private CalculatorFeature calculatorFeature;
+        public CalculatorFeature CalculatorFeature => calculatorFeature;
     }
 }

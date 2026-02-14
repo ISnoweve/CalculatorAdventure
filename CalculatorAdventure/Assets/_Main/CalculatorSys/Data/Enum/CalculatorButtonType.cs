@@ -6,5 +6,6 @@ namespace _Main.CalculatorSys.Data.Enum
         NumberLock,
         NumberActivate,  
         Operator,
+        Feature,
     }
 }

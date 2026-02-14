@@ -1,16 +1,95 @@
 using System;
-using _Main.CalculatorSys.Sys;
+using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Sys.Event;
+using _Main.CalculatorSys.View.EventData;
+using MessagePipe;
 using UnityEngine;
 
 namespace _Main.CalculatorSys
 {
     public class Test : MonoBehaviour
     {
-        public CalculatorButtonManager calculatorButtonManager;
+        #region Life cycle
 
-        private void Awake()
+        private void Start()
         {
-            calculatorButtonManager = CalculatorButtonManager.Instance;
+            SubscribeEvent();
+        }
+        
+        private IDisposable _disposable;
+        private void SubscribeEvent()
+        {
+            _disposable?.Dispose();
+            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<CalculatorNotify>().Subscribe(Notify).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<CalculatorResultNotify>().Subscribe(Result).AddTo(bag);
+            _disposable = bag.Build();
+        }
+
+        private void OnDestroy()
+        {
+            _disposable?.Dispose();
+        }
+
+        #endregion
+
+        private void Notify(CalculatorNotify data)
+        {
+            string result = "";
+
+            for (int i = 0; i < data.IndexCount; i++)
+            {
+                switch (data.CurrentOperators[i])
+                {
+                    case CalculatorOperator.Add:
+                        result += "+";
+                        break;
+                    case CalculatorOperator.Subtract:
+                        result += "-";
+                        break;
+                    case CalculatorOperator.Multiply:
+                        result += "x";
+                        break;
+                    case CalculatorOperator.Divide:
+                        result += "/";
+                        break;
+                    case CalculatorOperator.None:
+                        result += "\u25a1";
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
+                result += data.NumbersInBox[i];
+            }
+            
+            
+            Debug.Log(result);
+        }
+
+        private void Result(CalculatorResultNotify data)
+        {
+            string result = "";
+            
+            switch (data.FirstOperator)
+            {
+                case CalculatorOperator.Add:
+                    result = "+";
+                    break;
+                case CalculatorOperator.Subtract:
+                    result = "-";
+                    break;
+                case CalculatorOperator.Multiply:
+                    result = "x";
+                    break;
+                case CalculatorOperator.Divide:
+                    result = "/";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+            Debug.Log(result+data.Result);
         }
     }
 }

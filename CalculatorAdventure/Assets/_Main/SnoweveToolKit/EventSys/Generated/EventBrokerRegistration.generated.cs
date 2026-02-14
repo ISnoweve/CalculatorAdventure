@@ -8,6 +8,8 @@ namespace EventSys.Runtime
     {
         static partial void RegisterEventBrokers(BuiltinContainerBuilder builder)
         {
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Event.CalculatorNotify>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Event.CalculatorResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.EventData.ButtonsSpawn>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.View.EventData.ButtonOnClick>();
             builder.AddMessageBroker<global::_Main.MessagePipeTest.Event.PushEvent>();
