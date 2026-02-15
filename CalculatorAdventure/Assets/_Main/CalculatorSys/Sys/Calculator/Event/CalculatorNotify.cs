@@ -2,7 +2,7 @@ using System;
 using _Main.CalculatorSys.Data.Enum;
 using EventSys.Interface;
 
-namespace _Main.CalculatorSys.Sys.Event
+namespace _Main.CalculatorSys.Sys.Calculator.Event
 {
     [Serializable]
     public readonly struct CalculatorNotify : IEventData

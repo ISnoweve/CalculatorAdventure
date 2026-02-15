@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
-using _Main.CalculatorSys.Sys.EventData;
-using _Main.CalculatorSys.Sys.Runtime;
-using _Main.ResourceSys;
+using _Main.CalculatorSys.Manager.EventData;
+using _Main.CalculatorSys.Manager.Runtime;
 using BolingsUnityTools;
 using MessagePipe;
-using ToolKit;
 using UnityEngine;
 
-namespace _Main.CalculatorSys.Sys
+namespace _Main.CalculatorSys.Manager
 {
     [Serializable]
     public class CalculatorButtonManager : Singleton<CalculatorButtonManager>
@@ -36,7 +34,7 @@ namespace _Main.CalculatorSys.Sys
             GlobalMessagePipe.GetPublisher<ButtonsSpawn>().Publish(buttonsSpawn);
         }
 
-        public static List<CalculatorButton> GetAllButtonData()
+        public static List<CalculatorButton> GetAllButton()
         {
             return Instance.calculatorButtons;
         }

@@ -1,11 +1,9 @@
 using System;
-using _Main.CalculatorSys.Data;
-using _Main.CalculatorSys.Sys;
 using _Main.PlayerSys.Data;
 using BolingsUnityTools;
 using UnityEngine;
 
-namespace _Main.PlayerSys
+namespace _Main.PlayerSys.Sys
 {
     [Serializable]
     public class PlayerSystem : Singleton<PlayerSystem>

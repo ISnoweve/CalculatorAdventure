@@ -1,3 +1,5 @@
+using System;
+using MessagePipe;
 using TMPro;
 using UnityEngine;
 
@@ -6,30 +8,34 @@ namespace _Main.CalculatorSys.View
     public class CalculatorLabel : MonoBehaviour
     {
         [Header("UI 元件實例")]
-        [SerializeField] private TMP_Text[] operatorText;
-        [SerializeField] private TMP_Text[] numberText;
+        [SerializeField] private TMP_Text operatorText;
+        [SerializeField] private TMP_Text numberText;
 
         [Header("設定")]
         [SerializeField] private string defaultNumber = "0";
+
+        #region Life cycle
 
         private void Awake()
         {
             ClearDisplay();
         }
-        public void SetOperator(string newOperator)
-        {
-            if (operatorText == null) return;
-        }
+
+        private IDisposable _disposable;
         
-        public void AppendNumber(string digit)
+        private void SubscribeEvent()
         {
-            if (numberText == null) return;
+            _disposable?.Dispose();
+            
+            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
         }
 
-        public void ClearDisplay()
+        #endregion
+        
+        private void ClearDisplay()
         {
-            //if (operatorText != null) operatorText.text = "\u25a1";
-            //if (numberText != null) numberText.text = "\u25a1";
+            if (operatorText != null) operatorText.text = "\u25a1";
+            if (numberText != null) numberText.text = "\u25a1";
         }
     }
 }

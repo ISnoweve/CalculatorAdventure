@@ -2,15 +2,15 @@ using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Data.Enum;
-using _Main.CalculatorSys.Sys.Event;
-using _Main.CalculatorSys.Sys.Runtime;
+using _Main.CalculatorSys.Manager;
+using _Main.CalculatorSys.Manager.Runtime;
+using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.CalculatorSys.View.EventData;
 using BolingsUnityTools;
 using MessagePipe;
-using ToolKit;
 using UnityEngine;
 
-namespace _Main.CalculatorSys.Sys
+namespace _Main.CalculatorSys.Sys.Calculator
 {
     [Serializable]
     public class CalculatorSystem : Singleton<CalculatorSystem>
@@ -19,6 +19,12 @@ namespace _Main.CalculatorSys.Sys
         [SerializeField] private int[] numbersInBox;
         [SerializeField] private int originalCalculatorOperationAndValueCount;
         [SerializeField] private int currentCalculatorOperationAndValueCount;
+        [SerializeField] private int result;
+        public CalculatorOperator[] CurrentOperators => currentOperators;
+        public int[] NumbersInBox => numbersInBox;
+        public int OriginalCalculatorOperationAndValueCount => originalCalculatorOperationAndValueCount;
+        public int CurrentCalculatorOperationAndValueCount => currentCalculatorOperationAndValueCount;
+        public int Result => result;
 
         #region Life cycle
 
@@ -53,6 +59,13 @@ namespace _Main.CalculatorSys.Sys
 
         private void ArrayResize()
         {
+            if (currentOperators == null || numbersInBox == null)
+            {
+                currentOperators = new CalculatorOperator[currentCalculatorOperationAndValueCount];
+                numbersInBox = new int[currentCalculatorOperationAndValueCount];
+                return;
+            }
+            
             if (currentCalculatorOperationAndValueCount > originalCalculatorOperationAndValueCount)
             {
                 Array.Resize(ref currentOperators, currentCalculatorOperationAndValueCount);
@@ -119,13 +132,7 @@ namespace _Main.CalculatorSys.Sys
             }
             else
             {
-                if (numbersInBox[0] == 0)
-                {
-                    numbersInBox[0] = value;
-                    return;
-                }
-                
-                for (int i = 1; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (numbersInBox[i] > 0)
                     {
@@ -151,13 +158,7 @@ namespace _Main.CalculatorSys.Sys
             }
             else
             {
-                if (currentOperators[0] == CalculatorOperator.None)
-                {
-                    currentOperators[0] = calculatorOperator;
-                    return;
-                }
-
-                for (int i = 1; i < length; i++)
+                for (int i = 0; i < length; i++)
                 {
                     if (currentOperators[i] != CalculatorOperator.None)
                     {
@@ -241,9 +242,7 @@ namespace _Main.CalculatorSys.Sys
                 Debug.Log("Cannot calculate result because not all boxes are filled");
                 return;
             }
-            
-            int result = 0;
-            
+
             if (currentCalculatorOperationAndValueCount <= 1)
             {
                 result = numbersInBox[0];
@@ -289,48 +288,39 @@ namespace _Main.CalculatorSys.Sys
         private void CalculateMultiplyAndDivide(in List<int> recordSkipNumber)
         {
             int arrayIndex = currentCalculatorOperationAndValueCount-1;
-
-            // 從後面開始檢測乘除號
-            // for (int i = arrayIndex; i >= 1; i--)
-            // {
-            //     if (currentOperators[i] == CalculatorOperator.Multiply)
-            //     {
-            //         numbersInBox[i-1] *= numbersInBox[i];
-            //         recordSkipNumber.Add(i);
-            //     }
-            //     else if (currentOperators[i] == CalculatorOperator.Divide)
-            //     {
-            //         if (numbersInBox[i - 1] == 0)
-            //         {
-            //             Debug.Log("Cannot divide by zero");
-            //             continue;
-            //         }
-            //         
-            //         numbersInBox[i-1] /= numbersInBox[i];
-            //         recordSkipNumber.Add(i);
-            //     }
-            // }
             
-            // 從前面開始檢測乘除號
             for (int i = 1; i <= arrayIndex; i++)
             {
-                if (currentOperators[i] == CalculatorOperator.Multiply)
+                CalculatorOperator op = currentOperators[i];
+                
+                if (op != CalculatorOperator.Multiply && op != CalculatorOperator.Divide) 
+                    continue;
+                
+                int leftIndex = GetPreviousValidIndex(i - 1, recordSkipNumber);
+                
+                if(leftIndex == 0) Debug.Log("Left index is 0, which means no valid operator found for index: " + i);
+
+                if (op == CalculatorOperator.Multiply)
                 {
-                    numbersInBox[i] *= numbersInBox[i+1];
-                    recordSkipNumber.Add(i+1);
+                    numbersInBox[leftIndex] *= numbersInBox[i];
                 }
-                else if (currentOperators[i] == CalculatorOperator.Divide)
+                else
                 {
-                    if (numbersInBox[i - 1] == 0)
-                    {
-                        Debug.Log("Cannot divide by zero");
-                        continue;
-                    }
-                    
-                    numbersInBox[i] /= numbersInBox[i+1];
-                    recordSkipNumber.Add(i+1);
+                    numbersInBox[leftIndex] /= numbersInBox[i];
                 }
+
+                recordSkipNumber.Add(i);
             }
+        }
+        
+        private int GetPreviousValidIndex(int startIndex, List<int> skippedIndices)
+        {
+            for (int j = startIndex; j >= 0; j--)
+            {
+                if (!skippedIndices.Contains(j))
+                    return j;
+            }
+            return 0; 
         }
         
         private int CalculateAddAndSubtract(in List<int> recordSkipNumber)
@@ -371,6 +361,41 @@ namespace _Main.CalculatorSys.Sys
         #endregion
         
         #endregion
+
+        #endregion
+
+        #region Unit Test Feature
+
+        public void SetCurrentOperators(CalculatorOperator[] operators)
+        {
+            currentOperators = operators;
+        }
+        
+        public void SetNumbersInBox(int[] numbers)
+        {
+            numbersInBox = numbers;
+        }
+        
+        public void SetCurrentCalculatorOperationAndValueCount(int count)
+        {
+            currentCalculatorOperationAndValueCount = count;
+            ArrayResize();
+        }
+
+        public void SetDeleteNumber()
+        {
+            DeleteNumber();
+        }
+        
+        public void SetDeleteOperator()
+        {
+            DeleteOperator();
+        }
+        
+        public int SetEqualTest()
+        {
+            return CalculateMultiNumber();
+        }
 
         #endregion
     }

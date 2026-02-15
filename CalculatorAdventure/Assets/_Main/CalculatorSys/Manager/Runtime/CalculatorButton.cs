@@ -4,7 +4,7 @@ using _Main.CalculatorSys.Data.Enum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Main.CalculatorSys.Sys.Runtime
+namespace _Main.CalculatorSys.Manager.Runtime
 {
     [Serializable]
     public class CalculatorButton
@@ -35,6 +35,9 @@ namespace _Main.CalculatorSys.Sys.Runtime
         [ShowIf("calculatorButtonType", CalculatorButtonType.Feature)] 
         [SerializeField] private CalculatorFeature calculatorFeature;
         public CalculatorFeature CalculatorFeature => calculatorFeature;
+
+        private bool _isClick;
+        public bool IsClick => _isClick;
         public CalculatorButton(CalculatorButtonData data)
         {
             index = data.Index;
@@ -43,6 +46,29 @@ namespace _Main.CalculatorSys.Sys.Runtime
             originalValue = data.OriginalValue;
             currentValue = data.OriginalValue;
             calculatorFeature = data.CalculatorFeature;
+        }
+
+        public void RecoverButtonClickAble()
+        {
+            if(calculatorButtonType == CalculatorButtonType.NumberLock||
+               calculatorButtonType == CalculatorButtonType.Operator||
+               calculatorButtonType == CalculatorButtonType.Feature) return;
+            
+            _isClick = false;
+        }
+        
+        public bool CheckIsClickAble()
+        {
+            if(calculatorButtonType == CalculatorButtonType.NumberLock||
+               calculatorButtonType == CalculatorButtonType.Operator||
+               calculatorButtonType == CalculatorButtonType.Feature) return true;
+            
+            return !_isClick;
+        }
+        
+        public void ClickButton()
+        {
+            if(CheckIsClickAble()) _isClick = true;
         }
     }
 }

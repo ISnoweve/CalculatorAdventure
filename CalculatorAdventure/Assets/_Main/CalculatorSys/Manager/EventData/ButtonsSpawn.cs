@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using _Main.CalculatorSys.Sys.Runtime;
+using _Main.CalculatorSys.Manager.Runtime;
 using EventSys.Interface;
 
-namespace _Main.CalculatorSys.Sys.EventData
+namespace _Main.CalculatorSys.Manager.EventData
 {
     [Serializable]
     public readonly struct ButtonsSpawn : IEventData

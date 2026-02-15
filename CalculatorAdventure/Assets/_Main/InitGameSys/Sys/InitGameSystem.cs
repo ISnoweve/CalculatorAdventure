@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
-using _Main.PlayerSys;
 using ToolKit;
 using UnityEngine;
 
-namespace _Main.InitGameSys
+namespace _Main.InitGameSys.Sys
 {
     [Serializable, DefaultExecutionOrder(-99900)]
     public class InitGameSystem : SingletonMonoBehaviour<InitGameSystem>

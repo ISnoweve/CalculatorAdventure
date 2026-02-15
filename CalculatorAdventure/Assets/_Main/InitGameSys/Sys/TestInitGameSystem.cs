@@ -1,13 +1,14 @@
-using System;
 using _Main.CalculatorSys.Data;
+using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys;
+using _Main.CalculatorSys.Sys.Calculator;
 using _Main.CalculatorSys.View;
-using _Main.PlayerSys;
 using _Main.PlayerSys.Data;
+using _Main.PlayerSys.Sys;
 using Sirenix.OdinInspector;
 using ToolKit;
 
-namespace _Main.InitGameSys
+namespace _Main.InitGameSys.Sys
 {
     public class TestInitGameSystem : SingletonMonoBehaviour<TestInitGameSystem>
     {
@@ -34,7 +35,7 @@ namespace _Main.InitGameSys
         [Button]
         public void LoadMainGameInitView()
         {
-            CalculatorButtonViewControl.InitializeView(CalculatorButtonManager.GetAllButtonData());
+            CalculatorButtonViewControl.InitializeView(CalculatorButtonManager.GetAllButton());
         }
 
         protected override void OnDestroy()

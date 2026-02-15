@@ -1,6 +1,6 @@
 using System;
 using _Main.CalculatorSys.Data.Enum;
-using _Main.CalculatorSys.Sys.Event;
+using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.CalculatorSys.View.EventData;
 using MessagePipe;
 using UnityEngine;

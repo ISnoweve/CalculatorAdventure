@@ -4,7 +4,7 @@ using BolingsUnityTools;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace _Main.ResourceSys
+namespace _Main.ResourceSys.Sys
 {
     [Serializable]
     public sealed class ResourceUnityManager : Singleton<ResourceUnityManager>
