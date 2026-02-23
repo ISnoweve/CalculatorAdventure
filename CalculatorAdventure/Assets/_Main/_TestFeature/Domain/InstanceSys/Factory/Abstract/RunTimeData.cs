@@ -1,4 +1,6 @@
-namespace _Main.Domain.InstanceSys.Factory.Abstract
+namespace _Main._TestFeature.Domain.InstanceSys.Factory.Abstract
 {
-    public class RunTimeData { }
+    public class RunTimeData
+    {
+    }
 }

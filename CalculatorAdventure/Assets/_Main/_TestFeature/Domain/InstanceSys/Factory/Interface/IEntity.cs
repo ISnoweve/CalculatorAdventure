@@ -1,4 +1,4 @@
-namespace _Main.Domain.InstanceSys.Factory.Interface
+namespace _Main._TestFeature.Domain.InstanceSys.Factory.Interface
 {
     public interface IEntity
     {

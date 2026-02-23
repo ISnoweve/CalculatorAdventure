@@ -1,18 +1,18 @@
 {
-    "name": "_Main.PlayerSys",
-    "rootNamespace": "",
-    "references": [
-        "GUID:cb209e4719ca48bf902671da17691565",
-        "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
-        "GUID:0a076c81438d41878c5f7150e1305d4a"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "_Main.PlayerSys",
+  "rootNamespace": "",
+  "references": [
+    "GUID:cb209e4719ca48bf902671da17691565",
+    "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
+    "GUID:0a076c81438d41878c5f7150e1305d4a"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

@@ -6,12 +6,11 @@ namespace _Main.CalculatorSys.View.EventData
     [Serializable]
     public readonly struct ButtonOnClick : IEventData
     {
-        private readonly byte index;
-        public byte Index => index;
-        
+        public byte Index { get; }
+
         public ButtonOnClick(byte index)
         {
-            this.index = index;
+            this.Index = index;
         }
     }
 }

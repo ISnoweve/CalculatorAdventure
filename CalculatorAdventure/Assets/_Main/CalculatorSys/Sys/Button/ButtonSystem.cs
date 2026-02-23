@@ -1,10 +1,12 @@
 using System;
+using _Main.CalculatorSys.Data.Enum;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.View.EventData;
 using BolingsUnityTools;
 using MessagePipe;
+using UnityEngine;
 
 namespace _Main.CalculatorSys.Sys.Button
 {
@@ -15,52 +17,64 @@ namespace _Main.CalculatorSys.Sys.Button
 
         protected override void Initialize()
         {
-            base.Initialize(); 
+            base.Initialize();
             SubscribeEvent();
         }
 
         private IDisposable _disposable;
-        
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
-            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
+            var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ButtonOnClick>().Subscribe(DetectButtonClickAble).AddTo(bag);
             _disposable = bag.Build();
         }
 
+        #endregion
 
-        #endregion 
-        
+        #region Behaviour
+
         private void DetectButtonClickAble(ButtonOnClick data)
         {
-            CalculatorButton button = CalculatorButtonManager.GetButtonByIndex(data.Index);
+            var button = CalculatorButtonManager.GetButtonByIndex(data.Index);
 
-            if (button.CheckIsClickAble())
-            {
-                ButtonUpdateSuccess buttonUpdateSuccess = new ButtonUpdateSuccess(button);
-                GlobalMessagePipe.GetPublisher<ButtonUpdateSuccess>().Publish(buttonUpdateSuccess);
-            }
-            else
-            {
-                ButtonUpdateFail buttonUpdateFail = new ButtonUpdateFail(button);
-                GlobalMessagePipe.GetPublisher<ButtonUpdateFail>().Publish(buttonUpdateFail);
-            }
-            
+            button.ClickButton();
+            var buttonClickSuccess = new ButtonClickSuccess(button);
+            GlobalMessagePipe.GetPublisher<ButtonClickSuccess>().Publish(buttonClickSuccess);
+
             DetectAllButtonClickAble();
         }
 
         private void DetectAllButtonClickAble()
         {
-            foreach (CalculatorButton calculatorButton in CalculatorButtonManager.GetAllButton())
-            {
-                if(!calculatorButton.IsClick)return;
-            }
+            foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
+                if (!calculatorButton.CheckIsClickAble())
+                    return;
+
+            RecoverAllButtonClickAble();
         }
-        
+
         private void RecoverAllButtonClickAble()
         {
-            
+            foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
+                calculatorButton.RecoverButtonClickAble();
+
+            var buttonClickRecover =
+                new AllButtonClickRecover(CalculatorButtonManager.GetAllNumberButton());
+            GlobalMessagePipe.GetPublisher<AllButtonClickRecover>().Publish(buttonClickRecover);
         }
+        
+        public static void RecoverNumberButtonByIndex(byte index)
+        {
+            if(index <= 0) return;
+            
+            var calculatorButton = CalculatorButtonManager.GetButtonByIndex(index); 
+            calculatorButton.RecoverButtonClickAble();
+            ButtonClickRecover buttonClickRecover = new ButtonClickRecover(calculatorButton);
+            GlobalMessagePipe.GetPublisher<ButtonClickRecover>().Publish(buttonClickRecover);
+        }
+
+        #endregion
     }
 }

@@ -8,7 +8,7 @@ namespace _Main.MessagePipeTest
     {
         public void PushEvent()
         {
-            PushEvent pushTest = new PushEvent();
+            var pushTest = new PushEvent();
             GlobalMessagePipe.GetPublisher<PushEvent>().Publish(pushTest);
         }
     }

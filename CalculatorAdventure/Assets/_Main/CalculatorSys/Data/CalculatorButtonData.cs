@@ -4,26 +4,28 @@ using UnityEngine;
 
 namespace _Main.CalculatorSys.Data
 {
-    [CreateAssetMenu(fileName = "CalculatorButtonData", menuName = "SoSetting/Calculator/CalculatorButtonData", order = 0)]
+    [CreateAssetMenu(fileName = "CalculatorButtonData", menuName = "SoSetting/Calculator/CalculatorButtonData",
+        order = 0)]
     public class CalculatorButtonData : ScriptableObject
     {
         [SerializeField] private byte index;
-        public byte Index => index;
-        
-        [SerializeField] private CalculatorButtonType calculatorButtonType;
-        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
-        
-        [ShowIf("calculatorButtonType", CalculatorButtonType.Operator)]
-        [SerializeField] private CalculatorOperator calculatorOperator;
-        public CalculatorOperator CalculatorOperator => calculatorOperator;
 
-        
-        [ShowIf("calculatorButtonType", CalculatorButtonType.NumberActivate)] 
-        [SerializeField] private int originalValue;
+        [SerializeField] private CalculatorButtonType calculatorButtonType;
+
+        [ShowIf("calculatorButtonType", CalculatorButtonType.Operator)] [SerializeField]
+        private CalculatorOperator calculatorOperator;
+
+
+        [ShowIf("calculatorButtonType", CalculatorButtonType.NumberActivate)] [SerializeField]
+        private int originalValue;
+
+        [ShowIf("calculatorButtonType", CalculatorButtonType.Feature)] [SerializeField]
+        private CalculatorFeature calculatorFeature;
+
+        public byte Index => index;
+        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
+        public CalculatorOperator CalculatorOperator => calculatorOperator;
         public int OriginalValue => originalValue;
-        
-        [ShowIf("calculatorButtonType", CalculatorButtonType.Feature)] 
-        [SerializeField] private CalculatorFeature calculatorFeature;
         public CalculatorFeature CalculatorFeature => calculatorFeature;
     }
 }

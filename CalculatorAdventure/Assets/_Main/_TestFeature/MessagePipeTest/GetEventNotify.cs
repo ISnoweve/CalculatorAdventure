@@ -8,11 +8,11 @@ namespace _Main.MessagePipeTest
     public class GetEventNotify : MonoBehaviour
     {
         private IDisposable _disposable;
-        
+
         private void OnEnable()
         {
             _disposable?.Dispose();
-            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
+            var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<PushEvent>().Subscribe(GetNotify).AddTo(bag);
             _disposable = bag.Build();
         }

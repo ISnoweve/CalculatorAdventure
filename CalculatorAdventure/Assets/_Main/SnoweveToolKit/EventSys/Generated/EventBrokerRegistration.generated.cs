@@ -8,11 +8,12 @@ namespace EventSys.Runtime
     {
         static partial void RegisterEventBrokers(BuiltinContainerBuilder builder)
         {
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Manager.EventData.ButtonsSpawn>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonUpdateFail>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonUpdateRecover>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonUpdateSuccess>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Manager.Event.ButtonsSpawn>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.AllButtonClickRecover>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickRecover>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickSuccess>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotify>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotifyIsLastNumberAfterRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorUpdate>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.View.EventData.ButtonOnClick>();

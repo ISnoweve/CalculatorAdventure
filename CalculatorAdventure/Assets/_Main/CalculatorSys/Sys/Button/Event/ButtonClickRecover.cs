@@ -1,16 +1,19 @@
+using System;
 using _Main.CalculatorSys.Manager.Runtime;
 using EventSys.Interface;
 
 namespace _Main.CalculatorSys.Sys.Button.Event
 {
-    public readonly struct ButtonUpdateSuccess : IEventData
+    [Serializable]
+    public readonly struct ButtonClickRecover : IEventData
     {
         private readonly CalculatorButton _button;
         public CalculatorButton Button => _button;
 
-        public ButtonUpdateSuccess(CalculatorButton button)
+        public ButtonClickRecover(CalculatorButton button)
         {
             _button = button;
         }
+
     }
 }

@@ -5,15 +5,14 @@ namespace _Main.CalculatorSys.Sys.Calculator.Event
 {
     public readonly struct CalculatorResultNotify : IEventData
     {
-        private readonly int _result;
-        private readonly CalculatorOperator _firstOperator;
-        public int Result => _result;
-        public CalculatorOperator FirstOperator => _firstOperator;
-        
+        public int Result { get; }
+
+        public CalculatorOperator FirstOperator { get; }
+
         public CalculatorResultNotify(in int result, in CalculatorOperator firstOperator)
         {
-            _firstOperator = firstOperator;
-            _result = result;
+            FirstOperator = firstOperator;
+            Result = result;
         }
     }
 }

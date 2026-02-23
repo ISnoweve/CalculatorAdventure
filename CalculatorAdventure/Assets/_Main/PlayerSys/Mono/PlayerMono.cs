@@ -1,5 +1,5 @@
 using _Main.CalculatorSys.Manager;
-using _Main.CalculatorSys.Sys;
+using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
 using _Main.PlayerSys.Sys;
 using ToolKit;
@@ -12,7 +12,8 @@ namespace _Main.PlayerSys.Mono
         public PlayerSystem playerSystem;
         public CalculatorButtonManager calculatorButtonManager;
         public CalculatorSystem calculatorSystem;
-        
+        public ButtonSystem buttonSystem;
+
         protected override void Awake()
         {
             base.Awake();
@@ -24,6 +25,7 @@ namespace _Main.PlayerSys.Mono
             playerSystem = PlayerSystem.Instance;
             calculatorButtonManager = CalculatorButtonManager.Instance;
             calculatorSystem = CalculatorSystem.Instance;
+            buttonSystem = ButtonSystem.Instance;
         }
     }
 }

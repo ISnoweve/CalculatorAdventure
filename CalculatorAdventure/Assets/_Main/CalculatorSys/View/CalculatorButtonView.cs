@@ -13,25 +13,27 @@ namespace _Main.CalculatorSys.View
     public class CalculatorButtonView : MonoBehaviour
     {
         [SerializeField] private byte _index;
-        public byte index => _index;
 
         [SerializeField] private Button _button;
-        public Button Button => _button;
         [SerializeField] private TMP_Text _buttonText;
-        public TMP_Text ButtonText => _buttonText;
         [SerializeField] private CalculatorButtonType _calculatorButtonType;
+
+        [ShowIf("_calculatorButtonType", CalculatorButtonType.Operator)] [SerializeField]
+        private CalculatorOperator _calculatorOperator;
+
+        public byte index => _index;
+        public Button Button => _button;
+        public TMP_Text ButtonText => _buttonText;
         public CalculatorButtonType CalculatorButtonType => _calculatorButtonType;
-        [ShowIf("_calculatorButtonType", CalculatorButtonType.Operator)] 
-        [SerializeField] private CalculatorOperator _calculatorOperator;
         public CalculatorOperator CalculatorOperator => _calculatorOperator;
-        
+
         #region Behaviour
 
         public void Initialize(CalculatorButton button)
         {
             _index = button.Index;
             DetectButtonType(button);
-            
+
             _button.onClick.AddListener(OnButtonClick);
         }
 
@@ -47,17 +49,21 @@ namespace _Main.CalculatorSys.View
                 case CalculatorButtonType.None:
                     break;
                 case CalculatorButtonType.NumberLock:
+                    _calculatorButtonType = CalculatorButtonType.NumberLock;
                     _button.interactable = false;
                     _buttonText.text = " ";
                     break;
                 case CalculatorButtonType.NumberActivate:
+                    _calculatorButtonType = CalculatorButtonType.NumberActivate;
                     _button.interactable = true;
                     _buttonText.text = button.CurrentValue.ToString();
                     break;
                 case CalculatorButtonType.Operator:
+                    _calculatorButtonType = CalculatorButtonType.Operator;
                     DetectOperator(button.CalculatorOperator);
                     break;
                 case CalculatorButtonType.Feature:
+                    _calculatorButtonType = CalculatorButtonType.Feature;
                     DetectFeature(button.CalculatorFeature);
                     break;
                 default:
@@ -77,7 +83,7 @@ namespace _Main.CalculatorSys.View
                 _ => throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null)
             };
         }
-        
+
         private void DetectFeature(CalculatorFeature calculatorFeature)
         {
             _buttonText.text = calculatorFeature switch
@@ -88,16 +94,20 @@ namespace _Main.CalculatorSys.View
                 _ => throw new ArgumentOutOfRangeException(nameof(calculatorFeature), calculatorFeature, null)
             };
         }
-        
-        public void OnButtonClick()
+
+        private void OnButtonClick()
         {
-            ButtonOnClick buttonOnClick = new ButtonOnClick(_index);
-            GlobalMessagePipe.GetPublisher<ButtonOnClick>().Publish(buttonOnClick);   
+            var buttonOnClick = new ButtonOnClick(_index);
+            GlobalMessagePipe.GetPublisher<ButtonOnClick>().Publish(buttonOnClick);
         }
 
-        public void GetRuntimeButtonNotify()
+        public void ChangeButtonState(bool isClickAble)
         {
-            
+            if (_calculatorButtonType == CalculatorButtonType.NumberLock ||
+                _calculatorButtonType == CalculatorButtonType.Operator ||
+                _calculatorButtonType == CalculatorButtonType.Feature) return;
+
+            _button.interactable = isClickAble;
         }
 
         #endregion

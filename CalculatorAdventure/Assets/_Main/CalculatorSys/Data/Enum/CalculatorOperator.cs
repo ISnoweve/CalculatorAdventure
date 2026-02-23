@@ -3,9 +3,9 @@ namespace _Main.CalculatorSys.Data.Enum
     public enum CalculatorOperator : byte
     {
         None,
-        Add,     
+        Add,
         Subtract,
         Multiply,
-        Divide,  
+        Divide
     }
 }

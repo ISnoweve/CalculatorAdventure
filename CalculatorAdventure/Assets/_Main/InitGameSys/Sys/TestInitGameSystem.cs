@@ -1,11 +1,8 @@
-using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Manager;
-using _Main.CalculatorSys.Sys;
+using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
-using _Main.CalculatorSys.View;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
-using Sirenix.OdinInspector;
 using ToolKit;
 
 namespace _Main.InitGameSys.Sys
@@ -13,29 +10,11 @@ namespace _Main.InitGameSys.Sys
     public class TestInitGameSystem : SingletonMonoBehaviour<TestInitGameSystem>
     {
         public PlayerData TestDefaultData;
-        
-        protected override void Awake()
+
+        private void Start()
         {
             InitEnterGame();
-        }
-
-        private void InitEnterGame()
-        {
-            PlayerSystem.Initialize(TestDefaultData);
-        }
-
-        [Button]
-        public void LoadMainGameInitData()
-        {
-            CalculatorGameSetting calculatorData = PlayerSystem.GetPlayerData().CalculatorGameSetting;
-            CalculatorButtonManager.InitializeButtons(calculatorData.ButtonsData);
-            CalculatorSystem.InitializeSystem(calculatorData.CalculatorSystemData);
-        }
-        
-        [Button]
-        public void LoadMainGameInitView()
-        {
-            CalculatorButtonViewControl.InitializeView(CalculatorButtonManager.GetAllButton());
+            LoadMainGameInitData();
         }
 
         protected override void OnDestroy()
@@ -43,7 +22,20 @@ namespace _Main.InitGameSys.Sys
             PlayerSystem.ClearInstance();
             CalculatorButtonManager.ClearInstance();
             CalculatorSystem.ClearInstance();
+            ButtonSystem.ClearInstance();
             base.OnDestroy();
+        }
+
+        private void InitEnterGame()
+        {
+            PlayerSystem.Initialize(TestDefaultData);
+        }
+
+        private void LoadMainGameInitData()
+        {
+            var calculatorData = PlayerSystem.GetPlayerData().CalculatorGameSetting;
+            CalculatorButtonManager.InitializeButtons(calculatorData.ButtonsData);
+            CalculatorSystem.InitializeSystem(calculatorData.CalculatorSystemData);
         }
     }
 }

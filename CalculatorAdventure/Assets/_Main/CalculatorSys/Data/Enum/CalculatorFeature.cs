@@ -3,7 +3,7 @@ namespace _Main.CalculatorSys.Data.Enum
     public enum CalculatorFeature
     {
         None,
-        Equal,   
+        Equal,
         DelOperator,
         DelNumber
     }

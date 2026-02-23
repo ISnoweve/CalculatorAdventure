@@ -1,4 +1,6 @@
-namespace _Main.Domain.InstanceSys.SoData.Interface
+namespace _Main._TestFeature.Domain.InstanceSys.SoData.Interface
 {
-    public interface ISoDataId { }
+    public interface ISoDataId
+    {
+    }
 }

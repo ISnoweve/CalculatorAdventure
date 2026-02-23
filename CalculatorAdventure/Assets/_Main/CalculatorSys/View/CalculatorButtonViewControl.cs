@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using _Main.CalculatorSys.Manager.Runtime;
-using _Main.CalculatorSys.Sys;
-using BolingsUnityTools;
+using _Main.CalculatorSys.Manager.Event;
+using _Main.CalculatorSys.Sys.Button.Event;
+using _Main.CalculatorSys.Sys.Calculator.Event;
 using MessagePipe;
+using Sirenix.OdinInspector;
 using ToolKit;
 using UnityEngine;
 
@@ -13,7 +14,7 @@ namespace _Main.CalculatorSys.View
     {
         [SerializeField] private List<CalculatorButtonView> _calculatorButtonViews;
         private Dictionary<byte, CalculatorButtonView> CalculatorButtonViews;
-        
+
         #region Life cycle
 
         protected override void Awake()
@@ -22,37 +23,95 @@ namespace _Main.CalculatorSys.View
             base.Awake();
         }
 
-        public static void InitializeView(List<CalculatorButton> data)
+        private static void InitializeView(ButtonsSpawn data)
         {
             Instance.CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
             foreach (var buttonView in Instance._calculatorButtonViews)
-            {
                 Instance.CalculatorButtonViews.Add(buttonView.index, buttonView);
-            }
-            
-            foreach (var calculatorButton in data)
-            {
+
+            foreach (var calculatorButton in data.Buttons)
                 if (Instance.CalculatorButtonViews.ContainsKey(calculatorButton.Index))
-                {
                     Instance.CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
-                }
-            }
         }
-        
-        
+
+
         private IDisposable _disposable;
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
-            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
+            var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<ButtonsSpawn>().Subscribe(InitializeView).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(UpdateButtonClickView).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ButtonClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<CalculatorNotifyIsLastNumberAfterRecover>().Subscribe(UpdateButtonCloseClick).AddTo(bag);
             _disposable = bag.Build();
         }
-        
+
         protected override void OnDestroy()
         {
             base.OnDestroy();
             _disposable?.Dispose();
         }
+
+        #endregion
+
+        #region Behavior
+
+        #region Click
+
+        private void UpdateButtonClickView(ButtonClickSuccess data)
+        {
+            if (CalculatorButtonViews.ContainsKey(data.Button.Index))
+                CalculatorButtonViews[data.Button.Index].ChangeButtonState(false);
+        }
+
+        #endregion
+
+        #region Recover
+
+        private void UpdateAllButtonRecover(AllButtonClickRecover data)
+        {
+            foreach (var calculatorButton in data.Buttons)
+                if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
+                    CalculatorButtonViews[calculatorButton.Index].ChangeButtonState(true);
+        }
+        
+        private void UpdateButtonRecover(ButtonClickRecover data)
+        {
+            if (CalculatorButtonViews.ContainsKey(data.Button.Index))
+                CalculatorButtonViews[data.Button.Index].ChangeButtonState(true);
+        }
+
+        #endregion
+
+        #region Close
+
+        private void UpdateButtonCloseClick(CalculatorNotifyIsLastNumberAfterRecover data)
+        {
+            foreach (var calculatorButtonView in _calculatorButtonViews)
+            {
+                calculatorButtonView.ChangeButtonState(false);
+            }
+            
+            Debug.Log("Close Because Detect Last Number After Recover");
+        }
+
+        #endregion
+
+        #region Test
+
+        [Button]
+        private void UpdateButtonOpenClick()
+        {
+            foreach (var calculatorButtonView in _calculatorButtonViews)
+            {
+                calculatorButtonView.ChangeButtonState(false);
+            }
+        }
+
+        #endregion
 
         #endregion
     }

@@ -7,12 +7,17 @@ namespace _Main.CalculatorSys.View
 {
     public class CalculatorLabel : MonoBehaviour
     {
-        [Header("UI 元件實例")]
-        [SerializeField] private TMP_Text operatorText;
+        [Header("UI 元件實例")] [SerializeField] private TMP_Text operatorText;
+
         [SerializeField] private TMP_Text numberText;
 
-        [Header("設定")]
-        [SerializeField] private string defaultNumber = "0";
+        [Header("設定")] [SerializeField] private string defaultNumber = "0";
+
+        private void ClearDisplay()
+        {
+            if (operatorText != null) operatorText.text = "\u25a1";
+            if (numberText != null) numberText.text = "\u25a1";
+        }
 
         #region Life cycle
 
@@ -22,20 +27,14 @@ namespace _Main.CalculatorSys.View
         }
 
         private IDisposable _disposable;
-        
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
-            
-            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
+
+            var bag = DisposableBag.CreateBuilder();
         }
 
         #endregion
-        
-        private void ClearDisplay()
-        {
-            if (operatorText != null) operatorText.text = "\u25a1";
-            if (numberText != null) numberText.text = "\u25a1";
-        }
     }
 }

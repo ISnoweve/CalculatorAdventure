@@ -4,8 +4,8 @@ namespace _Main.CalculatorSys.Data.Enum
     {
         None,
         NumberLock,
-        NumberActivate,  
+        NumberActivate,
         Operator,
-        Feature,
+        Feature
     }
 }

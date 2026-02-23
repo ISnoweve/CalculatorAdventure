@@ -9,7 +9,12 @@ namespace _Main.PlayerSys.Sys
     public class PlayerSystem : Singleton<PlayerSystem>
     {
         [SerializeField] private PlayerData _playerData;
-        public static PlayerData GetPlayerData() => Instance._playerData;
+
+        public static PlayerData GetPlayerData()
+        {
+            return Instance._playerData;
+        }
+
         public static void Initialize(PlayerData data)
         {
             Instance._playerData = data;

@@ -1,8 +1,8 @@
-using _Main.Domain.InstanceSys.SoData.Abstract;
-using _Main.Domain.InstanceSys.SoData.Interface;
+using _Main._TestFeature.Domain.InstanceSys.SoData.Abstract;
+using _Main._TestFeature.Domain.InstanceSys.SoData.Interface;
 using UnityEngine;
 
-namespace _Main.Domain.InstanceSys.SoData.Map.Abstract
+namespace _Main._TestFeature.Domain.InstanceSys.SoData.Map.Abstract
 {
 //    [CreateAssetMenu(fileName = "MapData", menuName = "000_Map", order = 0)]
     public class BaseMap<TMapData, TSoDataId, TSoDataBase> : ScriptableObject

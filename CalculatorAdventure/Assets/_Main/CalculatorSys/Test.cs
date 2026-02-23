@@ -1,7 +1,6 @@
 using System;
 using _Main.CalculatorSys.Data.Enum;
 using _Main.CalculatorSys.Sys.Calculator.Event;
-using _Main.CalculatorSys.View.EventData;
 using MessagePipe;
 using UnityEngine;
 
@@ -9,35 +8,11 @@ namespace _Main.CalculatorSys
 {
     public class Test : MonoBehaviour
     {
-        #region Life cycle
-
-        private void Start()
-        {
-            SubscribeEvent();
-        }
-        
-        private IDisposable _disposable;
-        private void SubscribeEvent()
-        {
-            _disposable?.Dispose();
-            DisposableBagBuilder bag = DisposableBag.CreateBuilder();
-            GlobalMessagePipe.GetSubscriber<CalculatorNotify>().Subscribe(Notify).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<CalculatorResultNotify>().Subscribe(Result).AddTo(bag);
-            _disposable = bag.Build();
-        }
-
-        private void OnDestroy()
-        {
-            _disposable?.Dispose();
-        }
-
-        #endregion
-
         private void Notify(CalculatorNotify data)
         {
-            string result = "";
+            var result = "";
 
-            for (int i = 0; i < data.IndexCount; i++)
+            for (var i = 0; i < data.IndexCount; i++)
             {
                 switch (data.CurrentOperators[i])
                 {
@@ -59,18 +34,18 @@ namespace _Main.CalculatorSys
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                
+
                 result += data.NumbersInBox[i];
             }
-            
-            
+
+
             Debug.Log(result);
         }
 
         private void Result(CalculatorResultNotify data)
         {
-            string result = "";
-            
+            var result = "";
+
             switch (data.FirstOperator)
             {
                 case CalculatorOperator.Add:
@@ -88,8 +63,37 @@ namespace _Main.CalculatorSys
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            Debug.Log(result+data.Result);
+
+            Debug.Log(result + data.Result);
         }
+
+        #region Life cycle
+
+        private void Start()
+        {
+            SubscribeEvent();
+        }
+
+        private IDisposable _disposable;
+
+        private void SubscribeEvent()
+        {
+            _disposable?.Dispose();
+            var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<CalculatorNotify>().Subscribe(Notify).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<CalculatorResultNotify>().Subscribe(Result).AddTo(bag);
+            _disposable = bag.Build();
+        }
+
+        private void OnDestroy()
+        {
+            _disposable?.Dispose();
+        }
+
+        #endregion
+
+
+        // making Excel 
+        // 做excel 
     }
 }
