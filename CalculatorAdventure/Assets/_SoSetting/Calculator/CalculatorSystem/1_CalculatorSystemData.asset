@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59e47b114094e79accf86f54738c818, type: 3}
   m_Name: 1_CalculatorSystemData
   m_EditorClassIdentifier: Assembly-CSharp::_Main.CalculatorSys.Data.CalculatorSystemData
-  calculatorOperationAndValueCount: 3
+  calculatorOperationAndValueCount: 5
