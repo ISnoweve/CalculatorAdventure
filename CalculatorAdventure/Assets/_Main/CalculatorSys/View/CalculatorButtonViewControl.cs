@@ -46,6 +46,7 @@ namespace _Main.CalculatorSys.View
             GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<CalculatorNotifyIsLastNumberAfterRecover>().Subscribe(UpdateButtonCloseClick).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ButtonRecoverOldNumber>().Subscribe(UpdateOldButton).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -63,8 +64,8 @@ namespace _Main.CalculatorSys.View
 
         private void UpdateButtonClickView(ButtonClickSuccess data)
         {
-            if (CalculatorButtonViews.ContainsKey(data.Button.Index))
-                CalculatorButtonViews[data.Button.Index].ChangeButtonState(false);
+            if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
+                CalculatorButtonViews[data.ButtonIndex].ChangeButtonState(false);
         }
 
         #endregion
@@ -73,17 +74,30 @@ namespace _Main.CalculatorSys.View
 
         private void UpdateAllButtonRecover(AllButtonClickRecover data)
         {
-            foreach (var calculatorButton in data.Buttons)
-                if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
-                    CalculatorButtonViews[calculatorButton.Index].ChangeButtonState(true);
+            foreach (var calculatorButtonView in _calculatorButtonViews)
+            {
+                calculatorButtonView.ChangeButtonState(true);
+            }
         }
         
         private void UpdateButtonRecover(ButtonClickRecover data)
         {
-            if (CalculatorButtonViews.ContainsKey(data.Button.Index))
-                CalculatorButtonViews[data.Button.Index].ChangeButtonState(true);
+            if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
+                CalculatorButtonViews[data.ButtonIndex].ChangeButtonState(true);
         }
 
+        
+        private void UpdateOldButton(ButtonRecoverOldNumber data)
+        {
+            foreach (var variable in data.LockedButtonIndexes)
+            {
+                if (CalculatorButtonViews.ContainsKey(variable))
+                    CalculatorButtonViews[variable].ChangeButtonState(false);
+            }
+            
+            if (CalculatorButtonViews.ContainsKey(data.ButtonIndexes))
+                CalculatorButtonViews[data.ButtonIndexes].ChangeButtonState(true);
+        }
         #endregion
 
         #region Close

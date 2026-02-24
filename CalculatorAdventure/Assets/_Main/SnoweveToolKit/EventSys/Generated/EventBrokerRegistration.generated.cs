@@ -12,6 +12,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.AllButtonClickRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickSuccess>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonRecoverOldNumber>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotifyIsLastNumberAfterRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorResultNotify>();

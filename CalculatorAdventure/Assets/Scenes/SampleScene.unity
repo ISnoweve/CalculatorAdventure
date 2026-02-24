@@ -7506,11 +7506,14 @@ MonoBehaviour:
     _playerData: {fileID: 0}
   calculatorButtonManager:
     calculatorButtons: []
+    numberButtons: []
   calculatorSystem:
     currentOperators: 
     numbersInBox: 
     originalCalculatorOperationAndValueCount: 0
     currentCalculatorOperationAndValueCount: 0
+    currentButtonIndexInBox: 
+    result: 0
 --- !u!4 &1657419407
 Transform:
   m_ObjectHideFlags: 0

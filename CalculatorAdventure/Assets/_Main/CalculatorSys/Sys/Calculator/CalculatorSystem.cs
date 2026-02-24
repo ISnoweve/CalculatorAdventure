@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Button.Event;
@@ -88,13 +89,13 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         private void GetButtonClick(ButtonClickSuccess data)
         {
-            if (data.Button == null)
+            if (data.ButtonIndex <= 0)
             {
-                Debug.Log("Button data is null for index: " + data.Button);
+                Debug.Log("Button data is null for index: " + data.ButtonIndex);
                 return;
             }
-
-            TriggerWithButtonType(data.Button);
+            
+            TriggerWithButtonType(CalculatorButtonManager.GetButtonByIndex(data.ButtonIndex));
         }
 
         private void TriggerWithButtonType(CalculatorButton button)

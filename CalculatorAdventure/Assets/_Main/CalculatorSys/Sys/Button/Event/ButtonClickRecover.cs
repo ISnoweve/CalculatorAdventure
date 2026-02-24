@@ -7,13 +7,12 @@ namespace _Main.CalculatorSys.Sys.Button.Event
     [Serializable]
     public readonly struct ButtonClickRecover : IEventData
     {
-        private readonly CalculatorButton _button;
-        public CalculatorButton Button => _button;
+        private readonly byte _buttonIndex;
+        public byte ButtonIndex => _buttonIndex;
 
-        public ButtonClickRecover(CalculatorButton button)
+        public ButtonClickRecover(byte index)
         {
-            _button = button;
+            _buttonIndex = index;
         }
-
     }
 }

@@ -32,6 +32,15 @@ namespace _Main.CalculatorSys.Manager.Runtime
         private CalculatorFeature calculatorFeature;
 
         [SerializeField] private bool isClick = true;
+        
+        public byte Index => index;
+        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
+        public CalculatorOperator CalculatorOperator => calculatorOperator;
+        public int OriginalValue => originalValue;
+        public int CurrentValue => currentValue;
+        public int MinValue => minValue;
+        public int MaxValue => maxValue;
+        public CalculatorFeature CalculatorFeature => calculatorFeature;
 
         public CalculatorButton(CalculatorButtonData data)
         {
@@ -44,15 +53,6 @@ namespace _Main.CalculatorSys.Manager.Runtime
             if (calculatorButtonType == CalculatorButtonType.NumberActivate) isClick = false;
         }
 
-        public byte Index => index;
-        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
-        public CalculatorOperator CalculatorOperator => calculatorOperator;
-        public int OriginalValue => originalValue;
-        public int CurrentValue => currentValue;
-        public int MinValue => minValue;
-        public int MaxValue => maxValue;
-        public CalculatorFeature CalculatorFeature => calculatorFeature;
-
         public void RecoverButtonClickAble()
         {
             if (calculatorButtonType == CalculatorButtonType.NumberLock ||
@@ -60,6 +60,15 @@ namespace _Main.CalculatorSys.Manager.Runtime
                 calculatorButtonType == CalculatorButtonType.Feature) return;
 
             isClick = false;
+        }
+        
+        public void CloseButtonClickAble()
+        {
+            if (calculatorButtonType == CalculatorButtonType.NumberLock ||
+                calculatorButtonType == CalculatorButtonType.Operator ||
+                calculatorButtonType == CalculatorButtonType.Feature) return;
+
+            isClick = true;
         }
 
         public void ClickButton()

@@ -5,11 +5,12 @@ namespace _Main.CalculatorSys.Sys.Button.Event
 {
     public readonly struct ButtonClickSuccess : IEventData
     {
-        public CalculatorButton Button { get; }
+        private readonly byte _buttonIndex;
+        public byte ButtonIndex => _buttonIndex;
 
-        public ButtonClickSuccess(CalculatorButton button)
+        public ButtonClickSuccess(byte index)
         {
-            Button = button;
+            _buttonIndex = index;
         }
     }
 }
