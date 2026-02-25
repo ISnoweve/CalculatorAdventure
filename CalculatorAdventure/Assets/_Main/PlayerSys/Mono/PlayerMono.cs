@@ -2,7 +2,8 @@ using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
 using _Main.PlayerSys.Sys;
-using ToolKit;
+using _Main.SnoweveToolKit.ToolKit;
+using _Main.StateSys.GameStateMachine.Sys;
 
 namespace _Main.PlayerSys.Mono
 {
@@ -13,6 +14,7 @@ namespace _Main.PlayerSys.Mono
         public CalculatorButtonManager calculatorButtonManager;
         public CalculatorSystem calculatorSystem;
         public ButtonSystem buttonSystem;
+        public GameStateMachine gameStateMachine;
 
         protected override void Awake()
         {
@@ -26,6 +28,7 @@ namespace _Main.PlayerSys.Mono
             calculatorButtonManager = CalculatorButtonManager.Instance;
             calculatorSystem = CalculatorSystem.Instance;
             buttonSystem = ButtonSystem.Instance;
+            gameStateMachine = GameStateMachine.Instance;
         }
     }
 }

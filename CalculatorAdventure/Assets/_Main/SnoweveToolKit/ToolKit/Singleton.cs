@@ -1,4 +1,4 @@
-namespace BolingsUnityTools
+namespace _Main.SnoweveToolKit.ToolKit
 {
     public abstract class Singleton<T> where T : Singleton<T>, new()
     {

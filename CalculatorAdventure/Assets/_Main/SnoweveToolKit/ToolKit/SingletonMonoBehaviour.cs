@@ -1,9 +1,7 @@
-using UnityEngine;
-#if UNITY_EDITOR
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace ToolKit
+namespace _Main.SnoweveToolKit.ToolKit
 {
     [DisallowMultipleComponent]
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>

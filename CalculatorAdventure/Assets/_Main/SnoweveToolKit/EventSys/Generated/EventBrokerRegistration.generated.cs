@@ -17,6 +17,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotifyIsLastNumberAfterRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorUpdate>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorWarning>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.View.EventData.ButtonOnClick>();
             builder.AddMessageBroker<global::_Main.MessagePipeTest.Event.PushEvent>();
         }

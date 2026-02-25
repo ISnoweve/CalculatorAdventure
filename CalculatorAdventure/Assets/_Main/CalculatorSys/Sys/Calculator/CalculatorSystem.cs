@@ -6,8 +6,9 @@ using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Button.Event;
+using _Main.CalculatorSys.Sys.Calculator.Enum;
 using _Main.CalculatorSys.Sys.Calculator.Event;
-using BolingsUnityTools;
+using _Main.SnoweveToolKit.ToolKit;
 using MessagePipe;
 using UnityEngine;
 
@@ -115,11 +116,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-
-            if (button.CalculatorFeature == CalculatorFeature.Equal) return;
-
-            var data = new CalculatorNotify(currentOperators, numbersInBox);
-            GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
         }
 
 
@@ -157,7 +153,11 @@ namespace _Main.CalculatorSys.Sys.Calculator
             var length = currentCalculatorOperationAndValueCount;
 
             if (length <= 1)
+            {
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 numbersInBox[0] = value;
+            }
             else
                 for (var i = 0; i < length; i++)
                 {
@@ -168,6 +168,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     }
 
                     numbersInBox[i] = value;
+                    var data = new CalculatorNotify(currentOperators, numbersInBox);
+                    GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                     return;
                 }
         }
@@ -177,7 +179,11 @@ namespace _Main.CalculatorSys.Sys.Calculator
             var length = currentCalculatorOperationAndValueCount;
 
             if (length <= 1)
+            {
                 currentOperators[0] = calculatorOperator;
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
+            }
             else
                 for (var i = 0; i < length; i++)
                 {
@@ -188,6 +194,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     }
 
                     currentOperators[i] = calculatorOperator;
+                    var data = new CalculatorNotify(currentOperators, numbersInBox);
+                    GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                     return;
                 }
         }
@@ -217,9 +225,18 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         private void DeleteOperator()
         {
+            if (currentOperators[0] == 0)
+            {
+                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.OperatorIsEmpty);
+                GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
+                return;
+            }
+            
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 currentOperators[currentCalculatorOperationAndValueCount - 1] = CalculatorOperator.None;
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
 
@@ -229,6 +246,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 if (currentOperators[i] == CalculatorOperator.None) continue;
                 currentOperators[i] = CalculatorOperator.None;
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
         }
@@ -255,9 +274,18 @@ namespace _Main.CalculatorSys.Sys.Calculator
         
         private void DeleteNumber()
         {
+            if (numbersInBox[0] == 0)
+            {
+                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.NumberIsEmpty);
+                GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
+                return;
+            }
+            
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 numbersInBox[currentCalculatorOperationAndValueCount - 1] = 0;
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
 
@@ -267,6 +295,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 if (numbersInBox[i] <= 0) continue;
                 numbersInBox[i] = 0;
+                var data = new CalculatorNotify(currentOperators, numbersInBox);
+                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
         }
@@ -277,8 +307,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
         {
             if (DetectAllBoxFilled())
             {
-                // 發一個事件，顯示沒有放滿的UI
-                Debug.Log("Cannot calculate result because not all boxes are filled");
+                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.CantGiveResult);
+                GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
                 return;
             }
 
