@@ -1,4 +1,4 @@
-using _Main.StateSys.GameStateMachine.Data.Enum;
+using _Main.StateSys.GameStateMachine.Enum;
 
 namespace _Main.StateSys.GameStateMachine.Sys.Event
 {

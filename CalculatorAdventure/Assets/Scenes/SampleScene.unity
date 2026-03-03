@@ -6557,6 +6557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1197388619}
   - component: {fileID: 1197388618}
+  - component: {fileID: 1197388620}
   m_Layer: 0
   m_Name: TestInitGameSystem
   m_TagString: Untagged
@@ -6576,7 +6577,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485b1e7d271e4d769cef94306b3d9432, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_Main.InitGameSys.TestInitGameSystem
-  TestDefaultData: {fileID: 11400000, guid: f92f495a615cc6c448454b4e78f574b9, type: 2}
+  playerSystem:
+    _playerData: {fileID: 0}
+  calculatorButtonManager:
+    calculatorButtons: []
+    numberButtons: []
+  calculatorSystem:
+    currentOperators: 
+    numbersInBox: 
+    originalCalculatorOperationAndValueCount: 0
+    currentCalculatorOperationAndValueCount: 0
+    currentButtonIndexInBox: 
+    result: 0
+  buttonSystem:
+    recordUsedNumberIndex: 
+  gameStateMachine:
+    currentGameState: 0
+    previousGameState: 0
+  DefaultData: {fileID: 11400000, guid: f92f495a615cc6c448454b4e78f574b9, type: 2}
 --- !u!4 &1197388619
 Transform:
   m_ObjectHideFlags: 0
@@ -6592,6 +6610,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1197388620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197388617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37238ff817634987a6980149ff128d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Test
+  takeCount: 5
+  testList: []
 --- !u!1 &1216329266
 GameObject:
   m_ObjectHideFlags: 0
@@ -7698,64 +7730,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611545309}
   m_CullTransparentMesh: 1
---- !u!1 &1657419405
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1657419407}
-  - component: {fileID: 1657419406}
-  m_Layer: 0
-  m_Name: PlayerMono
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1657419406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657419405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b36b616be76346d4833993f4cd2d6e07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_Main.PlayerSys.Mono.PlayerMono
-  playerSystem:
-    _playerData: {fileID: 0}
-  calculatorButtonManager:
-    calculatorButtons: []
-    numberButtons: []
-  calculatorSystem:
-    currentOperators: 
-    numbersInBox: 
-    originalCalculatorOperationAndValueCount: 0
-    currentCalculatorOperationAndValueCount: 0
-    currentButtonIndexInBox: 
-    result: 0
-  buttonSystem:
-    recordUsedNumberIndex: 
---- !u!4 &1657419407
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1657419405}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 392.49576, y: 224.70454, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1671469479
 GameObject:
   m_ObjectHideFlags: 0
@@ -10149,4 +10123,3 @@ SceneRoots:
   - {fileID: 1718811518}
   - {fileID: 1968215995}
   - {fileID: 1197388619}
-  - {fileID: 1657419407}

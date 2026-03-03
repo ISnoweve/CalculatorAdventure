@@ -1,18 +1,21 @@
 {
-  "name": "_Main.InitGameSys",
-  "rootNamespace": "",
-  "references": [
-    "GUID:cb209e4719ca48bf902671da17691565",
-    "GUID:ef835a844f204b2a93021dd977ac7305",
-    "GUID:aa192b54baed40b8a8a9f5ad7578eb31"
-  ],
-  "includePlatforms": [],
-  "excludePlatforms": [],
-  "allowUnsafeCode": false,
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "versionDefines": [],
-  "noEngineReferences": false
+    "name": "_Main.InitGameSys",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cb209e4719ca48bf902671da17691565",
+        "GUID:ef835a844f204b2a93021dd977ac7305",
+        "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
+        "GUID:0a076c81438d41878c5f7150e1305d4a",
+        "GUID:786591cbae434eda96bbb4ebfbb54cc5",
+        "GUID:53bf5164527b426d8f6c2833c06cbd1e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

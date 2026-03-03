@@ -4,7 +4,7 @@ using _Main.SnoweveToolKit.ToolKit;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _Main.SceneSys.Sys
+namespace _Main.SnoweveToolKit.SceneSys.Sys
 {
     public class SceneSystem : Singleton<SceneSystem>
     {

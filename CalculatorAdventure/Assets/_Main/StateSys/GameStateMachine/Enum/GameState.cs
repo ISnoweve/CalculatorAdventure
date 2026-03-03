@@ -1,7 +1,8 @@
-namespace _Main.StateSys.GameStateMachine.Data.Enum
+namespace _Main.StateSys.GameStateMachine.Enum
 {
     public enum GameState
     {
+        None,
         Menu,
         Option,
         InMap,
