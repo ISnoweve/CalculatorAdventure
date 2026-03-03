@@ -2,6 +2,7 @@ using System;
 using _Main.CalculatorSys.Data.Enum;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.View.EventData;
+using DG.Tweening;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using TMPro;
@@ -48,8 +49,8 @@ namespace _Main.CalculatorSys.View
             {
                 case CalculatorButtonType.None:
                     break;
-                case CalculatorButtonType.NumberLock:
-                    _calculatorButtonType = CalculatorButtonType.NumberLock;
+                case CalculatorButtonType.NumberNotActivate:
+                    _calculatorButtonType = CalculatorButtonType.NumberNotActivate;
                     _button.interactable = false;
                     _buttonText.text = " ";
                     break;
@@ -103,12 +104,21 @@ namespace _Main.CalculatorSys.View
 
         public void ChangeButtonState(bool isClickAble)
         {
-            if (_calculatorButtonType == CalculatorButtonType.NumberLock ||
+            if (_calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
                 _calculatorButtonType == CalculatorButtonType.Operator ||
                 _calculatorButtonType == CalculatorButtonType.Feature) return;
 
             _button.interactable = isClickAble;
         }
+
+        #region Being Attacked
+
+        public void BreakFromAttack()
+        {
+            
+        }
+
+        #endregion
 
         #endregion
     }

@@ -34,6 +34,13 @@ namespace _Main.CalculatorSys.Sys.Button
             GlobalMessagePipe.GetSubscriber<ButtonOnClick>().Subscribe(DetectButtonClickAble).AddTo(bag);
             _disposable = bag.Build();
         }
+        
+        protected override void Release()
+        {
+            _disposable?.Dispose();
+            base.Release();
+        }
+
 
         #endregion
 
@@ -68,7 +75,7 @@ namespace _Main.CalculatorSys.Sys.Button
         private void DetectAllButtonClickAble()
         {
             foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
-                if (!calculatorButton.CheckIsClickAble())
+                if (calculatorButton.IsClick == false)
                     return;
             
             RecoverAllButtonClickAble();
@@ -108,8 +115,8 @@ namespace _Main.CalculatorSys.Sys.Button
             {
                 foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
                 {
-                    if(calculatorButton.CheckIsClickAble()&&
-                       calculatorButton.CalculatorButtonType != CalculatorButtonType.NumberLock)continue;
+                    if(calculatorButton.IsClick&&
+                       calculatorButton.CalculatorButtonType != CalculatorButtonType.NumberNotActivate)continue;
                     calculatorButton.CloseButtonClickAble();
                     Instance.recordUsedNumberIndex.Add(calculatorButton.Index);
                 }

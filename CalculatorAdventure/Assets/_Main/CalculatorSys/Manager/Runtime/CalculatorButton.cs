@@ -41,6 +41,7 @@ namespace _Main.CalculatorSys.Manager.Runtime
         public int MinValue => minValue;
         public int MaxValue => maxValue;
         public CalculatorFeature CalculatorFeature => calculatorFeature;
+        public bool IsClick => isClick;
 
         public CalculatorButton(CalculatorButtonData data)
         {
@@ -53,9 +54,11 @@ namespace _Main.CalculatorSys.Manager.Runtime
             if (calculatorButtonType == CalculatorButtonType.NumberActivate) isClick = false;
         }
 
+        #region Click Feature
+
         public void RecoverButtonClickAble()
         {
-            if (calculatorButtonType == CalculatorButtonType.NumberLock ||
+            if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
                 calculatorButtonType == CalculatorButtonType.Operator ||
                 calculatorButtonType == CalculatorButtonType.Feature) return;
 
@@ -64,7 +67,7 @@ namespace _Main.CalculatorSys.Manager.Runtime
         
         public void CloseButtonClickAble()
         {
-            if (calculatorButtonType == CalculatorButtonType.NumberLock ||
+            if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
                 calculatorButtonType == CalculatorButtonType.Operator ||
                 calculatorButtonType == CalculatorButtonType.Feature) return;
 
@@ -73,16 +76,35 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
         public void ClickButton()
         {
-            if (calculatorButtonType == CalculatorButtonType.NumberLock ||
+            if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
                 calculatorButtonType == CalculatorButtonType.Operator ||
                 calculatorButtonType == CalculatorButtonType.Feature) return;
 
             isClick = true;
         }
 
-        public bool CheckIsClickAble()
+        #endregion
+
+        #region Modify Feature (from Mob attack)
+
+        public void ModifyCurrentValue(int value)
         {
-            return isClick;
+            if (calculatorButtonType == CalculatorButtonType.Operator ||
+                calculatorButtonType == CalculatorButtonType.Feature) return;
+
+            currentValue += value;
         }
+        
+        public void BreakByAttack()
+        {
+            isClick = true;
+        }
+
+        public void GetLock()
+        {
+            
+        }
+
+        #endregion
     }
 }

@@ -52,14 +52,25 @@ namespace _Main.CalculatorSys.View
 
         protected override void OnDestroy()
         {
-            base.OnDestroy();
             _disposable?.Dispose();
+            base.OnDestroy();
         }
 
         #endregion
 
         #region Behavior
+        
+        #region GetView
 
+        public void GetButtonViewByIndex(byte index, out CalculatorButtonView buttonView)
+        {
+            buttonView = null;
+            if (CalculatorButtonViews.ContainsKey(index))
+                buttonView = CalculatorButtonViews[index];
+        }
+
+        #endregion
+        
         #region Click
 
         private void UpdateButtonClickView(ButtonClickSuccess data)

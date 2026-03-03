@@ -27,7 +27,7 @@ namespace _Main.CalculatorSys.Manager
                 if (Instance.calculatorButtons.Contains(calculatorButton)) continue;
                 Instance.calculatorButtons.Add(calculatorButton);
                 if (calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberActivate ||
-                    calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberLock)
+                    calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberNotActivate)
                     Instance.numberButtons.Add(calculatorButton);
             }
 
@@ -43,6 +43,16 @@ namespace _Main.CalculatorSys.Manager
         public static List<CalculatorButton> GetAllNumberButton()
         {
             return Instance.numberButtons;
+        }
+        
+        public static List<CalculatorButton> GetAllActivateNumberButton()
+        {
+            List<CalculatorButton> activateNumberButtons = new List<CalculatorButton>();
+            foreach (var numberButton in Instance.numberButtons)
+                if (numberButton.CalculatorButtonType == CalculatorButtonType.NumberActivate)
+                    activateNumberButtons.Add(numberButton);
+
+            return activateNumberButtons;
         }
 
         public static CalculatorButton GetButtonByIndex(byte index)

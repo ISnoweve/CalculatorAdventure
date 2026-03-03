@@ -48,6 +48,12 @@ namespace _Main.CalculatorSys.Sys.Calculator
             _disposable = bag.Build();
         }
 
+        protected override void Release()
+        {
+            _disposable?.Dispose();
+            base.Release();
+        }
+
         public static void InitializeSystem(CalculatorSystemData data)
         {
             Instance.originalCalculatorOperationAndValueCount = data.CalculatorOperationAndValueCount;
@@ -206,10 +212,12 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 case CalculatorFeature.DelOperator:
                     DeleteOperator();
+                    UpdateCalculatorNewInfo();
                     break;
                 case CalculatorFeature.DelNumber:
                     RecoverNumberButton();
                     DeleteNumber();
+                    UpdateCalculatorNewInfo();
                     break;
                 case CalculatorFeature.Equal:
                     CalculateResult();
@@ -235,8 +243,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 currentOperators[currentCalculatorOperationAndValueCount - 1] = CalculatorOperator.None;
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
 
@@ -246,8 +252,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 if (currentOperators[i] == CalculatorOperator.None) continue;
                 currentOperators[i] = CalculatorOperator.None;
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
         }
@@ -284,8 +288,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 numbersInBox[currentCalculatorOperationAndValueCount - 1] = 0;
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
 
@@ -295,10 +297,14 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 if (numbersInBox[i] <= 0) continue;
                 numbersInBox[i] = 0;
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 return;
             }
+        }
+        
+        private void UpdateCalculatorNewInfo()
+        {
+            var data = new CalculatorNotify(currentOperators, numbersInBox);
+            GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
         }
 
         #region Calculate Result
