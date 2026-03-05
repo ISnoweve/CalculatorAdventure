@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Main.MobSys.Data.AttackSkills
 {
     [CreateAssetMenu(fileName = "AdjustCalculatorButton_RowOrColumn", menuName = "SoSetting/Mob/Skills/AdjustCalculatorButton_RowOrColumn", order = 1)]
-    public class AtkS_AdjustCalculatorButton_RowOrColumn : AttackSkillBase
+    public class AtkS_AdjustCalculatorButton_RowOrColumn : AttackSkillData
     {
         public RowOrColumn rowOrColumn;
         public int rowOrColumnCount;

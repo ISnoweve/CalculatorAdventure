@@ -2,6 +2,8 @@ using System;
 using _Main.CalculatorSys.Data.Enum;
 using _Main.MobSys.Data;
 using _Main.MobSys.Data.AttackSkills;
+using _Main.MobSys.Data.AttackSkills.Base;
+using _Main.MobSys.Enum;
 using UnityEngine;
 using Random = System.Random;
 
@@ -10,18 +12,24 @@ namespace _Main.MobSys.Manager.RunTime
     [Serializable]
     public class Mob
     {
-        [SerializeField] private byte id;
+        [SerializeField] private int id;
         [SerializeField] private int originalQuestionNumber;
         [SerializeField] private int currentQuestionNumber;
         [SerializeField] private AttackSkillData[] attackSkills;
         [SerializeField] private AttackSkillData nextAttackSkill;
         [SerializeField] private int attackSkillCountDown;
+        [SerializeField] private MobType mobType;
         public int CurrentQuestionNumber => currentQuestionNumber;
         public int AttackSkillCountDown => attackSkillCountDown;
+        public MobType MobType => mobType;
         
         public Mob(MobData data)
         {
-            
+            id = data.Id;
+            originalQuestionNumber = data.OriginalQuestionNumber;
+            currentQuestionNumber = originalQuestionNumber;
+            attackSkills = data.AttackSkills;
+            mobType = data.MobType;
         }
         
         public void ModifyQuestionNumber(int changeValue,CalculatorOperator calculatorOperator)
@@ -59,7 +67,7 @@ namespace _Main.MobSys.Manager.RunTime
             Random random = new Random();
             int randomIndex = random.Next(0, attackSkills.Length);
             nextAttackSkill = attackSkills[randomIndex];
-            attackSkillCountDown = nextAttackSkill.attackSkillBase.countDownRound;
+            attackSkillCountDown = nextAttackSkill.countDownRound;
         }
     }
 }

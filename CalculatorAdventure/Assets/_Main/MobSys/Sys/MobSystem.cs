@@ -12,9 +12,9 @@ namespace _Main.MobSys.Sys
 
         protected override void Initialize()
         {
+            SubscribeEvent();
             base.Initialize();
         }
-        
         
         private IDisposable _disposable;
 
@@ -24,7 +24,12 @@ namespace _Main.MobSys.Sys
             var bag = DisposableBag.CreateBuilder();
             _disposable = bag.Build();
         }
-        
+
+        protected override void Release()
+        {
+            _disposable?.Dispose();
+            base.Release();
+        }
 
         #endregion
 

@@ -20,10 +20,12 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorWarning>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.View.EventData.ButtonOnClick>();
             builder.AddMessageBroker<global::_Main.MessagePipeTest.Event.PushEvent>();
-            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.AtkS_Recover_AddOrSubtract_Event>();
-            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.AtkS_Recover_Multiply_Event>();
-            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.AtkS_Recover_TakeCalculatorButtonsAddOrSubtract_Event>();
-            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.AtkS_Recover_TakeCalculatorButtonsMultiply_Event>();
+            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_AddOrSubtract>();
+            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_Multiply>();
+            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>();
+            builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsMultiply>();
+            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachine.Sys.Event.GameStateMachineChangeState>();
+            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachine.View.Event.SetNewGameState>();
         }
     }
 }

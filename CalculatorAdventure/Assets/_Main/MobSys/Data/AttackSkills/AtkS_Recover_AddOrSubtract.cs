@@ -7,7 +7,7 @@ using Random = System.Random;
 namespace _Main.MobSys.Data.AttackSkills
 {
     [CreateAssetMenu(fileName = "Recover_AddOrSubtract", menuName = "SoSetting/Mob/Skills/Recover_AddOrSubtract", order = 4)]
-    public class AtkS_Recover_AddOrSubtract : AttackSkillBase
+    public class AtkS_Recover_AddOrSubtract : AttackSkillData
     {
         public int randomLimitMin;
         public int randomLimitMax;

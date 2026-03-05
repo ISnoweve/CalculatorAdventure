@@ -8,8 +8,8 @@ using UnityEngine;
 
 namespace _Main.MobSys.Data.AttackSkills
 {
-    [CreateAssetMenu(fileName = "Recover_TakeCalculatorButtons", menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsAddOrSubtract", order = 4)]
-    public class AtkS_Recover_TakeCalculatorButtonsAddOrSubtract : AttackSkillBase
+    [CreateAssetMenu(fileName = "Recover_TakeCalculatorButtonsAddOrSubtract", menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsAddOrSubtract", order = 4)]
+    public class AtkS_Recover_TakeCalculatorButtonsAddOrSubtract : AttackSkillData
     {
         public int takeCount;
         public override void Execute()

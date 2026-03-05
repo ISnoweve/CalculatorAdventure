@@ -9,8 +9,8 @@ using UnityEngine;
 
 namespace _Main.MobSys.Data.AttackSkills
 {
-    [CreateAssetMenu(fileName = "Recover_TakeCalculatorButtons", menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsMultiply", order = 4)]
-    public class AtkS_Recover_TakeCalculatorButtonsMultiply : AttackSkillBase
+    [CreateAssetMenu(fileName = "Recover_TakeCalculatorButtonsMultiply", menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsMultiply", order = 4)]
+    public class AtkS_Recover_TakeCalculatorButtonsMultiply : AttackSkillData
     {
         [InfoBox("Suggest not more than 3")]
         public int takeCount;

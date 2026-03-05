@@ -10,5 +10,10 @@ namespace _Main.MobSys.Manager
     {
         [SerializeField] private Mob currentsMob;
         public static Mob CurrentsMob => Instance.currentsMob;
+
+        private void SpawnMob()
+        {
+            
+        }
     }
 }

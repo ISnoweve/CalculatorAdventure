@@ -26,5 +26,26 @@ namespace _Main.MessagePipeTest
         {
             Debug.Log("Get Notify");
         }
+        
+        // protected override void Initialize()
+        // {
+        //     SubscribeEvent();
+        //     base.Initialize();
+        // }
+        //
+        // private IDisposable _disposable;
+        //
+        // private void SubscribeEvent()
+        // {
+        //     _disposable?.Dispose();
+        //     var bag = DisposableBag.CreateBuilder();
+        //     _disposable = bag.Build();
+        // }
+        //
+        // protected override void Release()
+        // {
+        //     _disposable?.Dispose();
+        //     base.Release();
+        // }
     }
 }

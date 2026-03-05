@@ -22,7 +22,7 @@ namespace _Main.GameSceneSys.Sys
         {
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
-            //GlobalMessagePipe.GetSubscriber<GameStateMachineChangeState>().Subscribe(SwitchSceneWithGameState).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<GameStateMachineChangeState>().Subscribe(SwitchSceneWithGameState).AddTo(bag);
             _disposable = bag.Build();
         }
         
