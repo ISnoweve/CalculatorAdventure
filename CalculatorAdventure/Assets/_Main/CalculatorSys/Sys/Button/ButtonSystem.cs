@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
-using _Main.CalculatorSys.View.EventData;
+using _Main.CalculatorSys.View.UI_CalculatorButton.Control;
+using _Main.CalculatorSys.View.UI_CalculatorButton.Event;
 using _Main.SnoweveToolKit.ToolKit;
 using MessagePipe;
 using UnityEngine;
@@ -72,13 +73,14 @@ namespace _Main.CalculatorSys.Sys.Button
             recordUsedNumberIndex.Add(index);
         }
 
-        private void DetectAllButtonClickAble()
+        private bool DetectAllButtonClickAble()
         {
             foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
                 if (calculatorButton.IsClick == false)
-                    return;
+                    return false;
             
             RecoverAllButtonClickAble();
+            return true;
         }
 
         private void RecoverAllButtonClickAble()
@@ -96,6 +98,10 @@ namespace _Main.CalculatorSys.Sys.Button
             recordUsedNumberIndex.Clear();
         }
         
+        private bool DetectOldCalculatorNumber(byte index)
+        {
+            return recordUsedNumberIndex.Contains(index);
+        }
         
         public static void RecoverNumberButtonByIndex(byte index)
         {
@@ -129,10 +135,25 @@ namespace _Main.CalculatorSys.Sys.Button
                 GlobalMessagePipe.GetPublisher<ButtonRecoverOldNumber>().Publish(buttonRecoverOldNumber);
             }
         }
-        
-        private bool DetectOldCalculatorNumber(byte index)
+
+        public static void CloseButtonClickableByAttackSkill(List<CalculatorButton> takeButtons)
         {
-            return recordUsedNumberIndex.Contains(index);
+            foreach (var calculatorButton in takeButtons)
+            {
+                calculatorButton.CloseButtonClickAble();
+                Instance.RecordUsedNumberIndex(calculatorButton.Index);
+            }
+
+            //之後要改
+            if (Instance.DetectAllButtonClickAble())
+            {
+                var buttonClickRecover = new AllButtonClickRecover();
+                GlobalMessagePipe.GetPublisher<AllButtonClickRecover>().Publish(buttonClickRecover);
+            }
+            else
+            {
+                CalculatorButtonViewControl.Instance.UpdateButtonCloseClick(takeButtons);
+            }
         }
 
         #endregion

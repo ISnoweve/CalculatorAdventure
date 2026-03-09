@@ -6,8 +6,11 @@ namespace _Main.MobSys.Data.AttackSkills.Event
     {
         private readonly int _multiplyValue;
         public int MultiplyValue => _multiplyValue;
-        public Event_AtkS_Recover_Multiply(int multiplyValue)
+        private readonly int _mobNewQuestionNumber;
+        public int MobNewQuestionNumber => _mobNewQuestionNumber;
+        public Event_AtkS_Recover_Multiply(int mobNewQuestionNumber, int multiplyValue)
         {
+            _mobNewQuestionNumber = mobNewQuestionNumber;
             _multiplyValue = multiplyValue;
         }
     }

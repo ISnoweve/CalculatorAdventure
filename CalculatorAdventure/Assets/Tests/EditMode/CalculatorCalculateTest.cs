@@ -1,4 +1,4 @@
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Sys;
 using _Main.CalculatorSys.Sys.Calculator;
 using NUnit.Framework;

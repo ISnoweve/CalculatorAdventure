@@ -1,6 +1,8 @@
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using _Main.MobSys.Data.AttackSkills.Base;
+using _Main.MobSys.Data.AttackSkills.Event;
 using _Main.MobSys.Manager;
+using MessagePipe;
 using UnityEngine;
 using Random = System.Random;
 
@@ -17,8 +19,11 @@ namespace _Main.MobSys.Data.AttackSkills
             int randomValue = random.Next(randomLimitMin, randomLimitMax);
             
             
-            // not work here. work in system.
             MobManager.CurrentsMob.ModifyQuestionNumber(randomValue,CalculatorOperator.Multiply);
+            int currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
+            
+            Event_AtkS_Recover_Multiply eventData = new Event_AtkS_Recover_Multiply(currentQuestionNumber,randomValue);
+            GlobalMessagePipe.GetPublisher<Event_AtkS_Recover_Multiply>().Publish(eventData);
         }
     }
 }

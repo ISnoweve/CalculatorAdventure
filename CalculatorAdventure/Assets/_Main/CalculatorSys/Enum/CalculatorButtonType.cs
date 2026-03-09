@@ -1,4 +1,4 @@
-namespace _Main.CalculatorSys.Data.Enum
+namespace _Main.CalculatorSys.Enum
 {
     public enum CalculatorButtonType : byte
     {

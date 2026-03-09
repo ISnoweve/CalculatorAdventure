@@ -2,10 +2,12 @@
     "name": "_Main.StateSys",
     "rootNamespace": "",
     "references": [
-        "GUID:cb209e4719ca48bf902671da17691565",
         "GUID:b02a6fc8e91d4fe097a7104a6d9a2794",
         "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:cb209e4719ca48bf902671da17691565",
+        "GUID:b4e43b1769834adca937ebc2471349cb",
+        "GUID:4c25c05f410a3a447a75c3b0909152ef"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

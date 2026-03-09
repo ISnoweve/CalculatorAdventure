@@ -1,4 +1,4 @@
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

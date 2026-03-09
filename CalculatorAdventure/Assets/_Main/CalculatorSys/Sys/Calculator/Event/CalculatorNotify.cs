@@ -1,5 +1,5 @@
 using System;
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using EventSys.Interface;
 
 namespace _Main.CalculatorSys.Sys.Calculator.Event

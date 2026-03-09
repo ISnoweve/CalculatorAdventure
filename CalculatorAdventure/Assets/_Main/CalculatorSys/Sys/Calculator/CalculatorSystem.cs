@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
@@ -112,9 +112,11 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 case CalculatorButtonType.NumberActivate:
                     PutButtonIndexInBox(button.Index);
                     PutNumberInBox(button.CurrentValue);
+                    NotifyUpdaterCalculatorInfo();
                     break;
                 case CalculatorButtonType.Operator:
                     PutOperatorInBox(button.CalculatorOperator);
+                    NotifyUpdaterCalculatorInfo();
                     break;
                 case CalculatorButtonType.Feature:
                     DetectFeature(button.CalculatorFeature);
@@ -137,6 +139,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 currentButtonIndexInBox[0] = index;
             }
             else
+            {
                 for (var i = 0; i < length; i++)
                 {
                     if (currentButtonIndexInBox[i] > 0)
@@ -152,6 +155,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     currentButtonIndexInBox[i] = index;
                     return;
                 }
+            }
         }
         
         private void PutNumberInBox(int value)
@@ -160,11 +164,10 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
             if (length <= 1)
             {
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                 numbersInBox[0] = value;
             }
             else
+            {
                 for (var i = 0; i < length; i++)
                 {
                     if (numbersInBox[i] > 0)
@@ -172,12 +175,10 @@ namespace _Main.CalculatorSys.Sys.Calculator
                         if (i + 1 >= length) numbersInBox[i] = value;
                         continue;
                     }
-
                     numbersInBox[i] = value;
-                    var data = new CalculatorNotify(currentOperators, numbersInBox);
-                    GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                     return;
                 }
+            }
         }
 
         private void PutOperatorInBox(in CalculatorOperator calculatorOperator)
@@ -187,10 +188,9 @@ namespace _Main.CalculatorSys.Sys.Calculator
             if (length <= 1)
             {
                 currentOperators[0] = calculatorOperator;
-                var data = new CalculatorNotify(currentOperators, numbersInBox);
-                GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
             }
             else
+            {
                 for (var i = 0; i < length; i++)
                 {
                     if (currentOperators[i] != CalculatorOperator.None)
@@ -200,10 +200,9 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     }
 
                     currentOperators[i] = calculatorOperator;
-                    var data = new CalculatorNotify(currentOperators, numbersInBox);
-                    GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
                     return;
                 }
+            }
         }
 
         private void DetectFeature(in CalculatorFeature calculatorFeature)
@@ -212,12 +211,12 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 case CalculatorFeature.DelOperator:
                     DeleteOperator();
-                    UpdateCalculatorNewInfo();
+                    NotifyUpdaterCalculatorInfo();
                     break;
                 case CalculatorFeature.DelNumber:
                     RecoverNumberButton();
                     DeleteNumber();
-                    UpdateCalculatorNewInfo();
+                    NotifyUpdaterCalculatorInfo();
                     break;
                 case CalculatorFeature.Equal:
                     CalculateResult();
@@ -225,6 +224,12 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 default:
                     throw new ArgumentOutOfRangeException(nameof(calculatorFeature), calculatorFeature, null);
             }
+        }
+        
+        private void NotifyUpdaterCalculatorInfo()
+        {
+            var data = new CalculatorNotify(currentOperators, numbersInBox);
+            GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
         }
 
         #endregion
@@ -300,12 +305,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 return;
             }
         }
-        
-        private void UpdateCalculatorNewInfo()
-        {
-            var data = new CalculatorNotify(currentOperators, numbersInBox);
-            GlobalMessagePipe.GetPublisher<CalculatorNotify>().Publish(data);
-        }
 
         #region Calculate Result
 
@@ -323,8 +322,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             else
                 result = CalculateMultiNumber();
 
-            var data = new CalculatorResultNotify(result, currentOperators[0]);
-            GlobalMessagePipe.GetPublisher<CalculatorResultNotify>().Publish(data);
+            var data = new CalculateResultNotify(result, currentOperators[0]);
+            GlobalMessagePipe.GetPublisher<CalculateResultNotify>().Publish(data);
 
             ResetBox();
         }

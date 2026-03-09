@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 11001
   name: Faker
   description: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 4370785298172453683, guid: d8d38212eb3fd394dbc9d01400529571, type: 3}
   originalQuestionNumber: 85
   attackSkills:
   - {fileID: 11400000, guid: e1e59a0a51b2397408e9e9d2d4b63919, type: 2}

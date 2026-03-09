@@ -1,15 +1,17 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Manager.Event;
+using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.Sys.Calculator.Event;
-using _Main.CalculatorSys.View.UI_CalculatorButton;
+using _Main.CalculatorSys.View.UI_CalculatorButton.Runtime;
 using _Main.SnoweveToolKit.ToolKit;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace _Main.CalculatorSys.View
+namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
 {
     public class CalculatorButtonViewControl : SingletonMonoBehaviour<CalculatorButtonViewControl>
     {
@@ -24,18 +26,6 @@ namespace _Main.CalculatorSys.View
             base.Awake();
         }
 
-        private static void InitializeView(ButtonsSpawn data)
-        {
-            Instance.CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
-            foreach (var buttonView in Instance._calculatorButtonViews)
-                Instance.CalculatorButtonViews.Add(buttonView.index, buttonView);
-
-            foreach (var calculatorButton in data.Buttons)
-                if (Instance.CalculatorButtonViews.ContainsKey(calculatorButton.Index))
-                    Instance.CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
-        }
-
-
         private IDisposable _disposable;
 
         private void SubscribeEvent()
@@ -46,7 +36,6 @@ namespace _Main.CalculatorSys.View
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(UpdateButtonClickView).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<CalculatorNotifyIsLastNumberAfterRecover>().Subscribe(UpdateButtonCloseClick).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonRecoverOldNumber>().Subscribe(UpdateOldButton).AddTo(bag);
             _disposable = bag.Build();
         }
@@ -60,6 +49,17 @@ namespace _Main.CalculatorSys.View
         #endregion
 
         #region Behavior
+        
+        private static void InitializeView(ButtonsSpawn data)
+        {
+            Instance.CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
+            foreach (var buttonView in Instance._calculatorButtonViews)
+                Instance.CalculatorButtonViews.Add(buttonView.index, buttonView);
+
+            foreach (var calculatorButton in data.Buttons)
+                if (Instance.CalculatorButtonViews.ContainsKey(calculatorButton.Index))
+                    Instance.CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
+        }
         
         #region GetView
 
@@ -113,15 +113,14 @@ namespace _Main.CalculatorSys.View
         #endregion
 
         #region Close
-
-        private void UpdateButtonCloseClick(CalculatorNotifyIsLastNumberAfterRecover data)
+        
+        public void UpdateButtonCloseClick(List<CalculatorButton> buttonIndexes)
         {
-            foreach (var calculatorButtonView in _calculatorButtonViews)
+            foreach (var buttonIndex in buttonIndexes)
             {
-                calculatorButtonView.ChangeButtonState(false);
+                if (CalculatorButtonViews.ContainsKey(buttonIndex.Index))
+                    CalculatorButtonViews[buttonIndex.Index].ChangeButtonState(false);
             }
-            
-            Debug.Log("Close Because Detect Last Number After Recover");
         }
 
         #endregion

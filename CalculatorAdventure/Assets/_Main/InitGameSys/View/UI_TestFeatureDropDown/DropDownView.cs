@@ -5,7 +5,7 @@ using _Main.InitGameSys.Sys.Enum;
 using TMPro;
 using UnityEngine;
 
-namespace _Main.InitGameSys.View.UI_DropDown
+namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
 {
     public class DropDownView : MonoBehaviour
     {

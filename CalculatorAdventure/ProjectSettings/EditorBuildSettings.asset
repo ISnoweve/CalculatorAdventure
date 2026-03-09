@@ -5,24 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/GamePlayScene/MobBattle.unity
+  - enabled: 1
+    path: Assets/Scenes/GamePlayScene/InMobBattle.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Scenes/TestSceneLoad/MainScene.unity
-    guid: 8eefa252e6d459144a907d1baafad17d
+    path: Assets/Scenes/GamePlayScene/InQuestionSpot.unity
+    guid: 8e9dc98dcbbbf0541a29ab2bb95c4d07
   - enabled: 1
-    path: Assets/Scenes/TestSceneLoad/MainScene_Test_1.unity
-    guid: d72cd94c2865d0d4ea3780d66958445b
+    path: Assets/Scenes/GamePlayScene/InStoreSpot.unity
+    guid: 035fbc46d835b8e45bb08b8d2381f5ab
   - enabled: 1
-    path: Assets/Scenes/TestSceneLoad/MainScene_TestAddtive_1.unity
-    guid: bce129f388cbd614994b005d5081ded5
+    path: Assets/Scenes/GamePlayScene/Map.unity
+    guid: 84fb2875ded49fe4a9f35a10162a33e5
   - enabled: 1
-    path: Assets/Scenes/TestSceneLoad/MainScene_TestAddtive_2.unity
-    guid: 2a3261efa88d6b34a9b0e9142f6416d6
+    path: Assets/Scenes/GamePlayScene/Menu.unity
+    guid: a22b2bb7c7fcb3948976484f41c65939
   - enabled: 1
-    path: Assets/Scenes/TestSceneLoad/MainScene_TestAddtive_3.unity
-    guid: fb7b3db2f612c2f4b9d7fb490e9f7d5c
+    path: Assets/Scenes/GamePlayScene/Option.unity
+    guid: 8b2db80cd85648745a83b2d0484bce7b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

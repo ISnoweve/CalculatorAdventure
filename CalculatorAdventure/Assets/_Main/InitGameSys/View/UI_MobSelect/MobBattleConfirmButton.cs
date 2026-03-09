@@ -5,6 +5,7 @@ using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Calculator;
 using _Main.MobSys.Data;
 using _Main.MobSys.Sys;
+using _Main.MobSys.Sys.SelectSys;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
@@ -88,6 +89,7 @@ namespace _Main.InitGameSys.View.UI_MobSelect
         {
             var index = mobDropdown.value;
             MobData data = mobDataSoList.Mobs[index];
+            SelectMobDataSystem.SetMobDataSoList(mobDataSoList);
             SelectMobDataSystem.SelectMobData(data.Id);
         }
 

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
-using _Main.CalculatorSys.Data.Enum;
+using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager.Event;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.SnoweveToolKit.ToolKit;
@@ -30,7 +30,10 @@ namespace _Main.CalculatorSys.Manager
                     calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberNotActivate)
                     Instance.numberButtons.Add(calculatorButton);
             }
-
+        }
+        
+        public static void CallRuntimeButtons()
+        {
             var buttonsSpawn = new ButtonsSpawn(Instance.calculatorButtons);
             GlobalMessagePipe.GetPublisher<ButtonsSpawn>().Publish(buttonsSpawn);
         }

@@ -13,19 +13,30 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickSuccess>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonRecoverOldNumber>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculateResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotifyIsLastNumberAfterRecover>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorUpdate>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorWarning>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.View.EventData.ButtonOnClick>();
-            builder.AddMessageBroker<global::_Main.MessagePipeTest.Event.PushEvent>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.View.UI_CalculatorButton.Event.ButtonOnClick>();
+            builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeInAnimationEnd>();
+            builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeOutAnimationEnd>();
+            builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.AfterSceneChange>();
+            builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.BeforeSceneChange>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_AddOrSubtract>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_Multiply>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsMultiply>();
-            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachine.Sys.Event.GameStateMachineChangeState>();
-            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachine.View.Event.SetNewGameState>();
+            builder.AddMessageBroker<global::_Main.MobSys.MobBattleState.Event.NotifyMobBattleNewState>();
+            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.Calculate_MobDefeated>();
+            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.Calculate_UpdateMobQuestionNumber>();
+            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.MobTurn_SetMobNewBehaviour>();
+            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.MobTurn_UpdateBehaviourNumber>();
+            builder.AddMessageBroker<global::_Main.MobSys.Sys.SelectSys.Event.SpawnMobEvent>();
+            builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateBehaviourCountDown>();
+            builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateNewNumber>();
+            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.Sys.Event.GameStateMachineChangeState>();
+            builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.View.Event.SetNewGameState>();
         }
     }
 }

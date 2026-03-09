@@ -1,4 +1,4 @@
-namespace _Main.MobSys.Enum
+namespace _Main.MobSys.Data.AttackSkills.Enum
 {
     public enum RowOrColumn
     {

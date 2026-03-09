@@ -1,11 +1,16 @@
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
+using _Main.GameSceneSys.Sys;
+using _Main.MobSys.Manager;
+using _Main.MobSys.MobBattleState.State;
 using _Main.MobSys.Sys;
+using _Main.MobSys.Sys.MobSys;
+using _Main.MobSys.Sys.SelectSys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.SnoweveToolKit.ToolKit;
-using _Main.StateSys.GameStateMachine.Sys;
+using _Main.StateSys.GameStateMachineSys.Sys;
 
 namespace _Main.InitGameSys.Sys
 {
@@ -14,12 +19,15 @@ namespace _Main.InitGameSys.Sys
         protected override bool IsDontDestroyOnLoad => true;
 
         public PlayerSystem playerSystem;
+        public GameSceneSystem gameSceneSystem; 
         public GameStateMachine gameStateMachine;
         public CalculatorButtonManager calculatorButtonManager;
         public CalculatorSystem calculatorSystem;
         public ButtonSystem buttonSystem;
+        public MobManager mobManager;
         public MobSystem mobSystem;
         public SelectMobDataSystem selectMobDataSystem;
+        public MobBattleState mobBattleState;
         
         public PlayerData DefaultData;
         
@@ -38,23 +46,24 @@ namespace _Main.InitGameSys.Sys
         {
             base.Awake();
             InitialSystem();
-            LoadPlayerSystem();
         }
 
         private void InitialSystem()
         {
             playerSystem = PlayerSystem.Instance;
+            gameSceneSystem = GameSceneSystem.Instance;
             gameStateMachine = GameStateMachine.Instance;
             calculatorButtonManager = CalculatorButtonManager.Instance;
             calculatorSystem = CalculatorSystem.Instance;
             buttonSystem = ButtonSystem.Instance;
+            mobManager = MobManager.Instance;
             mobSystem = MobSystem.Instance;
             selectMobDataSystem = SelectMobDataSystem.Instance;
+            mobBattleState = MobBattleState.Instance;
         }
         
         private void LoadPlayerSystem()
         {
-            PlayerSystem.Initialize(DefaultData);
             //if(TryGetPlayerSaveData());
         }
 
@@ -65,11 +74,22 @@ namespace _Main.InitGameSys.Sys
 
         protected override void OnDestroy()
         {
+            ClearSystemsInstance();
+            base.OnDestroy();
+        }
+
+        private void ClearSystemsInstance()
+        {
             PlayerSystem.ClearInstance();
+            GameSceneSystem.ClearInstance();
+            GameStateMachine.ClearInstance();
             CalculatorButtonManager.ClearInstance();
             CalculatorSystem.ClearInstance();
             ButtonSystem.ClearInstance();
-            base.OnDestroy();
+            MobManager.ClearInstance();
+            MobSystem.ClearInstance();
+            SelectMobDataSystem.ClearInstance();
+            MobBattleState.ClearInstance();
         }
 
         #endregion
@@ -90,6 +110,7 @@ namespace _Main.InitGameSys.Sys
         
         // private void LoadMainGameInitData()
         // {
+        //     PlayerSystem.Initialize(DefaultData);
         //     var calculatorData = PlayerSystem.GetPlayerData().CalculatorGameSetting;
         //     CalculatorButtonManager.InitializeButtons(calculatorData.ButtonsData);
         //     CalculatorSystem.InitializeSystem(calculatorData.CalculatorSystemData);

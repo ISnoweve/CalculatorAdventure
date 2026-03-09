@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0136d167d3d48a088f13ecedc0c4bda, type: 3}
   m_Name: Recover_TakeCalculatorButtonsAddOrSubtract
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_Recover_TakeCalculatorButtonsAddOrSubtract
+  name: 
+  description: Take <=5 button to add Recover
   attackSkillType: 4
-  countDownRound: 1
-  takeCount: 0
+  countDownRound: 3
+  takeCount: 5

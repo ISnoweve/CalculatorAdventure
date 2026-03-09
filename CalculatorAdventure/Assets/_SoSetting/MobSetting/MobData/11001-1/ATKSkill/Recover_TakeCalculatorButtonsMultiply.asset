@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8cc1438f8d4b5684bd6245a0747686, type: 3}
   m_Name: Recover_TakeCalculatorButtonsMultiply
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_Recover_TakeCalculatorButtonsMultiply
+  name: 
+  description: Take 1 button to multiply Recover
   attackSkillType: 4
   countDownRound: 4
-  takeCount: 0
+  takeCount: 1

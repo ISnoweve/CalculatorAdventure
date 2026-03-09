@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CalculatorGameSetting_2
   m_EditorClassIdentifier: Assembly-CSharp::_Main.CalculatorSys.Data.CalculatorGameSetting
   buttonsData: {fileID: 11400000, guid: 7fce5e76f01059b44bf65d63f37d4b28, type: 2}
-  calculatorSystemData: {fileID: 11400000, guid: be35366a50014e34887d42f171883d30, type: 2}
+  calculatorSystemData: {fileID: 11400000, guid: ae63ae4cbf561fb4580c7b021bce186a, type: 2}
