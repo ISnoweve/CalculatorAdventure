@@ -1,12 +1,10 @@
-using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Calculator;
 using _Main.MobSys.Data;
-using _Main.MobSys.Sys;
+using _Main.MobSys.Manager;
 using _Main.MobSys.Sys.SelectSys;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +20,31 @@ namespace _Main.InitGameSys.View.UI_MobSelect
         [SerializeField] private MobDataSoList mobDataSoList;
         [SerializeField] private CalculatorGameSettingSoList calculatorGameSettingSoList;
 
+
+        private void ConfirmMobBattleSetting()
+        {
+            SetCalculator();
+            SetMobBattle();
+            confirmButton.interactable = false;
+            playButton.interactable = true;
+        }
+
+        private void SetMobBattle()
+        {
+            var index = mobDropdown.value;
+            var data = mobDataSoList.Mobs[index];
+            MobManager.SetMobDataSoList(mobDataSoList);
+            SelectMobDataSystem.SelectMobData(data.Id);
+        }
+
+        private void SetCalculator()
+        {
+            var index = calculatorSettingDropdown.value;
+            var calculatorGameSetting = calculatorGameSettingSoList.CalculatorGameSettings[index];
+            CalculatorButtonManager.InitializeButtons(calculatorGameSetting.ButtonsData);
+            CalculatorSystem.InitializeSystem(calculatorGameSetting.CalculatorSystemData);
+        }
+
         #region Life Cycle
 
         private void Awake()
@@ -31,15 +54,12 @@ namespace _Main.InitGameSys.View.UI_MobSelect
             InitializeCalculatorSettingDropdown();
             Subscribe();
         }
-        
+
         private void InitializeMobDropdown()
         {
             mobDropdown.ClearOptions();
             var options = new List<string>();
-            foreach (var mobData in mobDataSoList.Mobs)
-            {
-                options.Add(mobData.Id.ToString());
-            }
+            foreach (var mobData in mobDataSoList.Mobs) options.Add(mobData.Id.ToString());
             mobDropdown.AddOptions(options);
         }
 
@@ -47,10 +67,8 @@ namespace _Main.InitGameSys.View.UI_MobSelect
         {
             calculatorSettingDropdown.ClearOptions();
             var options = new List<string>();
-            for (int i = 0; i < calculatorGameSettingSoList.CalculatorGameSettings.Length; i++)
-            {
-                options.Add((i+1).ToString());
-            }
+            for (var i = 0; i < calculatorGameSettingSoList.CalculatorGameSettings.Length; i++)
+                options.Add((i + 1).ToString());
             calculatorSettingDropdown.AddOptions(options);
         }
 
@@ -67,7 +85,7 @@ namespace _Main.InitGameSys.View.UI_MobSelect
             mobDropdown.onValueChanged.RemoveListener(ClosePlayButton);
             calculatorSettingDropdown.onValueChanged.RemoveListener(ClosePlayButton);
         }
-        
+
         private void ClosePlayButton(int index)
         {
             confirmButton.interactable = true;
@@ -75,30 +93,5 @@ namespace _Main.InitGameSys.View.UI_MobSelect
         }
 
         #endregion
-        
-
-        private void ConfirmMobBattleSetting()
-        {
-            SetCalculator();
-            SetMobBattle();
-            confirmButton.interactable = false;
-            playButton.interactable = true;
-        }
-
-        private void SetMobBattle()
-        {
-            var index = mobDropdown.value;
-            MobData data = mobDataSoList.Mobs[index];
-            SelectMobDataSystem.SetMobDataSoList(mobDataSoList);
-            SelectMobDataSystem.SelectMobData(data.Id);
-        }
-
-        private void SetCalculator()
-        {
-            var index = calculatorSettingDropdown.value;
-            var calculatorGameSetting = calculatorGameSettingSoList.CalculatorGameSettings[index];
-            CalculatorButtonManager.InitializeButtons(calculatorGameSetting.ButtonsData);
-            CalculatorSystem.InitializeSystem(calculatorGameSetting.CalculatorSystemData);
-        }
     }
 }

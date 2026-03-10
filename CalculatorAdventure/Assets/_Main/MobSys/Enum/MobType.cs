@@ -4,6 +4,6 @@ namespace _Main.MobSys.Enum
     {
         Normal,
         Elite,
-        Boss,
+        Boss
     }
 }

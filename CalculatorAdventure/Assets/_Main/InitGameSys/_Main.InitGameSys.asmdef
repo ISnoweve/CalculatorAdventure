@@ -1,24 +1,24 @@
 {
-    "name": "_Main.InitGameSys",
-    "rootNamespace": "",
-    "references": [
-        "GUID:cb209e4719ca48bf902671da17691565",
-        "GUID:ef835a844f204b2a93021dd977ac7305",
-        "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
-        "GUID:0a076c81438d41878c5f7150e1305d4a",
-        "GUID:786591cbae434eda96bbb4ebfbb54cc5",
-        "GUID:53bf5164527b426d8f6c2833c06cbd1e",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:50d943d7ba0e49e5b19593232a03a050",
-        "GUID:59c35b22f72f447eaa6217c983f6913f"
-    ],
-    "includePlatforms": [],
-    "excludePlatforms": [],
-    "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
-    "autoReferenced": true,
-    "defineConstraints": [],
-    "versionDefines": [],
-    "noEngineReferences": false
+  "name": "_Main.InitGameSys",
+  "rootNamespace": "",
+  "references": [
+    "GUID:cb209e4719ca48bf902671da17691565",
+    "GUID:ef835a844f204b2a93021dd977ac7305",
+    "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
+    "GUID:0a076c81438d41878c5f7150e1305d4a",
+    "GUID:786591cbae434eda96bbb4ebfbb54cc5",
+    "GUID:6055be8ebefd69e48b49212b09b47b2f",
+    "GUID:59c35b22f72f447eaa6217c983f6913f",
+    "GUID:ad2520470db64da199fc48ef0fd2e99c",
+    "GUID:50d943d7ba0e49e5b19593232a03a050"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
 }

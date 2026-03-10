@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Manager.Event;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
-using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Runtime;
 using _Main.SnoweveToolKit.ToolKit;
 using MessagePipe;
@@ -49,7 +47,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         #endregion
 
         #region Behavior
-        
+
         private static void InitializeView(ButtonsSpawn data)
         {
             Instance.CalculatorButtonViews = new Dictionary<byte, CalculatorButtonView>();
@@ -60,7 +58,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
                 if (Instance.CalculatorButtonViews.ContainsKey(calculatorButton.Index))
                     Instance.CalculatorButtonViews[calculatorButton.Index].Initialize(calculatorButton);
         }
-        
+
         #region GetView
 
         public void GetButtonViewByIndex(byte index, out CalculatorButtonView buttonView)
@@ -71,7 +69,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         }
 
         #endregion
-        
+
         #region Click
 
         private void UpdateButtonClickView(ButtonClickSuccess data)
@@ -86,41 +84,35 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
 
         private void UpdateAllButtonRecover(AllButtonClickRecover data)
         {
-            foreach (var calculatorButtonView in _calculatorButtonViews)
-            {
-                calculatorButtonView.ChangeButtonState(true);
-            }
+            foreach (var calculatorButtonView in _calculatorButtonViews) calculatorButtonView.ChangeButtonState(true);
         }
-        
+
         private void UpdateButtonRecover(ButtonClickRecover data)
         {
             if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
                 CalculatorButtonViews[data.ButtonIndex].ChangeButtonState(true);
         }
 
-        
+
         private void UpdateOldButton(ButtonRecoverOldNumber data)
         {
             foreach (var variable in data.LockedButtonIndexes)
-            {
                 if (CalculatorButtonViews.ContainsKey(variable))
                     CalculatorButtonViews[variable].ChangeButtonState(false);
-            }
-            
+
             if (CalculatorButtonViews.ContainsKey(data.ButtonIndexes))
                 CalculatorButtonViews[data.ButtonIndexes].ChangeButtonState(true);
         }
+
         #endregion
 
         #region Close
-        
+
         public void UpdateButtonCloseClick(List<CalculatorButton> buttonIndexes)
         {
             foreach (var buttonIndex in buttonIndexes)
-            {
                 if (CalculatorButtonViews.ContainsKey(buttonIndex.Index))
                     CalculatorButtonViews[buttonIndex.Index].ChangeButtonState(false);
-            }
         }
 
         #endregion
@@ -130,10 +122,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         [Button]
         private void UpdateButtonOpenClick()
         {
-            foreach (var calculatorButtonView in _calculatorButtonViews)
-            {
-                calculatorButtonView.ChangeButtonState(false);
-            }
+            foreach (var calculatorButtonView in _calculatorButtonViews) calculatorButtonView.ChangeButtonState(false);
         }
 
         #endregion

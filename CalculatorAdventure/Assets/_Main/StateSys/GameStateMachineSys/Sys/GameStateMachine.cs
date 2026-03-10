@@ -14,6 +14,15 @@ namespace _Main.StateSys.GameStateMachineSys.Sys
         [SerializeField] private GameState currentGameState;
         [SerializeField] private GameState previousGameState;
 
+        private void ChangeGameState(SetNewGameState date)
+        {
+            previousGameState = currentGameState;
+            currentGameState = date.NewGameState;
+
+            var gameStateMachineChangeState = new GameStateMachineChangeState(currentGameState);
+            GlobalMessagePipe.GetPublisher<GameStateMachineChangeState>().Publish(gameStateMachineChangeState);
+        }
+
         #region Life Cycle
 
         protected override void Initialize()
@@ -28,9 +37,9 @@ namespace _Main.StateSys.GameStateMachineSys.Sys
             currentGameState = GameState.Menu;
             previousGameState = GameState.None;
         }
-        
+
         private IDisposable _disposable;
-        
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
@@ -45,16 +54,6 @@ namespace _Main.StateSys.GameStateMachineSys.Sys
             base.Release();
         }
 
-
         #endregion
-        
-        private void ChangeGameState(SetNewGameState date)
-        {
-            previousGameState = currentGameState;
-            currentGameState = date.NewGameState;
-            
-            GameStateMachineChangeState gameStateMachineChangeState = new GameStateMachineChangeState(currentGameState);
-            GlobalMessagePipe.GetPublisher<GameStateMachineChangeState>().Publish(gameStateMachineChangeState);
-        }
     }
 }

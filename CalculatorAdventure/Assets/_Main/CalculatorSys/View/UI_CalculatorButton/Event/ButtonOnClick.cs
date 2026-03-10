@@ -10,7 +10,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Event
 
         public ButtonOnClick(byte index)
         {
-            this.Index = index;
+            Index = index;
         }
     }
 }

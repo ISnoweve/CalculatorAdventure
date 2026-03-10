@@ -23,18 +23,18 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeOutAnimationEnd>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.AfterSceneChange>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.BeforeSceneChange>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.MobBattleState.Event.NotifyMobBattleNewState>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.Calculate_MobDefeated>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.Calculate_UpdateMobQuestionNumber>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.MobTurn_SetMobNewBehaviour>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.MobTurn_UpdateBehaviourNumber>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.View.UI_Mob.Runtime.Event.FinishedUpdateBehaviourCountDown>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.View.UI_Mob.Runtime.Event.FinishedUpdateNewNumber>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_AddOrSubtract>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_Multiply>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsMultiply>();
-            builder.AddMessageBroker<global::_Main.MobSys.MobBattleState.Event.NotifyMobBattleNewState>();
-            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.Calculate_MobDefeated>();
-            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.Calculate_UpdateMobQuestionNumber>();
-            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.MobTurn_SetMobNewBehaviour>();
-            builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.MobTurn_UpdateBehaviourNumber>();
-            builder.AddMessageBroker<global::_Main.MobSys.Sys.SelectSys.Event.SpawnMobEvent>();
-            builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateBehaviourCountDown>();
-            builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateNewNumber>();
+            builder.AddMessageBroker<global::_Main.MobSys.Manager.Event.SpawnMobEvent>();
             builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.Sys.Event.GameStateMachineChangeState>();
             builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.View.Event.SetNewGameState>();
         }

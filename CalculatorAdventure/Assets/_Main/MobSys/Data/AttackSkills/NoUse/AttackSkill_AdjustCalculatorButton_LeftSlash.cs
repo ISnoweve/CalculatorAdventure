@@ -5,14 +5,16 @@ using Random = System.Random;
 
 namespace _Main.MobSys.Data.AttackSkills.NoUse
 {
-    [CreateAssetMenu(fileName = "AdjustCalculatorButton_LeftSlash", menuName = "SoSetting/Mob/Skills/AdjustCalculatorButton_LeftSlash", order = 1)]
+    [CreateAssetMenu(fileName = "AdjustCalculatorButton_LeftSlash",
+        menuName = "SoSetting/Mob/Skills/AdjustCalculatorButton_LeftSlash", order = 1)]
     public class AttackSkill_AdjustCalculatorButton_LeftSlash : AttackSkillData
     {
         public int[] slashIndex = { 21, 16, 11, 6, 1, 2, 3, 4, 5 };
+
         public override void Execute()
         {
-            Random random = new Random();
-            int randomValue = random.Next(0, slashIndex.Length);
+            var random = new Random();
+            var randomValue = random.Next(0, slashIndex.Length);
 
             switch (slashIndex[randomValue])
             {

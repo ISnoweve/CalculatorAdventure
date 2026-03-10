@@ -114,7 +114,6 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
         public void BreakFromAttack()
         {
-            
         }
 
         #endregion

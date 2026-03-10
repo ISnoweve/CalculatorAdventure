@@ -11,6 +11,13 @@ namespace _Main.StateSys.GameStateMachineSys.View.UI_SwitchGameState
         [SerializeField] private GameState _gameStateToSwitch;
         [SerializeField] private Button _button;
 
+
+        private void UpdateNewGameState()
+        {
+            var setNewGameState = new SetNewGameState(_gameStateToSwitch);
+            GlobalMessagePipe.GetPublisher<SetNewGameState>().Publish(setNewGameState);
+        }
+
         #region Life Cycle
 
         private void Awake()
@@ -29,12 +36,5 @@ namespace _Main.StateSys.GameStateMachineSys.View.UI_SwitchGameState
         }
 
         #endregion
-        
-
-        private void UpdateNewGameState()
-        {
-            SetNewGameState setNewGameState = new SetNewGameState(_gameStateToSwitch);
-            GlobalMessagePipe.GetPublisher<SetNewGameState>().Publish(setNewGameState);
-        }
     }
 }

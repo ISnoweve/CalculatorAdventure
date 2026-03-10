@@ -5,6 +5,6 @@ namespace _Main.UniqueItemSys.Data.Enum
         BeforePlayerTurn,
         AfterPlayerSendResult,
         Internal,
-        WhenArrivalEveryMapSpot,
+        WhenArrivalEveryMapSpot
     }
 }

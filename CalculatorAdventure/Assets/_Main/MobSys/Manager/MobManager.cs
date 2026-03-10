@@ -1,8 +1,8 @@
 using System;
+using System.Linq;
+using _Main.MobSys.Data;
+using _Main.MobSys.Manager.Event;
 using _Main.MobSys.Manager.RunTime;
-using _Main.MobSys.Sys;
-using _Main.MobSys.Sys.SelectSys;
-using _Main.MobSys.Sys.SelectSys.Event;
 using _Main.SnoweveToolKit.ToolKit;
 using MessagePipe;
 using UnityEngine;
@@ -12,16 +12,23 @@ namespace _Main.MobSys.Manager
     [Serializable]
     public class MobManager : Singleton<MobManager>
     {
+        [SerializeField] private MobDataSoList mobDataSoList;
         [SerializeField] private Mob currentsMob;
+        public MobDataSoList MobDataSoList => mobDataSoList;
         public static Mob CurrentsMob => Instance.currentsMob;
 
-        public static void SpawnMob()
+        public static void SpawnMob(int index)
         {
-            Mob newMob = new Mob(SelectMobDataSystem.GetMobDataById(SelectMobDataSystem.CurrentSelectMobDataId));
+            var newMob = new Mob(Instance.mobDataSoList.Mobs.First(x => x.Id == index));
             Instance.currentsMob = newMob;
-            
-            SpawnMobEvent spawnMobEvent = new SpawnMobEvent(newMob);
+
+            var spawnMobEvent = new SpawnMobEvent(newMob);
             GlobalMessagePipe.GetPublisher<SpawnMobEvent>().Publish(spawnMobEvent);
+        }
+
+        public static void SetMobDataSoList(MobDataSoList mobDataSoList)
+        {
+            Instance.mobDataSoList = mobDataSoList;
         }
     }
 }

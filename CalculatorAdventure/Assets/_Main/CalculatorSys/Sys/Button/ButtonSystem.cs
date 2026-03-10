@@ -16,7 +16,7 @@ namespace _Main.CalculatorSys.Sys.Button
     public class ButtonSystem : Singleton<ButtonSystem>
     {
         [SerializeField] private List<byte> recordUsedNumberIndex;
-        
+
         #region Lify cycle
 
         protected override void Initialize()
@@ -35,13 +35,12 @@ namespace _Main.CalculatorSys.Sys.Button
             GlobalMessagePipe.GetSubscriber<ButtonOnClick>().Subscribe(DetectButtonClickAble).AddTo(bag);
             _disposable = bag.Build();
         }
-        
+
         protected override void Release()
         {
             _disposable?.Dispose();
             base.Release();
         }
-
 
         #endregion
 
@@ -49,12 +48,9 @@ namespace _Main.CalculatorSys.Sys.Button
 
         private void DetectButtonClickAble(ButtonOnClick data)
         {
-            CalculatorButton button = CalculatorButtonManager.GetButtonByIndex(data.Index);
+            var button = CalculatorButtonManager.GetButtonByIndex(data.Index);
 
-            if (DetectNumber(button))
-            {
-                RecordUsedNumberIndex(button.Index);
-            }
+            if (DetectNumber(button)) RecordUsedNumberIndex(button.Index);
             button.ClickButton();
             var buttonClickSuccess = new ButtonClickSuccess(button.Index);
             GlobalMessagePipe.GetPublisher<ButtonClickSuccess>().Publish(buttonClickSuccess);
@@ -64,10 +60,10 @@ namespace _Main.CalculatorSys.Sys.Button
 
         private bool DetectNumber(CalculatorButton button)
         {
-            if(button.CalculatorButtonType != CalculatorButtonType.NumberActivate) return false;
+            if (button.CalculatorButtonType != CalculatorButtonType.NumberActivate) return false;
             return true;
         }
-        
+
         private void RecordUsedNumberIndex(byte index)
         {
             recordUsedNumberIndex.Add(index);
@@ -78,7 +74,7 @@ namespace _Main.CalculatorSys.Sys.Button
             foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
                 if (calculatorButton.IsClick == false)
                     return false;
-            
+
             RecoverAllButtonClickAble();
             return true;
         }
@@ -88,50 +84,50 @@ namespace _Main.CalculatorSys.Sys.Button
             foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
                 calculatorButton.RecoverButtonClickAble();
             ResetRecordUsedNumberIndex();
-            
+
             var buttonClickRecover = new AllButtonClickRecover();
             GlobalMessagePipe.GetPublisher<AllButtonClickRecover>().Publish(buttonClickRecover);
         }
-        
+
         private void ResetRecordUsedNumberIndex()
         {
             recordUsedNumberIndex.Clear();
         }
-        
+
         private bool DetectOldCalculatorNumber(byte index)
         {
             return recordUsedNumberIndex.Contains(index);
         }
-        
+
         public static void RecoverNumberButtonByIndex(byte index)
         {
-            if(index <= 0) return;
+            if (index <= 0) return;
 
-            bool detectResult = Instance.DetectOldCalculatorNumber(index);
+            var detectResult = Instance.DetectOldCalculatorNumber(index);
 
             if (detectResult)
             {
                 Instance.recordUsedNumberIndex.Remove(index);
-                var calculatorButton = CalculatorButtonManager.GetButtonByIndex(index); 
+                var calculatorButton = CalculatorButtonManager.GetButtonByIndex(index);
                 calculatorButton.RecoverButtonClickAble();
-                ButtonClickRecover buttonClickRecover = new ButtonClickRecover(calculatorButton.Index);
+                var buttonClickRecover = new ButtonClickRecover(calculatorButton.Index);
                 GlobalMessagePipe.GetPublisher<ButtonClickRecover>().Publish(buttonClickRecover);
             }
             else
             {
                 foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
                 {
-                    if(calculatorButton.IsClick&&
-                       calculatorButton.CalculatorButtonType != CalculatorButtonType.NumberNotActivate)continue;
+                    if (calculatorButton.IsClick &&
+                        calculatorButton.CalculatorButtonType != CalculatorButtonType.NumberNotActivate) continue;
                     calculatorButton.CloseButtonClickAble();
                     Instance.recordUsedNumberIndex.Add(calculatorButton.Index);
                 }
-                
-                var recoverButton = CalculatorButtonManager.GetButtonByIndex(index); 
+
+                var recoverButton = CalculatorButtonManager.GetButtonByIndex(index);
                 recoverButton.RecoverButtonClickAble();
                 Instance.recordUsedNumberIndex.Remove(recoverButton.Index);
-                
-                ButtonRecoverOldNumber buttonRecoverOldNumber = new ButtonRecoverOldNumber(index, Instance.recordUsedNumberIndex);
+
+                var buttonRecoverOldNumber = new ButtonRecoverOldNumber(index, Instance.recordUsedNumberIndex);
                 GlobalMessagePipe.GetPublisher<ButtonRecoverOldNumber>().Publish(buttonRecoverOldNumber);
             }
         }

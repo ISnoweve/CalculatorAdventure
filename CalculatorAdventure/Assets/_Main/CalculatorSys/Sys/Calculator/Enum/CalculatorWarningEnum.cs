@@ -4,6 +4,6 @@ namespace _Main.CalculatorSys.Sys.Calculator.Enum
     {
         OperatorIsEmpty,
         NumberIsEmpty,
-        CantGiveResult,
+        CantGiveResult
     }
 }

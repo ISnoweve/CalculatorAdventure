@@ -32,16 +32,6 @@ namespace _Main.CalculatorSys.Manager.Runtime
         private CalculatorFeature calculatorFeature;
 
         [SerializeField] private bool isClick = true;
-        
-        public byte Index => index;
-        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
-        public CalculatorOperator CalculatorOperator => calculatorOperator;
-        public int OriginalValue => originalValue;
-        public int CurrentValue => currentValue;
-        public int MinValue => minValue;
-        public int MaxValue => maxValue;
-        public CalculatorFeature CalculatorFeature => calculatorFeature;
-        public bool IsClick => isClick;
 
         public CalculatorButton(CalculatorButtonData data)
         {
@@ -54,6 +44,16 @@ namespace _Main.CalculatorSys.Manager.Runtime
             if (calculatorButtonType == CalculatorButtonType.NumberActivate) isClick = false;
         }
 
+        public byte Index => index;
+        public CalculatorButtonType CalculatorButtonType => calculatorButtonType;
+        public CalculatorOperator CalculatorOperator => calculatorOperator;
+        public int OriginalValue => originalValue;
+        public int CurrentValue => currentValue;
+        public int MinValue => minValue;
+        public int MaxValue => maxValue;
+        public CalculatorFeature CalculatorFeature => calculatorFeature;
+        public bool IsClick => isClick;
+
         #region Click Feature
 
         public void RecoverButtonClickAble()
@@ -64,7 +64,7 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
             isClick = false;
         }
-        
+
         public void CloseButtonClickAble()
         {
             if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
@@ -94,7 +94,7 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
             currentValue += value;
         }
-        
+
         public void BreakByAttack()
         {
             isClick = true;
@@ -102,7 +102,6 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
         public void GetLock()
         {
-            
         }
 
         #endregion

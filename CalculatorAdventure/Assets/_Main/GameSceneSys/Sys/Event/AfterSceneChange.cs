@@ -5,12 +5,11 @@ namespace _Main.GameSceneSys.Sys.Event
 {
     public readonly struct AfterSceneChange : IEventData
     {
-        private readonly GameState _currentGameState;
-        public GameState CurrentGameState => _currentGameState;
-        
+        public GameState CurrentGameState { get; }
+
         public AfterSceneChange(GameState currentGameState)
         {
-            _currentGameState = currentGameState;
+            CurrentGameState = currentGameState;
         }
     }
 }

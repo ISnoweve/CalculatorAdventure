@@ -10,17 +10,17 @@ namespace _Main.MobSys.Data
     {
         #region ID
 
-        [Title("ID")]
-        [SerializeField] private int id;
+        [Title("ID")] [SerializeField] private int id;
+
         public int Id => id;
 
         #endregion
 
         #region Basic Info
 
-        [Title("Basic Info")] 
-        [SerializeField] private string name;
-        [TextArea][SerializeField] private string description;
+        [Title("Basic Info")] [SerializeField] private string name;
+
+        [TextArea] [SerializeField] private string description;
         public string Name => name;
         public string Description => description;
 
@@ -28,16 +28,18 @@ namespace _Main.MobSys.Data
 
         #region Instance View
 
-        [Title("Instance Info")]
-        [SerializeField] private GameObject prefab;
+        [Title("Instance Info")] [SerializeField]
+        private GameObject prefab;
+
         public GameObject Prefab => prefab;
 
         #endregion
 
         #region MobBattleSetting
 
-        [Title("Mob Battle Setting")]
-        [SerializeField] private int originalQuestionNumber;
+        [Title("Mob Battle Setting")] [SerializeField]
+        private int originalQuestionNumber;
+
         [SerializeField] private AttackSkillData[] attackSkills;
         [SerializeField] private MobType mobType;
         public int OriginalQuestionNumber => originalQuestionNumber;

@@ -14,7 +14,50 @@ namespace _Main.GameSceneSys.Sys
     public sealed class GameSceneSystem : Singleton<GameSceneSystem>
     {
         [SerializeField] private GameState recordChangeSceneState = GameState.None;
-        
+
+        private void OnGameStateChange(GameStateMachineChangeState data)
+        {
+            recordChangeSceneState = data.NewGameState;
+            var beforeSceneChange = new BeforeSceneChange();
+            GlobalMessagePipe.GetPublisher<BeforeSceneChange>().Publish(beforeSceneChange);
+        }
+
+        private async void SwitchSceneWithGameState(Event_FadeInAnimationEnd data)
+        {
+            switch (recordChangeSceneState)
+            {
+                case GameState.Menu:
+                    await SceneSystem.LoadScene(GameState.Menu.ToString());
+                    break;
+                case GameState.Option:
+                    await SceneSystem.LoadScene(GameState.Option.ToString());
+                    break;
+                case GameState.InMap:
+                    await SceneSystem.LoadScene(GameState.InMap.ToString());
+                    break;
+                case GameState.InStoreSpot:
+                    await SceneSystem.LoadScene(GameState.InStoreSpot.ToString());
+                    break;
+                case GameState.InQuestionSpot:
+                    await SceneSystem.LoadScene(GameState.InQuestionSpot.ToString());
+                    break;
+                case GameState.InMobBattle:
+                    await SceneSystem.LoadScene(GameState.InMobBattle.ToString());
+                    break;
+                case GameState.None:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            CallAfterChanceScene();
+        }
+
+        private void CallAfterChanceScene()
+        {
+            var changeSceneSuccess = new AfterSceneChange(recordChangeSceneState);
+            GlobalMessagePipe.GetPublisher<AfterSceneChange>().Publish(changeSceneSuccess);
+        }
+
         #region Life Cycle
 
         protected override void Initialize()
@@ -22,8 +65,9 @@ namespace _Main.GameSceneSys.Sys
             base.Initialize();
             SubscribeEvent();
         }
-        
+
         private IDisposable _disposable;
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
@@ -32,62 +76,13 @@ namespace _Main.GameSceneSys.Sys
             GlobalMessagePipe.GetSubscriber<Event_FadeInAnimationEnd>().Subscribe(SwitchSceneWithGameState).AddTo(bag);
             _disposable = bag.Build();
         }
-        
+
         protected override void Release()
         {
             _disposable?.Dispose();
             base.Release();
         }
-        
-        #endregion
-        
-        private void OnGameStateChange(GameStateMachineChangeState data)
-        {
-            recordChangeSceneState = data.NewGameState;
-            BeforeSceneChange beforeSceneChange = new BeforeSceneChange();
-            GlobalMessagePipe.GetPublisher<BeforeSceneChange>().Publish(beforeSceneChange);
-        }
-        
-        private async void SwitchSceneWithGameState(Event_FadeInAnimationEnd data)
-        {
-            try
-            {
-                switch (recordChangeSceneState)
-                {
-                    case GameState.Menu:
-                        await SceneSystem.LoadScene(GameState.Menu.ToString());
-                        break;
-                    case GameState.Option:
-                        await SceneSystem.LoadScene(GameState.Option.ToString());
-                        break;
-                    case GameState.InMap:
-                        await SceneSystem.LoadScene(GameState.InMap.ToString());
-                        break;
-                    case GameState.InStoreSpot:
-                        await SceneSystem.LoadScene(GameState.InStoreSpot.ToString());
-                        break;
-                    case GameState.InQuestionSpot:
-                        await SceneSystem.LoadScene(GameState.InQuestionSpot.ToString());
-                        break;
-                    case GameState.InMobBattle:
-                        await SceneSystem.LoadScene(GameState.InMobBattle.ToString());
-                        break;
-                    case GameState.None:
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-                CallAfterChanceScene();
-            }
-            catch (Exception e)
-            {
-                throw; // TODO handle exception
-            }
-        }
 
-        private void CallAfterChanceScene()
-        {
-            AfterSceneChange changeSceneSuccess = new AfterSceneChange(recordChangeSceneState);
-            GlobalMessagePipe.GetPublisher<AfterSceneChange>().Publish(changeSceneSuccess);
-        }
+        #endregion
     }
 }

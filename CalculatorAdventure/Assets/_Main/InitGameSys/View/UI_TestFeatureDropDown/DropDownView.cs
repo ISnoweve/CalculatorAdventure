@@ -10,8 +10,8 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
     public class DropDownView : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown dropdown;
-        [SerializeField] private List<String> dropdownOptions;
-        
+        [SerializeField] private List<string> dropdownOptions;
+
         [SerializeField] private GameObject labelMainGame;
         [SerializeField] private GameObject labelTestMobBattle;
         [SerializeField] private GameObject labelTestQuestionSpot;
@@ -32,7 +32,7 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
         {
             dropdownOptions = new List<string>();
 
-            List<string> names = Enum.GetNames(typeof(InitGameType)).ToList();
+            var names = Enum.GetNames(typeof(InitGameType)).ToList();
 
             dropdownOptions.Clear();
             dropdownOptions.AddRange(names);
@@ -57,11 +57,11 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
 
         private void OnDropdownChanged(int index)
         {
-            string selectedOption = dropdownOptions[index];
+            var selectedOption = dropdownOptions[index];
             Enum.TryParse(selectedOption, out InitGameType selectedType);
 
             CloseAllLabel();
-            
+
             switch (selectedType)
             {
                 case InitGameType.MainGame:
@@ -94,6 +94,5 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
         }
 
         #endregion
-        
     }
 }

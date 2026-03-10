@@ -9,9 +9,10 @@ namespace _Main.UniqueItemSys.Data
     {
         [SerializeField] private UniqueItemTriggerType triggerType;
         [SerializeField] private UniqueItemEffectBase effectBase;
-        
+
         public UniqueItemTriggerType TriggerType => triggerType;
         public UniqueItemEffectBase EffectBase => effectBase;
+
         public void ExecuteTrigger()
         {
             effectBase.ExecuteEffect();

@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace _Main.CalculatorSys.Data
 {
-    [CreateAssetMenu(fileName = "CalculatorGameSettingSoList", menuName = "SoSetting/Calculator/CalculatorGameSettingSoList",
+    [CreateAssetMenu(fileName = "CalculatorGameSettingSoList",
+        menuName = "SoSetting/Calculator/CalculatorGameSettingSoList",
         order = 0)]
     public class CalculatorGameSettingSoList : ScriptableObject
     {

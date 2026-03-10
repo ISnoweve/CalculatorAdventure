@@ -10,24 +10,24 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
     {
         [SerializeField] private GameObject panel;
         [SerializeField] private AnimancerComponent animancerComponent;
-        [SerializeField] private AnimationClip fadeInAnimationClip,fadeOutAnimationClip;
+        [SerializeField] private AnimationClip fadeInAnimationClip, fadeOutAnimationClip;
         [SerializeField] private float fadeDuration = 1f;
         private AnimancerLayer _baseLayer;
-        
+
         private void Awake()
         {
             panel.SetActive(false);
+        }
+
+        private void OnDestroy()
+        {
+            _baseLayer = null;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CreateBaseLayer()
         {
             _baseLayer ??= animancerComponent.Layers.Add();
-        }
-
-        private void OnDestroy()
-        {
-            _baseLayer = null;
         }
 
 
@@ -41,7 +41,7 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
         public void PanelFadeOutAnimation()
         {
             // 負責最主要的場景切換
-            
+
             panel.SetActive(false);
             //CreateBaseLayer();
             //_baseLayer.Play(fadeOutAnimationClip, fadeDuration);
@@ -49,14 +49,14 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
 
         public void FadeInAnimationEnd()
         {
-            Event_FadeInAnimationEnd data = new Event_FadeInAnimationEnd();
+            var data = new Event_FadeInAnimationEnd();
             GlobalMessagePipe.GetPublisher<Event_FadeInAnimationEnd>().Publish(data);
         }
 
         public void FadeOutAnimationEnd()
         {
             // 這裡沒有使用，是因為讓每個場景都有自己的入場動畫。
-            
+
             //Event_FadeOutAnimationEnd data = new Event_FadeOutAnimationEnd();
             //GlobalMessagePipe.GetPublisher<Event_FadeOutAnimationEnd>().Publish(data);
             //panel.SetActive(false);

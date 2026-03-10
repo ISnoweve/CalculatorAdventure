@@ -101,7 +101,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 Debug.Log("Button data is null for index: " + data.ButtonIndex);
                 return;
             }
-            
+
             TriggerWithButtonType(CalculatorButtonManager.GetButtonByIndex(data.ButtonIndex));
         }
 
@@ -149,25 +149,24 @@ namespace _Main.CalculatorSys.Sys.Calculator
                             ButtonSystem.RecoverNumberButtonByIndex(currentButtonIndexInBox[i]);
                             currentButtonIndexInBox[i] = index;
                         }
+
                         continue;
                     }
+
                     ButtonSystem.RecoverNumberButtonByIndex(currentButtonIndexInBox[i]);
                     currentButtonIndexInBox[i] = index;
                     return;
                 }
             }
         }
-        
+
         private void PutNumberInBox(int value)
         {
             var length = currentCalculatorOperationAndValueCount;
 
             if (length <= 1)
-            {
                 numbersInBox[0] = value;
-            }
             else
-            {
                 for (var i = 0; i < length; i++)
                 {
                     if (numbersInBox[i] > 0)
@@ -175,10 +174,10 @@ namespace _Main.CalculatorSys.Sys.Calculator
                         if (i + 1 >= length) numbersInBox[i] = value;
                         continue;
                     }
+
                     numbersInBox[i] = value;
                     return;
                 }
-            }
         }
 
         private void PutOperatorInBox(in CalculatorOperator calculatorOperator)
@@ -186,11 +185,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             var length = currentCalculatorOperationAndValueCount;
 
             if (length <= 1)
-            {
                 currentOperators[0] = calculatorOperator;
-            }
             else
-            {
                 for (var i = 0; i < length; i++)
                 {
                     if (currentOperators[i] != CalculatorOperator.None)
@@ -202,7 +198,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     currentOperators[i] = calculatorOperator;
                     return;
                 }
-            }
         }
 
         private void DetectFeature(in CalculatorFeature calculatorFeature)
@@ -225,7 +220,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
                     throw new ArgumentOutOfRangeException(nameof(calculatorFeature), calculatorFeature, null);
             }
         }
-        
+
         private void NotifyUpdaterCalculatorInfo()
         {
             var data = new CalculatorNotify(currentOperators, numbersInBox);
@@ -240,11 +235,11 @@ namespace _Main.CalculatorSys.Sys.Calculator
         {
             if (currentOperators[0] == 0)
             {
-                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.OperatorIsEmpty);
+                var warningData = new CalculatorWarning(CalculatorWarningEnum.OperatorIsEmpty);
                 GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
                 return;
             }
-            
+
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 currentOperators[currentCalculatorOperationAndValueCount - 1] = CalculatorOperator.None;
@@ -280,16 +275,16 @@ namespace _Main.CalculatorSys.Sys.Calculator
                 return;
             }
         }
-        
+
         private void DeleteNumber()
         {
             if (numbersInBox[0] == 0)
             {
-                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.NumberIsEmpty);
+                var warningData = new CalculatorWarning(CalculatorWarningEnum.NumberIsEmpty);
                 GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
                 return;
             }
-            
+
             if (currentCalculatorOperationAndValueCount == 1)
             {
                 numbersInBox[currentCalculatorOperationAndValueCount - 1] = 0;
@@ -312,7 +307,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
         {
             if (DetectAllBoxFilled())
             {
-                CalculatorWarning warningData = new CalculatorWarning(CalculatorWarningEnum.CantGiveResult);
+                var warningData = new CalculatorWarning(CalculatorWarningEnum.CantGiveResult);
                 GlobalMessagePipe.GetPublisher<CalculatorWarning>().Publish(warningData);
                 return;
             }
@@ -422,10 +417,10 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         private void NotifyIsLastNumberInBox(AllButtonClickRecover data)
         {
-            int lastNumberInBoxIndex = currentCalculatorOperationAndValueCount - 1;
-            
-            if(numbersInBox[lastNumberInBoxIndex] <= 0)return;
-            CalculatorNotifyIsLastNumberAfterRecover notifyData = new CalculatorNotifyIsLastNumberAfterRecover();
+            var lastNumberInBoxIndex = currentCalculatorOperationAndValueCount - 1;
+
+            if (numbersInBox[lastNumberInBoxIndex] <= 0) return;
+            var notifyData = new CalculatorNotifyIsLastNumberAfterRecover();
             GlobalMessagePipe.GetPublisher<CalculatorNotifyIsLastNumberAfterRecover>().Publish(notifyData);
         }
 

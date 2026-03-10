@@ -31,7 +31,7 @@ namespace _Main.CalculatorSys.Manager
                     Instance.numberButtons.Add(calculatorButton);
             }
         }
-        
+
         public static void CallRuntimeButtons()
         {
             var buttonsSpawn = new ButtonsSpawn(Instance.calculatorButtons);
@@ -47,10 +47,10 @@ namespace _Main.CalculatorSys.Manager
         {
             return Instance.numberButtons;
         }
-        
+
         public static List<CalculatorButton> GetAllActivateNumberButton()
         {
-            List<CalculatorButton> activateNumberButtons = new List<CalculatorButton>();
+            var activateNumberButtons = new List<CalculatorButton>();
             foreach (var numberButton in Instance.numberButtons)
                 if (numberButton.CalculatorButtonType == CalculatorButtonType.NumberActivate)
                     activateNumberButtons.Add(numberButton);

@@ -9,9 +9,8 @@ namespace _Main.GameSceneSys.LoadPanelSys.View.UI_Control
 {
     public class GameSceneControl : SingletonMonoBehaviour<GameSceneControl>
     {
-        protected override bool IsDontDestroyOnLoad => true;
-
         [SerializeField] private ScenePanelView scenePanelView;
+        protected override bool IsDontDestroyOnLoad => true;
 
         #region Life Cycle
 
@@ -22,6 +21,7 @@ namespace _Main.GameSceneSys.LoadPanelSys.View.UI_Control
         }
 
         private IDisposable _disposable;
+
         private void SubscribeEvent()
         {
             _disposable?.Dispose();
@@ -45,7 +45,7 @@ namespace _Main.GameSceneSys.LoadPanelSys.View.UI_Control
         {
             scenePanelView.PanelFadeInAnimation();
         }
-        
+
         private void AfterSwitchScene(AfterSceneChange data)
         {
             scenePanelView.PanelFadeOutAnimation();

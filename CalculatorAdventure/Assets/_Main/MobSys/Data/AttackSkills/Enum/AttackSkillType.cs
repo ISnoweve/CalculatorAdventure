@@ -6,6 +6,6 @@ namespace _Main.MobSys.Data.AttackSkills.Enum
         Adjust,
         Destroy,
         Leave,
-        Recover,
+        Recover
     }
 }

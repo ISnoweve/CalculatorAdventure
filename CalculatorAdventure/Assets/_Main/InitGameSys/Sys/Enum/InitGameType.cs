@@ -6,6 +6,6 @@ namespace _Main.InitGameSys.Sys.Enum
         TestMobBattle,
         TestQuestionSpot,
         TestMap,
-        TestStoreSpot,
+        TestStoreSpot
     }
 }

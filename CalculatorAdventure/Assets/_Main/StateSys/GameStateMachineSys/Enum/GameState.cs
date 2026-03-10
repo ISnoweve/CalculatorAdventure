@@ -8,6 +8,6 @@ namespace _Main.StateSys.GameStateMachineSys.Enum
         InMap,
         InStoreSpot,
         InQuestionSpot,
-        InMobBattle,
+        InMobBattle
     }
 }

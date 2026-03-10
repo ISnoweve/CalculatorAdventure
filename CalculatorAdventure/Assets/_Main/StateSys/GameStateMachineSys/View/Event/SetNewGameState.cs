@@ -5,12 +5,11 @@ namespace _Main.StateSys.GameStateMachineSys.View.Event
 {
     public readonly struct SetNewGameState : IEventData
     {
-        private readonly GameState _newGameState;
-        public GameState NewGameState => _newGameState;
-        
+        public GameState NewGameState { get; }
+
         public SetNewGameState(GameState newGameState)
         {
-            _newGameState = newGameState;
+            NewGameState = newGameState;
         }
     }
 }

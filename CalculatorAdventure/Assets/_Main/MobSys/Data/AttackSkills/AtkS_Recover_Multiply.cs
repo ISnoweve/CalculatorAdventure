@@ -13,16 +13,17 @@ namespace _Main.MobSys.Data.AttackSkills
     {
         public int randomLimitMin;
         public int randomLimitMax;
+
         public override void Execute()
         {
-            Random random = new Random();
-            int randomValue = random.Next(randomLimitMin, randomLimitMax);
-            
-            
-            MobManager.CurrentsMob.ModifyQuestionNumber(randomValue,CalculatorOperator.Multiply);
-            int currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
-            
-            Event_AtkS_Recover_Multiply eventData = new Event_AtkS_Recover_Multiply(currentQuestionNumber,randomValue);
+            var random = new Random();
+            var randomValue = random.Next(randomLimitMin, randomLimitMax);
+
+
+            MobManager.CurrentsMob.ModifyQuestionNumber(randomValue, CalculatorOperator.Multiply);
+            var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
+
+            var eventData = new Event_AtkS_Recover_Multiply(currentQuestionNumber, randomValue);
             GlobalMessagePipe.GetPublisher<Event_AtkS_Recover_Multiply>().Publish(eventData);
         }
     }

@@ -1,7 +1,6 @@
 using System;
 using _Main.CalculatorSys.Enum;
 using _Main.MobSys.Data;
-using _Main.MobSys.Data.AttackSkills;
 using _Main.MobSys.Data.AttackSkills.Base;
 using _Main.MobSys.Enum;
 using UnityEngine;
@@ -22,16 +21,8 @@ namespace _Main.MobSys.Manager.RunTime
         [SerializeField] private int attackSkillCountDown;
         [SerializeField] private int currentQuestionNumber;
         [SerializeField] private AttackSkillData nextAttackSkill;
-        public string Name => name;
-        public string Description => description;
-        public GameObject Prefab => prefab;
-        public GameObject MobPrefab => prefab;
-        public int CurrentQuestionNumber => currentQuestionNumber;
-        public int AttackSkillCountDown => attackSkillCountDown;
-        public MobType MobType => mobType;
-        public AttackSkillData NextAttackSkill => nextAttackSkill;
-        
-        
+
+
         public Mob(MobData data)
         {
             id = data.Id;
@@ -44,8 +35,17 @@ namespace _Main.MobSys.Manager.RunTime
             mobType = data.MobType;
             RandomNextAttackSkill();
         }
-        
-        public void ModifyQuestionNumber(int changeValue,CalculatorOperator calculatorOperator)
+
+        public string Name => name;
+        public string Description => description;
+        public GameObject Prefab => prefab;
+        public GameObject MobPrefab => prefab;
+        public int CurrentQuestionNumber => currentQuestionNumber;
+        public int AttackSkillCountDown => attackSkillCountDown;
+        public MobType MobType => mobType;
+        public AttackSkillData NextAttackSkill => nextAttackSkill;
+
+        public void ModifyQuestionNumber(int changeValue, CalculatorOperator calculatorOperator)
         {
             switch (calculatorOperator)
             {
@@ -65,23 +65,23 @@ namespace _Main.MobSys.Manager.RunTime
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
             }
         }
-        
+
         public void DecreaseAttackSkillCountDown()
         {
             attackSkillCountDown--;
         }
-        
+
         public void ExecuteNextAttackSkill()
         {
             if (nextAttackSkill == null) return;
             nextAttackSkill.Execute();
         }
-        
+
         public void RandomNextAttackSkill()
         {
             if (attackSkills == null || attackSkills.Length <= 0) return;
-            Random random = new Random();
-            int randomIndex = random.Next(0, attackSkills.Length);
+            var random = new Random();
+            var randomIndex = random.Next(0, attackSkills.Length);
             nextAttackSkill = attackSkills[randomIndex];
             attackSkillCountDown = nextAttackSkill.countDownRound;
         }

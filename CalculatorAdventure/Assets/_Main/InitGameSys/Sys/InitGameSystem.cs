@@ -2,10 +2,9 @@ using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
 using _Main.GameSceneSys.Sys;
+using _Main.MobBattleSys.MobBattleState.State;
+using _Main.MobBattleSys.Sys.MobSys;
 using _Main.MobSys.Manager;
-using _Main.MobSys.MobBattleState.State;
-using _Main.MobSys.Sys;
-using _Main.MobSys.Sys.MobSys;
 using _Main.MobSys.Sys.SelectSys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
@@ -16,10 +15,8 @@ namespace _Main.InitGameSys.Sys
 {
     public class InitGameSystem : SingletonMonoBehaviour<InitGameSystem>
     {
-        protected override bool IsDontDestroyOnLoad => true;
-
         public PlayerSystem playerSystem;
-        public GameSceneSystem gameSceneSystem; 
+        public GameSceneSystem gameSceneSystem;
         public GameStateMachine gameStateMachine;
         public CalculatorButtonManager calculatorButtonManager;
         public CalculatorSystem calculatorSystem;
@@ -28,9 +25,10 @@ namespace _Main.InitGameSys.Sys
         public MobSystem mobSystem;
         public SelectMobDataSystem selectMobDataSystem;
         public MobBattleState mobBattleState;
-        
+
         public PlayerData DefaultData;
-        
+        protected override bool IsDontDestroyOnLoad => true;
+
         /*
          * <未來設計>
          * 未來應該會透過 addressable 的方式去讀取資料，或者用 resources 的方式。
@@ -39,7 +37,7 @@ namespace _Main.InitGameSys.Sys
          *
          *  存檔的時候透過 PlayerSystem 進行存檔。
          */
-        
+
         #region Life cycle
 
         protected override void Awake()
@@ -61,7 +59,7 @@ namespace _Main.InitGameSys.Sys
             selectMobDataSystem = SelectMobDataSystem.Instance;
             mobBattleState = MobBattleState.Instance;
         }
-        
+
         private void LoadPlayerSystem()
         {
             //if(TryGetPlayerSaveData());
@@ -98,16 +96,14 @@ namespace _Main.InitGameSys.Sys
 
         private void NewGame()
         {
-            
         }
 
         private void LoadGame()
         {
-            
         }
 
         #endregion
-        
+
         // private void LoadMainGameInitData()
         // {
         //     PlayerSystem.Initialize(DefaultData);
