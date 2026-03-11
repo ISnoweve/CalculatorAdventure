@@ -14,3 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.MobsData
   mobs:
   - {fileID: 11400000, guid: 3f66f95eb43d9ca44bde78158dc0c417, type: 2}
+  - {fileID: 11400000, guid: 17b455cb39ecbac43bb10a7e4c416a3b, type: 2}
+  - {fileID: 11400000, guid: 67ccc20c35f115743ac3fc1675f3014b, type: 2}
+  - {fileID: 11400000, guid: 05aab0f6ce5a46a439d935bfc0ec516f, type: 2}
+  - {fileID: 11400000, guid: c837efd5f91736c42ae291266aeede7c, type: 2}
+  - {fileID: 11400000, guid: d899001e2f24b73459cad48c89514279, type: 2}

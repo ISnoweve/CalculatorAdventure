@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87d65f128ab94af1949bcfc1ff3b4044, type: 3}
   m_Name: DestroyButtons_RowOrColumn
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_RowOrColumn
-  attackSkillType: 0
+  name: 
+  description: 
+  attackSkillType: 2
   countDownRound: 0
   rowOrColumn: 0
-  rowOrColumnCount: 0
+  isMultiLine: 0
+  destroyLineCount: 2

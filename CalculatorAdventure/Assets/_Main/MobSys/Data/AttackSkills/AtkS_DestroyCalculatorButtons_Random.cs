@@ -1,4 +1,10 @@
+using System.Collections.Generic;
+using System.Linq;
+using _Main.CalculatorSys.Manager;
+using _Main.CalculatorSys.Manager.Runtime;
+using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.AttackSkills.Base;
+using _Main.SnoweveToolKit.UtilityFeature;
 using UnityEngine;
 
 namespace _Main.MobSys.Data.AttackSkills
@@ -11,6 +17,29 @@ namespace _Main.MobSys.Data.AttackSkills
 
         public override void Execute()
         {
+            var takeButtons = TakeCalculatorClickableButtons();
+            
+            ButtonSystem.CloseButtonClickableByAttackSkill(takeButtons);
+        }
+        
+        private List<CalculatorButton> TakeCalculatorClickableButtons()
+        {
+            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton()
+                .Where(x => x.IsClick == false).ToList();
+
+            var takeButtons = new List<CalculatorButton>();
+
+            if (calculatorButtonsNotClick.Count() <= destroyCount)
+            {
+                foreach (var button in calculatorButtonsNotClick) takeButtons.Add(button);
+            }
+            else
+            {
+                calculatorButtonsNotClick.ShuffleList();
+                for (var i = 0; i < destroyCount; i++) takeButtons.Add(calculatorButtonsNotClick[i]);
+            }
+
+            return takeButtons;
         }
     }
 }

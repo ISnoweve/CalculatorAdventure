@@ -99,6 +99,10 @@ namespace _Main.CalculatorSys.Sys.Button
             return recordUsedNumberIndex.Contains(index);
         }
 
+        #endregion
+
+        #region API Feature
+
         public static void RecoverNumberButtonByIndex(byte index)
         {
             if (index <= 0) return;
@@ -150,6 +154,29 @@ namespace _Main.CalculatorSys.Sys.Button
             {
                 CalculatorButtonViewControl.Instance.UpdateButtonCloseClick(takeButtons);
             }
+        }
+
+        public static void ModifyButtonValueByAttackSkill(List<CalculatorButton> takeButtons, int adjustValue)
+        {
+            foreach (var calculatorButton in takeButtons)
+            {
+                calculatorButton.ModifyCurrentValue(adjustValue);
+            }
+
+            ButtonValueModify buttonValueModify = new ButtonValueModify(takeButtons);
+            GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
+        }
+        
+        public static void ResetButtonToOriginalValue()
+        {
+            foreach (var calculatorButton in CalculatorButtonManager.GetAllActivateNumberButton())
+            {
+                calculatorButton.ResetCurrentValue();
+            }
+            
+            List<CalculatorButton> calculatorButtons = CalculatorButtonManager.GetAllActivateNumberButton();
+            ButtonValueModify buttonValueModify = new ButtonValueModify(calculatorButtons);
+            GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
         }
 
         #endregion

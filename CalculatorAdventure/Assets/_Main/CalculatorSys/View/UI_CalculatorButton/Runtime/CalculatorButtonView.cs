@@ -32,6 +32,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
         public void Initialize(CalculatorButton button)
         {
             _index = button.Index;
+            ChangeTextByValue(button.CurrentValue);
             DetectButtonType(button);
 
             _button.onClick.AddListener(OnButtonClick);
@@ -109,14 +110,11 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
             _button.interactable = isClickAble;
         }
-
-        #region Being Attacked
-
-        public void BreakFromAttack()
+        
+        public void ChangeTextByValue(int text)
         {
+            _buttonText.text = text.ToString();
         }
-
-        #endregion
 
         #endregion
     }

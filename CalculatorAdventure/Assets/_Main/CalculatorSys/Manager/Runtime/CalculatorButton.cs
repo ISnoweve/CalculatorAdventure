@@ -85,20 +85,18 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
         #endregion
 
-        #region Modify Feature (from Mob attack)
+        #region Modify Value
 
+        public void ResetCurrentValue()
+        {
+            currentValue = originalValue;
+        }
+        
         public void ModifyCurrentValue(int value)
         {
-            if (calculatorButtonType == CalculatorButtonType.Operator ||
-                calculatorButtonType == CalculatorButtonType.Feature) return;
-
             currentValue += value;
         }
-
-        public void BreakByAttack()
-        {
-            isClick = true;
-        }
+        
 
         public void GetLock()
         {

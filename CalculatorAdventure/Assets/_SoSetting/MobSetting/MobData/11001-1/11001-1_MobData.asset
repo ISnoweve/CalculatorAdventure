@@ -19,6 +19,5 @@ MonoBehaviour:
   originalQuestionNumber: 85
   attackSkills:
   - {fileID: 11400000, guid: e1e59a0a51b2397408e9e9d2d4b63919, type: 2}
-  - {fileID: 11400000, guid: a2c2921bfe8c1a848b1148c45a11f7cd, type: 2}
-  - {fileID: 11400000, guid: 76519ea33543c3a4f9e41055c5431744, type: 2}
+  - {fileID: 11400000, guid: 6a5fa3b8a328d6f4fbc4f1f567ec09d0, type: 2}
   mobType: 0

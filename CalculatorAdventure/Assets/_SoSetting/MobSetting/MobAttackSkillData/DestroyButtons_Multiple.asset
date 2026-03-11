@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dd3f3227bd43fb81078d8673150ede, type: 3}
   m_Name: DestroyButtons_Multiple
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_Multiple
-  attackSkillType: 0
+  name: 
+  description: 
+  attackSkillType: 2
   countDownRound: 0
-  multiple: 
+  multipleNumbers: 

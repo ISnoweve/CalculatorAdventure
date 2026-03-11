@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa15e9446a1b4d29a0a9c4a7fc6883a1, type: 3}
   m_Name: AdjustPlayerSendResult
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.NoUse.AttackSkill_AdjustPlayerSendResult
-  attackSkillType: 0
+  name: 
+  description: 
+  attackSkillType: 1
   countDownRound: 0

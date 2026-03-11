@@ -18,8 +18,7 @@ namespace _Main.MobSys.Data.AttackSkills
         {
             var random = new Random();
             var randomValue = random.Next(randomLimitMin, randomLimitMax);
-
-
+            
             MobManager.CurrentsMob.ModifyQuestionNumber(randomValue, CalculatorOperator.Multiply);
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
 

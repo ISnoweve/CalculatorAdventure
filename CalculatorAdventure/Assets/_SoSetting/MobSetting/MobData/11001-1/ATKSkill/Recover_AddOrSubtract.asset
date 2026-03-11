@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Recover_AddOrSubtract
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_Recover_AddOrSubtract
   name: 
-  description: add 0~100 Recover
+  description: 'Recover add 0~100 '
   attackSkillType: 4
   countDownRound: 2
   randomLimitMin: 0

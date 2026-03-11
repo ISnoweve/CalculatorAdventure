@@ -27,6 +27,7 @@ namespace _Main.MobSys.Data.AttackSkills
             ModifyMobQuestionWithTakeButtons(takeButtons);
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
 
+            // 快速調整
             ButtonSystem.CloseButtonClickableByAttackSkill(takeButtons);
 
             var eventData =

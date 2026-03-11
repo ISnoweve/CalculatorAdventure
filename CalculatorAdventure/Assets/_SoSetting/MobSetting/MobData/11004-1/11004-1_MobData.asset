@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 127f03c262ed4ddaa71dfa92714608c6, type: 3}
   m_Name: 11004-1_MobData
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.MobData
-  id: 0
+  id: 11004
   name: 
   description: 
-  prefab: {fileID: 0}
-  originalQuestionNumber: 0
+  prefab: {fileID: 4370785298172453683, guid: d8d38212eb3fd394dbc9d01400529571, type: 3}
+  originalQuestionNumber: 48
   attackSkills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b3d04ceebbc24234da650332edd4d32f, type: 2}
+  - {fileID: 11400000, guid: 3a822eb22481efb40a1c5b1beb6f21af, type: 2}
   mobType: 0

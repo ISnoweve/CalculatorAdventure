@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
@@ -9,7 +10,10 @@ using _Main.MobSys.Sys.SelectSys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.SnoweveToolKit.ToolKit;
+using _Main.SnoweveToolKit.UtilityFeature;
 using _Main.StateSys.GameStateMachineSys.Sys;
+using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace _Main.InitGameSys.Sys
 {
@@ -37,7 +41,7 @@ namespace _Main.InitGameSys.Sys
          *
          *  存檔的時候透過 PlayerSystem 進行存檔。
          */
-
+        
         #region Life cycle
 
         protected override void Awake()

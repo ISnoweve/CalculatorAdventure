@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45984f07b29541adb186f76491523105, type: 3}
   m_Name: AdjustCalculatorButton_RightSlash
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.NoUse.AttackSkill_AdjustCalculatorButton_RightSlash
-  attackSkillType: 0
+  name: 
+  description: 
+  attackSkillType: 1
   countDownRound: 0
   slashIndex: 19000000140000000f0000000a0000000500000004000000030000000200000001000000

@@ -1,5 +1,6 @@
 using System;
 using _Main.CalculatorSys.Manager;
+using _Main.CalculatorSys.Sys.Button;
 using _Main.GameSceneSys.Sys.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
@@ -60,6 +61,7 @@ namespace _Main.MobBattleSys.MobBattleState.State
             {
                 isWorking = true;
                 CalculatorButtonManager.CallRuntimeButtons();
+                ButtonSystem.ResetButtonToOriginalValue();
                 MobManager.SpawnMob(SelectMobDataSystem.CurrentSelectMobDataId);
                 StateEnter_PlayerTurn();
                 return;
@@ -107,6 +109,7 @@ namespace _Main.MobBattleSys.MobBattleState.State
 
         private void StateEnter_BattleResult(Calculate_MobDefeated data)
         {
+            ButtonSystem.ResetButtonToOriginalValue();
             mobBattleStateEnum = MobBattleStateEnum.BattleResult;
             CallNewState();
         }

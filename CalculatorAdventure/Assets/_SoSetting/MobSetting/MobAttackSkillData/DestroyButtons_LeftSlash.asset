@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caf4e1ab6d0743df9efa7bdd7d8fab75, type: 3}
   m_Name: DestroyButtons_LeftSlash
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.NoUse.AttackSkill_DestroyCalculatorButtons_LeftSlash
-  attackSkillType: 0
+  name: 
+  description: 
+  attackSkillType: 2
   countDownRound: 0
   slashIndex: 

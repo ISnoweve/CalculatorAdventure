@@ -35,6 +35,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
             GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonRecoverOldNumber>().Subscribe(UpdateOldButton).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ButtonValueModify>().Subscribe(UpdateButtonValueModify).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -113,6 +114,19 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
             foreach (var buttonIndex in buttonIndexes)
                 if (CalculatorButtonViews.ContainsKey(buttonIndex.Index))
                     CalculatorButtonViews[buttonIndex.Index].ChangeButtonState(false);
+        }
+
+        #endregion
+
+        #region Value
+
+        private void UpdateButtonValueModify(ButtonValueModify data)
+        {
+            foreach (var calculatorButton in data.Buttons)
+            {
+                if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
+                    CalculatorButtonViews[calculatorButton.Index].ChangeTextByValue(calculatorButton.CurrentValue);
+            }
         }
 
         #endregion
