@@ -16,7 +16,9 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         [SerializeField] private UI_MobView uiMobView;
         [SerializeField] private UI_MobQuestionNumber uiMobQuestionNumber;
         [SerializeField] private UI_MobExtraMission uiMobExtraMission;
-        [SerializeField] private UI_MobBehaviourCountDown uiMobBehaviourCountDown;
+        [SerializeField] private UI_MobAtkSkillCountDown uiMobAtkSkillCountDown;
+        [SerializeField] private UI_MobAtkSkillDescription uiMobAtkSkillDescription;
+        [SerializeField] private UI_MobGetDefeated uiMobGetDefeated;
 
         #region Life cycle
 
@@ -63,7 +65,8 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         {
             uiMobView.Initialize(data.Mob);
             uiMobQuestionNumber.Initialize(data.Mob.CurrentQuestionNumber);
-            uiMobBehaviourCountDown.Initialize(data.Mob.NextAttackSkill);
+            uiMobAtkSkillCountDown.Initialize(data.Mob.NextAttackSkill);
+            uiMobAtkSkillDescription.SetDescription(data.Mob.NextAttackSkill.Description);
         }
 
         #endregion
@@ -83,6 +86,8 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
 
         private void UpdateMobDefeated(Calculate_MobDefeated data)
         {
+            uiMobQuestionNumber.UpdateNewQuestionNumber(0);
+            uiMobGetDefeated.ShowDefeatedPanel();
         }
 
         #endregion
@@ -91,7 +96,7 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
 
         private void UpdateMobBehaviourCountDown(MobTurn_UpdateBehaviourNumber data)
         {
-            uiMobBehaviourCountDown.UpdateNewCountDown(data.MobAttackSkillCountDown);
+            uiMobAtkSkillCountDown.UpdateNewCountDown(data.MobAttackSkillCountDown);
             StartCoroutine(Stay());
         }
 
@@ -101,7 +106,8 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
 
         private void SetNewMobBehaviour(MobTurn_SetMobNewBehaviour data)
         {
-            uiMobBehaviourCountDown.Initialize(data.AtkSData);
+            uiMobAtkSkillCountDown.Initialize(data.AtkSData);
+            uiMobAtkSkillDescription.SetDescription(data.AtkSData.Description);
             StartCoroutine(Stay());
         }
 

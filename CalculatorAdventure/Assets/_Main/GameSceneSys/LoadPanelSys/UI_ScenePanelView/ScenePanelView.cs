@@ -2,6 +2,7 @@ using System.Runtime.CompilerServices;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using Animancer;
 using MessagePipe;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
@@ -29,22 +30,18 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
         {
             _baseLayer ??= animancerComponent.Layers.Add();
         }
-
-
+        
         public void PanelFadeInAnimation()
         {
-            CreateBaseLayer();
             panel.SetActive(true);
-            _baseLayer.Play(fadeInAnimationClip, fadeDuration);
+            CreateBaseLayer();
+            _baseLayer.Play(fadeInAnimationClip, fadeDuration, FadeMode.FromStart);
         }
 
         public void PanelFadeOutAnimation()
         {
-            // 負責最主要的場景切換
-
-            panel.SetActive(false);
-            //CreateBaseLayer();
-            //_baseLayer.Play(fadeOutAnimationClip, fadeDuration);
+            CreateBaseLayer();
+            _baseLayer.Play(fadeOutAnimationClip, fadeDuration);
         }
 
         public void FadeInAnimationEnd()
@@ -55,11 +52,9 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
 
         public void FadeOutAnimationEnd()
         {
-            // 這裡沒有使用，是因為讓每個場景都有自己的入場動畫。
-
-            //Event_FadeOutAnimationEnd data = new Event_FadeOutAnimationEnd();
-            //GlobalMessagePipe.GetPublisher<Event_FadeOutAnimationEnd>().Publish(data);
-            //panel.SetActive(false);
+            Event_FadeOutAnimationEnd data = new Event_FadeOutAnimationEnd();
+            GlobalMessagePipe.GetPublisher<Event_FadeOutAnimationEnd>().Publish(data);
+            panel.SetActive(false);
         }
     }
 }

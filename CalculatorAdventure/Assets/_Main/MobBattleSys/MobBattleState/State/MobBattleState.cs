@@ -1,6 +1,7 @@
 using System;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
+using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using _Main.GameSceneSys.Sys.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
@@ -38,6 +39,7 @@ namespace _Main.MobBattleSys.MobBattleState.State
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<AfterSceneChange>().Subscribe(SetMobBattle).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_FadeOutAnimationEnd>().Subscribe(StartGame).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Calculate_MobDefeated>().Subscribe(StateEnter_BattleResult).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<FinishedUpdateNewNumber>().Subscribe(StateEnter_MobTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<FinishedUpdateBehaviourCountDown>().Subscribe(StateEnter_PlayerTurn)
@@ -63,11 +65,15 @@ namespace _Main.MobBattleSys.MobBattleState.State
                 CalculatorButtonManager.CallRuntimeButtons();
                 ButtonSystem.ResetButtonToOriginalValue();
                 MobManager.SpawnMob(SelectMobDataSystem.CurrentSelectMobDataId);
-                StateEnter_PlayerTurn();
                 return;
             }
 
             isWorking = false;
+        }
+
+        private void StartGame(Event_FadeOutAnimationEnd data)
+        {
+            StateEnter_PlayerTurn();
         }
 
         private void StateEnterMobBattleStart()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace _Main.MobBattleSys.View.UI_Mob.Runtime
 {
-    public class UI_MobBehaviourCountDown : MonoBehaviour
+    public class UI_MobAtkSkillCountDown : MonoBehaviour
     {
         [SerializeField] private AttackSkillType currentAttackSkillType;
         [SerializeField] private int currentAttackSkillCountDown;

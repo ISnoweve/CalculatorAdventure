@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DestroyButtons_Square
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_Square
   name: 
-  description: 
+  description: "\u751F\u9748\u6293\u53D6\u5728\u6B63\u65B9\u5F62\u5167\u9084\u53EF\u4EE5\u6309\u7684\u6309\u9215\u9032\u884C\u7834\u58DE\u3002"
   attackSkillType: 2
   countDownRound: 4
   squareSpotIndices: 0600000007000000080000000b0000000c0000000d000000100000001100000012000000

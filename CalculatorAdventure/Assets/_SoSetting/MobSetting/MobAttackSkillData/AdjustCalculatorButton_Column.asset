@@ -15,9 +15,9 @@ MonoBehaviour:
   name: 
   description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u96A8\u6A5F\u6578\u91CF\u7684\u884C\uFF0C\u5C0D\u884C\u88E1\u9762\u7684\u6578\u5B57\u9032\u884C\u8ABF\u6574\u3002"
   attackSkillType: 1
-  countDownRound: 3
+  countDownRound: 0
   rowOrColumn: 1
   isMultiLine: 0
   rowOrColumnCount: 0
   randomValueLimitMin: 0
-  randomValueLimitMax: 5
+  randomValueLimitMax: 0
