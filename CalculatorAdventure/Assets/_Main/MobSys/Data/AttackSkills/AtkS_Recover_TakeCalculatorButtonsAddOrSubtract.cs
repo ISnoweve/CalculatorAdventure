@@ -9,6 +9,7 @@ using _Main.MobSys.Data.AttackSkills.Event;
 using _Main.MobSys.Manager;
 using _Main.SnoweveToolKit.UtilityFeature;
 using MessagePipe;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Main.MobSys.Data.AttackSkills
@@ -17,7 +18,7 @@ namespace _Main.MobSys.Data.AttackSkills
         menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsAddOrSubtract", order = 4)]
     public class AtkS_Recover_TakeCalculatorButtonsAddOrSubtract : AttackSkillData
     {
-        public int takeCount;
+        [Title("AtkSkill Info")] public int takeCount;
 
         public override void Execute()
         {
@@ -27,7 +28,7 @@ namespace _Main.MobSys.Data.AttackSkills
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
 
             // 快速調整
-            ButtonSystem.CloseButtonClickableByAttackSkill(takeButtons);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
 
             var eventData =
                 new Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract(takeButtons, currentQuestionNumber);

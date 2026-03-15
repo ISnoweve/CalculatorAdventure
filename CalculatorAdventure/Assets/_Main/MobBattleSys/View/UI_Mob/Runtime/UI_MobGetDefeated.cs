@@ -1,5 +1,3 @@
-using System;
-using TMPro;
 using UnityEngine;
 
 namespace _Main.MobBattleSys.View.UI_Mob.Runtime

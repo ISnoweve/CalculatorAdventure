@@ -2,7 +2,6 @@ using System.Runtime.CompilerServices;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using Animancer;
 using MessagePipe;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
@@ -30,12 +29,12 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
         {
             _baseLayer ??= animancerComponent.Layers.Add();
         }
-        
+
         public void PanelFadeInAnimation()
         {
             panel.SetActive(true);
             CreateBaseLayer();
-            _baseLayer.Play(fadeInAnimationClip, fadeDuration, FadeMode.FromStart);
+            _baseLayer.Play(fadeInAnimationClip, fadeDuration);
         }
 
         public void PanelFadeOutAnimation()
@@ -52,7 +51,7 @@ namespace _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView
 
         public void FadeOutAnimationEnd()
         {
-            Event_FadeOutAnimationEnd data = new Event_FadeOutAnimationEnd();
+            var data = new Event_FadeOutAnimationEnd();
             GlobalMessagePipe.GetPublisher<Event_FadeOutAnimationEnd>().Publish(data);
             panel.SetActive(false);
         }

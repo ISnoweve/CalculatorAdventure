@@ -4,7 +4,7 @@ using EventSys.Interface;
 namespace _Main.CalculatorSys.Sys.Button.Event
 {
     [Serializable]
-    public readonly struct AllButtonClickRecover : IEventData
+    public readonly struct AllNumberButtonClickRecover : IEventData
     {
     }
 }

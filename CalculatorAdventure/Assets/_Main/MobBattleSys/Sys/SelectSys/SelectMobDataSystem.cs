@@ -2,7 +2,7 @@ using System;
 using _Main.SnoweveToolKit.ToolKit;
 using UnityEngine;
 
-namespace _Main.MobSys.Sys.SelectSys
+namespace _Main.MobBattleSys.Sys.SelectSys
 {
     [Serializable]
     public class SelectMobDataSystem : Singleton<SelectMobDataSystem>

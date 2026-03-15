@@ -17,6 +17,9 @@ namespace _Main.GameSceneSys.LoadPanelSys.View.UI_Control
         protected override void Awake()
         {
             base.Awake();
+
+            if (Instance != this) return;
+
             SubscribeEvent();
         }
 

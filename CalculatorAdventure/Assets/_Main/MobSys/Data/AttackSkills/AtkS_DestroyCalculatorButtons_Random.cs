@@ -5,6 +5,7 @@ using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.AttackSkills.Base;
 using _Main.SnoweveToolKit.UtilityFeature;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Main.MobSys.Data.AttackSkills
@@ -13,15 +14,15 @@ namespace _Main.MobSys.Data.AttackSkills
         order = 2)]
     public class AtkS_DestroyCalculatorButtons_Random : AttackSkillData
     {
-        public int destroyCount;
+        [Title("AtkSkill Info")] public int destroyCount;
 
         public override void Execute()
         {
             var takeButtons = TakeCalculatorClickableButtons();
-            
-            ButtonSystem.CloseButtonClickableByAttackSkill(takeButtons);
+
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
         }
-        
+
         private List<CalculatorButton> TakeCalculatorClickableButtons()
         {
             var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton()

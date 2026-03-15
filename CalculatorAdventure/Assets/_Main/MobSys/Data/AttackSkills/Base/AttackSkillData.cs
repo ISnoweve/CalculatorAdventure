@@ -6,15 +6,14 @@ namespace _Main.MobSys.Data.AttackSkills.Base
 {
     public abstract class AttackSkillData : ScriptableObject
     {
-        [Title("Basic Info")] 
-        [TextArea] [SerializeField] private string description;
+        [Title("Basic Info")] [TextArea] [SerializeField]
+        private string description;
 
-        [Title("AttackSkill Info")] 
-        public AttackSkillType attackSkillType;
-        
-        public string Description => description;
+        [Title("Type Info")] public AttackSkillType attackSkillType;
 
         public int countDownRound;
+
+        public string Description => description;
         public abstract void Execute();
     }
 }

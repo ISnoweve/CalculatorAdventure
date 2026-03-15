@@ -9,7 +9,7 @@ namespace _Main.StateSys.GameStateMachineSys.Sys.Event
 
         public GameStateMachineChangeState(GameState newGameState)
         {
-            this.NewGameState = newGameState;
+            NewGameState = newGameState;
         }
     }
 }

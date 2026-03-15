@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_Main._TestFeature.CalculatorTest.CalculatorButtonData
   index: 107
   calculatorButtonType: 4
-  calculatorOperator: 4
+  calculatorOperator: 0
   originalValue: 0
   calculatorFeature: 1

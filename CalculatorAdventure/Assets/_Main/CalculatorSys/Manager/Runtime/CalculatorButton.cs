@@ -65,6 +65,11 @@ namespace _Main.CalculatorSys.Manager.Runtime
             isClick = false;
         }
 
+        public void SetButtonClickAble()
+        {
+            isClick = false;
+        }
+
         public void CloseButtonClickAble()
         {
             if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
@@ -77,8 +82,11 @@ namespace _Main.CalculatorSys.Manager.Runtime
         public void ClickButton()
         {
             if (calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
-                calculatorButtonType == CalculatorButtonType.Operator ||
                 calculatorButtonType == CalculatorButtonType.Feature) return;
+
+            if (calculatorOperator == CalculatorOperator.Add ||
+                calculatorOperator == CalculatorOperator.Subtract) return;
+
 
             isClick = true;
         }
@@ -91,12 +99,12 @@ namespace _Main.CalculatorSys.Manager.Runtime
         {
             currentValue = originalValue;
         }
-        
+
         public void ModifyCurrentValue(int value)
         {
             currentValue += value;
         }
-        
+
 
         public void GetLock()
         {

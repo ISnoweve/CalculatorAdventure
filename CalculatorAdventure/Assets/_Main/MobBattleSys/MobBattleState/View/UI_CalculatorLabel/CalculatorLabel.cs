@@ -1,5 +1,6 @@
 using System;
 using _Main.CalculatorSys.Enum;
+using _Main.CalculatorSys.Sys.Calculator;
 using _Main.CalculatorSys.Sys.Calculator.Enum;
 using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
@@ -43,9 +44,22 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
 
         private void Awake()
         {
+            InitLabelText();
+            SubscribeEvent();
+        }
+
+        private void InitLabelText()
+        {
             ClearDisplay();
             ClearWarning();
-            SubscribeEvent();
+
+            currentCalculatorOperationAndValueCount = CalculatorSystem.Instance.CurrentCalculatorOperationAndValueCount;
+
+            for (var i = 0; i < currentCalculatorOperationAndValueCount; i++)
+            {
+                labelText.text += "\u25a1";
+                labelText.text += 0;
+            }
         }
 
         private IDisposable _disposable;

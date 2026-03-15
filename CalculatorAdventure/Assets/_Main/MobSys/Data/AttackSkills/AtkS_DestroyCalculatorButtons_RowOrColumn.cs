@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
@@ -16,107 +15,94 @@ namespace _Main.MobSys.Data.AttackSkills
         menuName = "SoSetting/Mob/Skills/DestroyButtons_RowOrColumn", order = 2)]
     public class AtkS_DestroyCalculatorButtons_RowOrColumn : AttackSkillData
     {
-        public RowOrColumn rowOrColumn;
+        [Title("AtkSkill Info")] public RowOrColumn rowOrColumn;
+
         public bool isMultiLine;
+
         [ShowIf("isMultiLine", false)] [InfoBox("Suggest not more than 3")]
         public int destroyLineCount;
+
         public override void Execute()
         {
             var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton();
-            
-            if(rowOrColumn == RowOrColumn.Row)
+
+            if (rowOrColumn == RowOrColumn.Row)
             {
-                List<int> rowList = GetRowIndexes();
+                var rowList = GetRowIndexes();
                 DestroyButtonsInList(calculatorButtonsNotClick, rowList);
             }
-            else if(rowOrColumn == RowOrColumn.Column)
+            else if (rowOrColumn == RowOrColumn.Column)
             {
-                List<int> columnList = GetColumnIndexes();
+                var columnList = GetColumnIndexes();
                 DestroyButtonsInList(calculatorButtonsNotClick, columnList);
             }
         }
-        
+
         private void DestroyButtonsInList(List<CalculatorButton> buttons, List<int> list)
         {
-            List<CalculatorButton> buttonsInList = new List<CalculatorButton>();
-            
-            foreach (var button in buttons)
-            {
-                if (list.Contains(button.Index))
-                {
-                    buttonsInList.Add(button);
-                }
-            }
+            var buttonsInList = new List<CalculatorButton>();
 
-            ButtonSystem.CloseButtonClickableByAttackSkill(buttonsInList);
+            foreach (var button in buttons)
+                if (list.Contains(button.Index))
+                    buttonsInList.Add(button);
+
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInList);
         }
 
         [Button]
         private List<int> GetRowIndexes()
         {
-            List<int> indexesList = new List<int> { 0,5,10,15,20 };
-            List<int> rowIndexList = new List<int>();
+            var indexesList = new List<int> { 0, 5, 10, 15, 20 };
+            var rowIndexList = new List<int>();
             if (isMultiLine)
             {
                 var indexes = GetIndexes(indexesList);
                 foreach (var variable in indexes)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        rowIndexList.Add(variable+i);
-                    }
-                }
+                    for (var i = 0; i < 5; i++)
+                        rowIndexList.Add(variable + i);
             }
             else
             {
-                int randomIndex = GetRandomIndex(5);
-                int startIndex = indexesList[randomIndex];
-                for (int i = 0; i < 5; i++)
-                {
-                    rowIndexList.Add(startIndex+i);
-                }
+                var randomIndex = GetRandomIndex(5);
+                var startIndex = indexesList[randomIndex];
+                for (var i = 0; i < 5; i++) rowIndexList.Add(startIndex + i);
             }
+
             return rowIndexList;
         }
-        
+
         [Button]
         private List<int> GetColumnIndexes()
         {
-            List<int> indexesList = new List<int> { 0, 1, 2, 3, 4 };
-            List<int> columnIndexList = new List<int>();
+            var indexesList = new List<int> { 0, 1, 2, 3, 4 };
+            var columnIndexList = new List<int>();
             if (isMultiLine)
             {
                 var indexes = GetIndexes(indexesList);
                 foreach (var variable in indexes)
-                {
-                    for (int i = 0; i < 5; i++)
-                    {
-                        columnIndexList.Add(variable+i*5);
-                    }
-                }
+                    for (var i = 0; i < 5; i++)
+                        columnIndexList.Add(variable + i * 5);
             }
             else
             {
-                int randomIndex = GetRandomIndex(5);
-                for (int i = 0; i < 5; i++)
-                {
-                    columnIndexList.Add(randomIndex+i*5);
-                }
+                var randomIndex = GetRandomIndex(5);
+                for (var i = 0; i < 5; i++) columnIndexList.Add(randomIndex + i * 5);
             }
+
             return columnIndexList;
         }
-        
+
         private List<int> GetIndexes(List<int> indexList)
         {
             indexList.ShuffleList();
-            int startIndex = GetRandomIndex(3);
-            List<int> resultList = indexList.GetRange(startIndex, destroyLineCount);
+            var startIndex = GetRandomIndex(3);
+            var resultList = indexList.GetRange(startIndex, destroyLineCount);
             return resultList;
         }
-        
+
         private int GetRandomIndex(int index)
         {
-            int randomIndex = Random.Range(0, index);
+            var randomIndex = Random.Range(0, index);
             return randomIndex;
         }
     }

@@ -16,30 +16,25 @@ namespace _Main.MobSys.Data.AttackSkills
             var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton();
 
             var calculatorButtonsIsPrime = GetPrimes(calculatorButtonsNotClick, out var otherCalculatorButtons);
-            
-            ButtonSystem.CloseButtonClickableByAttackSkill(otherCalculatorButtons);
+
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(otherCalculatorButtons);
         }
-        
-        private List<CalculatorButton> GetPrimes(List<CalculatorButton> inputList,out List<CalculatorButton> otherButtons)
+
+        private List<CalculatorButton> GetPrimes(List<CalculatorButton> inputList,
+            out List<CalculatorButton> otherButtons)
         {
             otherButtons = new List<CalculatorButton>();
             var primeButtons = new List<CalculatorButton>();
-                
+
             foreach (var calculatorButton in inputList)
-            {
                 if (IsPrime(calculatorButton.CurrentValue))
-                {
                     primeButtons.Add(calculatorButton);
-                }
                 else
-                {
                     otherButtons.Add(calculatorButton);
-                }
-            }
 
             return primeButtons;
         }
-        
+
         private bool IsPrime(int number)
         {
             if (number <= 1) return false;
@@ -47,10 +42,9 @@ namespace _Main.MobSys.Data.AttackSkills
             if (number % 2 == 0) return false;
 
             var boundary = Mathf.FloorToInt(Mathf.Sqrt(number));
-            for (int i = 3; i <= boundary; i += 2)
-            {
-                if (number % i == 0) return false;
-            }
+            for (var i = 3; i <= boundary; i += 2)
+                if (number % i == 0)
+                    return false;
             return true;
         }
     }

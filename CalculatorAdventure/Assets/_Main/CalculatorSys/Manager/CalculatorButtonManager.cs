@@ -15,6 +15,8 @@ namespace _Main.CalculatorSys.Manager
     {
         [SerializeField] private List<CalculatorButton> calculatorButtons;
         [SerializeField] private List<CalculatorButton> numberButtons;
+        [SerializeField] private CalculatorButton multiplyButton;
+        [SerializeField] private CalculatorButton divideButton;
 
         public static void InitializeButtons(CalculatorButtonsData buttonsData)
         {
@@ -26,6 +28,10 @@ namespace _Main.CalculatorSys.Manager
                 var calculatorButton = new CalculatorButton(buttonData);
                 if (Instance.calculatorButtons.Contains(calculatorButton)) continue;
                 Instance.calculatorButtons.Add(calculatorButton);
+                if (calculatorButton.CalculatorOperator == CalculatorOperator.Multiply)
+                    Instance.multiplyButton = calculatorButton;
+                if (calculatorButton.CalculatorOperator == CalculatorOperator.Divide)
+                    Instance.divideButton = calculatorButton;
                 if (calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberActivate ||
                     calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberNotActivate)
                     Instance.numberButtons.Add(calculatorButton);
@@ -65,6 +71,16 @@ namespace _Main.CalculatorSys.Manager
                     return buttonByIndex;
 
             return null;
+        }
+
+        public static CalculatorButton GetMultiplyButton()
+        {
+            return Instance.multiplyButton;
+        }
+
+        public static CalculatorButton GetDivideButton()
+        {
+            return Instance.divideButton;
         }
     }
 }

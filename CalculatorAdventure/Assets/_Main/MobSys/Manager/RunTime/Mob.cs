@@ -59,7 +59,7 @@ namespace _Main.MobSys.Manager.RunTime
                     currentQuestionNumber *= changeValue;
                     break;
                 case CalculatorOperator.Divide:
-                    currentQuestionNumber /= changeValue;
+                    if (currentQuestionNumber / changeValue != 0) currentQuestionNumber /= changeValue;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);

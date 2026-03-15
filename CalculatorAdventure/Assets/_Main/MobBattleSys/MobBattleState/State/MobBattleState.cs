@@ -1,25 +1,25 @@
 using System;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
+using _Main.ChallengeSys.Sys;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using _Main.GameSceneSys.Sys.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.MobBattleSys.Sys.MobSys.Event;
+using _Main.MobBattleSys.Sys.SelectSys;
 using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
 using _Main.MobSys.Manager;
-using _Main.MobSys.Sys.SelectSys;
 using _Main.SnoweveToolKit.ToolKit;
 using _Main.StateSys.GameStateMachineSys.Enum;
 using MessagePipe;
-using UnityEngine;
+using UnityEngine; 
 
 namespace _Main.MobBattleSys.MobBattleState.State
 {
     [Serializable]
     public class MobBattleState : Singleton<MobBattleState>
     {
-        [SerializeField] private bool isWorking;
         [SerializeField] private GameState detectGameState;
         [SerializeField] private MobBattleStateEnum mobBattleStateEnum;
 
@@ -59,16 +59,12 @@ namespace _Main.MobBattleSys.MobBattleState.State
 
         private void SetMobBattle(AfterSceneChange data)
         {
-            if (data.CurrentGameState == detectGameState)
-            {
-                isWorking = true;
-                CalculatorButtonManager.CallRuntimeButtons();
-                ButtonSystem.ResetButtonToOriginalValue();
-                MobManager.SpawnMob(SelectMobDataSystem.CurrentSelectMobDataId);
-                return;
-            }
-
-            isWorking = false;
+            if (data.CurrentGameState != detectGameState) return;
+            CalculatorButtonManager.CallRuntimeButtons();
+            ButtonSystem.ResetNumberButtonToOriginalValue();
+            ButtonSystem.ResetRecordUsedNumberIndexWhenGameStart();
+            MobManager.SpawnMob(SelectMobDataSystem.CurrentSelectMobDataId);
+            ChallengeSystem.InitChallenge();
         }
 
         private void StartGame(Event_FadeOutAnimationEnd data)
@@ -115,7 +111,9 @@ namespace _Main.MobBattleSys.MobBattleState.State
 
         private void StateEnter_BattleResult(Calculate_MobDefeated data)
         {
-            ButtonSystem.ResetButtonToOriginalValue();
+            ButtonSystem.ResetNumberButtonToOriginalValue();
+            ButtonSystem.ResetRecordUsedNumberIndexWhenGameStart();
+            ChallengeSystem.ResetChallenge();
             mobBattleStateEnum = MobBattleStateEnum.BattleResult;
             CallNewState();
         }

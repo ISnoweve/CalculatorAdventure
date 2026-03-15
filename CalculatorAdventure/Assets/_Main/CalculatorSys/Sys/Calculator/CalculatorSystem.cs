@@ -44,7 +44,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(GetButtonClick).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(NotifyIsLastNumberInBox).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<AllNumberButtonClickRecover>().Subscribe(NotifyIsLastNumberInBox)
+                .AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -185,19 +186,35 @@ namespace _Main.CalculatorSys.Sys.Calculator
             var length = currentCalculatorOperationAndValueCount;
 
             if (length <= 1)
+            {
+                DetectReplaceOperator(currentOperators[0]);
                 currentOperators[0] = calculatorOperator;
+            }
             else
+            {
                 for (var i = 0; i < length; i++)
                 {
                     if (currentOperators[i] != CalculatorOperator.None)
                     {
-                        if (i + 1 >= length) currentOperators[i] = calculatorOperator;
+                        if (i + 1 >= length)
+                        {
+                            DetectReplaceOperator(currentOperators[i]);
+                            currentOperators[i] = calculatorOperator;
+                        }
+
                         continue;
                     }
 
                     currentOperators[i] = calculatorOperator;
                     return;
                 }
+            }
+        }
+
+        private void DetectReplaceOperator(CalculatorOperator calculatorOperator)
+        {
+            if (calculatorOperator == CalculatorOperator.Divide || calculatorOperator == CalculatorOperator.Multiply)
+                ButtonSystem.SetOperatorButtonClickAble(calculatorOperator);
         }
 
         private void DetectFeature(in CalculatorFeature calculatorFeature)
@@ -242,6 +259,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
             if (currentCalculatorOperationAndValueCount == 1)
             {
+                DetectReplaceOperator(currentOperators[currentCalculatorOperationAndValueCount - 1]);
                 currentOperators[currentCalculatorOperationAndValueCount - 1] = CalculatorOperator.None;
                 return;
             }
@@ -251,6 +269,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
             for (var i = arrayIndex; i >= 0; i--)
             {
                 if (currentOperators[i] == CalculatorOperator.None) continue;
+                DetectReplaceOperator(currentOperators[i]);
                 currentOperators[i] = CalculatorOperator.None;
                 return;
             }
@@ -359,7 +378,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
                 var leftIndex = GetPreviousValidIndex(i - 1, recordSkipNumber);
 
-                if (leftIndex == 0) Debug.Log("Left index is 0, which means no valid operator found for index: " + i);
+                //if (leftIndex == 0) Debug.Log("Left index is 0, which means no valid operator found for index: " + i);
 
                 if (op == CalculatorOperator.Multiply)
                     numbersInBox[leftIndex] *= numbersInBox[i];
@@ -415,7 +434,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         #region Detect Calculator NumbersInBox
 
-        private void NotifyIsLastNumberInBox(AllButtonClickRecover data)
+        private void NotifyIsLastNumberInBox(AllNumberButtonClickRecover data)
         {
             var lastNumberInBoxIndex = currentCalculatorOperationAndValueCount - 1;
 

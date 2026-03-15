@@ -8,7 +8,7 @@ namespace _Main.MobBattleSys.Sys.MobSys.Event
 
         public MobTurn_UpdateBehaviourNumber(int mobAttackSkillCountDown)
         {
-            this.MobAttackSkillCountDown = mobAttackSkillCountDown;
+            MobAttackSkillCountDown = mobAttackSkillCountDown;
         }
     }
 }

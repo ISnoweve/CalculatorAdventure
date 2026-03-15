@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CalculatorGameSettingSoList
   m_EditorClassIdentifier: _Main.CalculatorSys::_Main.CalculatorSys.Data.CalculatorGameSettingSoList
   calculatorGameSettings:
-  - {fileID: 11400000, guid: 8f71ad4c59f9ca3419394dfae1e58aa2, type: 2}
   - {fileID: 11400000, guid: b27e549886ba8124d804d0156ee82ec3, type: 2}
   - {fileID: 11400000, guid: cc59411b3794884478552a6d88ac17f3, type: 2}
   - {fileID: 11400000, guid: 1f2297752b82ab44685649250075eba2, type: 2}

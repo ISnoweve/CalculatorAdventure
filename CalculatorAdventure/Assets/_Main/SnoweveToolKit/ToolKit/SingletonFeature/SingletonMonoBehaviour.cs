@@ -41,17 +41,28 @@ namespace _Main.SnoweveToolKit.ToolKit
         }
 
         protected virtual void Awake() {
-            if (_instance == null) {
-                _instance = this as T;
-                if (IsDontDestroyOnLoad) {
-                    DontDestroyOnLoad(gameObject);
-                }
-
-                _hasInstance = true;
-            }
-            else if (_instance != this) {
+            if(_instance != null && _instance != this) {
                 Destroy(gameObject);
+                return;
             }
+
+            _instance = this as T;
+            
+            if (IsDontDestroyOnLoad) {
+                DontDestroyOnLoad(gameObject);
+            }
+            
+            // if (_instance == null) {
+            //     _instance = this as T;
+            //     if (IsDontDestroyOnLoad) {
+            //         DontDestroyOnLoad(gameObject);
+            //     }
+            //
+            //     _hasInstance = true;
+            // }
+            // else if (_instance != this) {
+            //     Destroy(gameObject);
+            // }
         }
         
         protected virtual void OnDestroy() {

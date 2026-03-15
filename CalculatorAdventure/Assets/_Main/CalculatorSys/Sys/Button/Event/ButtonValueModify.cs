@@ -6,11 +6,11 @@ namespace _Main.CalculatorSys.Sys.Button.Event
 {
     public readonly struct ButtonValueModify : IEventData
     {
-        private readonly List<CalculatorButton> _buttons;
-        public List<CalculatorButton> Buttons => _buttons;
+        public List<CalculatorButton> Buttons { get; }
+
         public ButtonValueModify(List<CalculatorButton> buttons)
         {
-            _buttons = buttons;
+            Buttons = buttons;
         }
     }
 }

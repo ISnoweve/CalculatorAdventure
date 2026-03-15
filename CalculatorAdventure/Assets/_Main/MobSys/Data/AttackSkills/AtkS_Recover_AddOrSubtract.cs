@@ -3,6 +3,7 @@ using _Main.MobSys.Data.AttackSkills.Base;
 using _Main.MobSys.Data.AttackSkills.Event;
 using _Main.MobSys.Manager;
 using MessagePipe;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
 
@@ -12,7 +13,8 @@ namespace _Main.MobSys.Data.AttackSkills
         order = 4)]
     public class AtkS_Recover_AddOrSubtract : AttackSkillData
     {
-        public int randomLimitMin;
+        [Title("AtkSkill Info")] public int randomLimitMin;
+
         public int randomLimitMax;
 
         public override void Execute()

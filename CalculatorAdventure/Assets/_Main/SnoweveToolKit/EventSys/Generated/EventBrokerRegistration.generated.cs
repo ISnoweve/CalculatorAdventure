@@ -9,17 +9,21 @@ namespace EventSys.Runtime
         static partial void RegisterEventBrokers(BuiltinContainerBuilder builder)
         {
             builder.AddMessageBroker<global::_Main.CalculatorSys.Manager.Event.ButtonsSpawn>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.AllButtonClickRecover>();
-            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickRecover>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.AllNumberButtonClickRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonClickSuccess>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonRecoverOldNumber>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonSetClickRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.ButtonValueModify>();
+            builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Button.Event.SetOperatorButton>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculateResultNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotify>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorNotifyIsLastNumberAfterRecover>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorUpdate>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.Sys.Calculator.Event.CalculatorWarning>();
             builder.AddMessageBroker<global::_Main.CalculatorSys.View.UI_CalculatorButton.Event.ButtonOnClick>();
+            builder.AddMessageBroker<global::_Main.ChallengeSys.Sys.Event.ChallengeNew>();
+            builder.AddMessageBroker<global::_Main.ChallengeSys.Sys.Event.ChallengeSuccess>();
+            builder.AddMessageBroker<global::_Main.ChallengeSys.Sys.Event.ChallengeToGoalUpdate>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeInAnimationEnd>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeOutAnimationEnd>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.AfterSceneChange>();

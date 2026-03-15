@@ -1,19 +1,17 @@
-using System.Collections.Generic;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
+using _Main.ChallengeSys.Data;
+using _Main.ChallengeSys.Sys;
 using _Main.GameSceneSys.Sys;
 using _Main.MobBattleSys.MobBattleState.State;
 using _Main.MobBattleSys.Sys.MobSys;
+using _Main.MobBattleSys.Sys.SelectSys;
 using _Main.MobSys.Manager;
-using _Main.MobSys.Sys.SelectSys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.SnoweveToolKit.ToolKit;
-using _Main.SnoweveToolKit.UtilityFeature;
 using _Main.StateSys.GameStateMachineSys.Sys;
-using Sirenix.OdinInspector;
-using UnityEngine;
 
 namespace _Main.InitGameSys.Sys
 {
@@ -29,7 +27,9 @@ namespace _Main.InitGameSys.Sys
         public MobSystem mobSystem;
         public SelectMobDataSystem selectMobDataSystem;
         public MobBattleState mobBattleState;
+        public ChallengeSystem challengeSystem;
 
+        public ChallengeDataSoList challengeDataSoList;
         public PlayerData DefaultData;
         protected override bool IsDontDestroyOnLoad => true;
 
@@ -41,13 +41,17 @@ namespace _Main.InitGameSys.Sys
          *
          *  存檔的時候透過 PlayerSystem 進行存檔。
          */
-        
+
         #region Life cycle
 
         protected override void Awake()
         {
             base.Awake();
+
+            if (Instance != this) return;
+
             InitialSystem();
+            LoadSystem();
         }
 
         private void InitialSystem()
@@ -62,11 +66,12 @@ namespace _Main.InitGameSys.Sys
             mobSystem = MobSystem.Instance;
             selectMobDataSystem = SelectMobDataSystem.Instance;
             mobBattleState = MobBattleState.Instance;
+            challengeSystem = ChallengeSystem.Instance;
         }
 
-        private void LoadPlayerSystem()
+        private void LoadSystem()
         {
-            //if(TryGetPlayerSaveData());
+            challengeSystem.SetChallengeSoList(challengeDataSoList);
         }
 
         private bool TryGetPlayerSaveData()
@@ -76,7 +81,7 @@ namespace _Main.InitGameSys.Sys
 
         protected override void OnDestroy()
         {
-            ClearSystemsInstance();
+            if (Instance == this) ClearSystemsInstance();
             base.OnDestroy();
         }
 
@@ -92,6 +97,7 @@ namespace _Main.InitGameSys.Sys
             MobSystem.ClearInstance();
             SelectMobDataSystem.ClearInstance();
             MobBattleState.ClearInstance();
+            ChallengeSystem.ClearInstance();
         }
 
         #endregion

@@ -1,14 +1,12 @@
-using System;
 using EventSys.Interface;
 
 namespace _Main.CalculatorSys.Sys.Button.Event
 {
-    [Serializable]
-    public readonly struct ButtonClickRecover : IEventData
+    public readonly struct SetOperatorButton : IEventData
     {
         public byte ButtonIndex { get; }
 
-        public ButtonClickRecover(byte index)
+        public SetOperatorButton(byte index)
         {
             ButtonIndex = index;
         }

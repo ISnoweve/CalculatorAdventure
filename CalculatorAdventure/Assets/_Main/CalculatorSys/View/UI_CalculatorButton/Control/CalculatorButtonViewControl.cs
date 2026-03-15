@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager.Event;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
@@ -32,8 +33,9 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ButtonsSpawn>().Subscribe(InitializeView).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(UpdateButtonClickView).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<AllButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<ButtonClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<AllNumberButtonClickRecover>().Subscribe(UpdateAllButtonRecover).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<SetOperatorButton>().Subscribe(UpdateOperatorButtonRecover).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ButtonSetClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonRecoverOldNumber>().Subscribe(UpdateOldButton).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonValueModify>().Subscribe(UpdateButtonValueModify).AddTo(bag);
             _disposable = bag.Build();
@@ -77,21 +79,30 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         {
             if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
                 CalculatorButtonViews[data.ButtonIndex].ChangeButtonState(false);
+
+            if (CalculatorButtonViews[data.ButtonIndex].CalculatorButtonType == CalculatorButtonType.Operator)
+                CalculatorButtonViews[data.ButtonIndex].ChangeOperatorButtonState(false);
         }
 
         #endregion
 
         #region Recover
 
-        private void UpdateAllButtonRecover(AllButtonClickRecover data)
+        private void UpdateAllButtonRecover(AllNumberButtonClickRecover data)
         {
             foreach (var calculatorButtonView in _calculatorButtonViews) calculatorButtonView.ChangeButtonState(true);
         }
 
-        private void UpdateButtonRecover(ButtonClickRecover data)
+        private void UpdateButtonRecover(ButtonSetClickRecover data)
         {
             if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
                 CalculatorButtonViews[data.ButtonIndex].ChangeButtonState(true);
+        }
+
+        private void UpdateOperatorButtonRecover(SetOperatorButton data)
+        {
+            if (CalculatorButtonViews.ContainsKey(data.ButtonIndex))
+                CalculatorButtonViews[data.ButtonIndex].ChangeOperatorButtonState(true);
         }
 
 
@@ -123,10 +134,8 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         private void UpdateButtonValueModify(ButtonValueModify data)
         {
             foreach (var calculatorButton in data.Buttons)
-            {
                 if (CalculatorButtonViews.ContainsKey(calculatorButton.Index))
                     CalculatorButtonViews[calculatorButton.Index].ChangeTextByValue(calculatorButton.CurrentValue);
-            }
         }
 
         #endregion

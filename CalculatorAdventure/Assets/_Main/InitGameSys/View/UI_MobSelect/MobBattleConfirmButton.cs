@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Calculator;
+using _Main.MobBattleSys.Sys.SelectSys;
 using _Main.MobSys.Data;
 using _Main.MobSys.Manager;
-using _Main.MobSys.Sys.SelectSys;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -68,7 +68,7 @@ namespace _Main.InitGameSys.View.UI_MobSelect
             calculatorSettingDropdown.ClearOptions();
             var options = new List<string>();
             for (var i = 0; i < calculatorGameSettingSoList.CalculatorGameSettings.Length; i++)
-                options.Add((i + 1).ToString());
+                options.Add((i + 2).ToString());
             calculatorSettingDropdown.AddOptions(options);
         }
 

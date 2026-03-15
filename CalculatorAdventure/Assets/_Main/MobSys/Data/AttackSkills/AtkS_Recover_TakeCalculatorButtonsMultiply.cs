@@ -18,7 +18,8 @@ namespace _Main.MobSys.Data.AttackSkills
         menuName = "SoSetting/Mob/Skills/Recover_TakeCalculatorButtonsMultiply", order = 4)]
     public class AtkS_Recover_TakeCalculatorButtonsMultiply : AttackSkillData
     {
-        [InfoBox("Suggest not more than 2")] public int takeCount;
+        [Title("AtkSkill Info")] [InfoBox("Suggest not more than 2")]
+        public int takeCount;
 
         public override void Execute()
         {
@@ -28,7 +29,7 @@ namespace _Main.MobSys.Data.AttackSkills
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
 
             // 快速調整
-            ButtonSystem.CloseButtonClickableByAttackSkill(takeButtons);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
 
             var eventData =
                 new Event_AtkS_Recover_TakeCalculatorButtonsMultiply(takeButtons, currentQuestionNumber);

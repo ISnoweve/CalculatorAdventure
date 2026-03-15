@@ -19,13 +19,13 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
         [SerializeField] private CalculatorButtonType _calculatorButtonType;
 
         [ShowIf("_calculatorButtonType", CalculatorButtonType.Operator)] [SerializeField]
-        private CalculatorOperator _calculatorOperator;
+        private CalculatorOperator calculatorOperator;
 
         public byte index => _index;
         public Button Button => _button;
         public TMP_Text ButtonText => _buttonText;
         public CalculatorButtonType CalculatorButtonType => _calculatorButtonType;
-        public CalculatorOperator CalculatorOperator => _calculatorOperator;
+        public CalculatorOperator CalculatorOperator => calculatorOperator;
 
         #region Behaviour
 
@@ -61,6 +61,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
                     break;
                 case CalculatorButtonType.Operator:
                     _calculatorButtonType = CalculatorButtonType.Operator;
+                    calculatorOperator = button.CalculatorOperator;
                     DetectOperator(button.CalculatorOperator);
                     break;
                 case CalculatorButtonType.Feature:
@@ -74,15 +75,26 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
         private void DetectOperator(CalculatorOperator calculatorOperator)
         {
-            _buttonText.text = calculatorOperator switch
+            switch (calculatorOperator)
             {
-                CalculatorOperator.Add => "+",
-                CalculatorOperator.Subtract => "-",
-                CalculatorOperator.Multiply => "*",
-                CalculatorOperator.Divide => "/",
-
-                _ => throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null)
-            };
+                case CalculatorOperator.Add:
+                    _buttonText.text = "+";
+                    break;
+                case CalculatorOperator.Subtract:
+                    _buttonText.text = "-";
+                    break;
+                case CalculatorOperator.Multiply:
+                    _buttonText.text = "*";
+                    _button.interactable = false;
+                    break;
+                case CalculatorOperator.Divide:
+                    _buttonText.text = "/";
+                    _button.interactable = false;
+                    break;
+                case CalculatorOperator.None:
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
+            }
         }
 
         private void DetectFeature(CalculatorFeature calculatorFeature)
@@ -110,7 +122,14 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
             _button.interactable = isClickAble;
         }
-        
+
+        public void ChangeOperatorButtonState(bool isClickAble)
+        {
+            if (calculatorOperator == CalculatorOperator.Subtract ||
+                calculatorOperator == CalculatorOperator.Add) return;
+            _button.interactable = isClickAble;
+        }
+
         public void ChangeTextByValue(int text)
         {
             _buttonText.text = text.ToString();

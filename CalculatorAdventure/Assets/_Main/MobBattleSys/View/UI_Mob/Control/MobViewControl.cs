@@ -20,45 +20,6 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         [SerializeField] private UI_MobAtkSkillDescription uiMobAtkSkillDescription;
         [SerializeField] private UI_MobGetDefeated uiMobGetDefeated;
 
-        #region Life cycle
-
-        protected override void Awake()
-        {
-            base.Awake();
-            SubscribeEvent();
-        }
-
-        private IDisposable _disposable;
-
-        private void SubscribeEvent()
-        {
-            _disposable?.Dispose();
-            var bag = DisposableBag.CreateBuilder();
-            GlobalMessagePipe.GetSubscriber<SpawnMobEvent>().Subscribe(UpdateNewMobView).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Calculate_UpdateMobQuestionNumber>().Subscribe(UpdateMobQuestionNumber)
-                .AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Calculate_MobDefeated>().Subscribe(UpdateMobDefeated).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<MobTurn_UpdateBehaviourNumber>().Subscribe(UpdateMobBehaviourCountDown)
-                .AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<MobTurn_SetMobNewBehaviour>().Subscribe(SetNewMobBehaviour).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_TakeCalculatorButtonsMultiply>()
-                .Subscribe(RecoverByButtonsMultiply).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>()
-                .Subscribe(RecoverByButtonsAddOrSubtract).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_Multiply>().Subscribe(RecoverByMultiply).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_AddOrSubtract>().Subscribe(RecoverByAddOrSubtract)
-                .AddTo(bag);
-            _disposable = bag.Build();
-        }
-
-        protected override void OnDestroy()
-        {
-            _disposable?.Dispose();
-            base.OnDestroy();
-        }
-
-        #endregion
-        
         #region InitialView
 
         private void UpdateNewMobView(SpawnMobEvent data)
@@ -98,6 +59,53 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         {
             uiMobAtkSkillCountDown.UpdateNewCountDown(data.MobAttackSkillCountDown);
             StartCoroutine(Stay());
+        }
+
+        #endregion
+
+        private IEnumerator Stay()
+        {
+            yield return new WaitForSeconds(1f);
+            var finishedUpdateBehaviourCountDown = new FinishedUpdateBehaviourCountDown();
+            GlobalMessagePipe.GetPublisher<FinishedUpdateBehaviourCountDown>()
+                .Publish(finishedUpdateBehaviourCountDown);
+        }
+
+        #region Life cycle
+
+        protected override void Awake()
+        {
+            base.Awake();
+            SubscribeEvent();
+        }
+
+        private IDisposable _disposable;
+
+        private void SubscribeEvent()
+        {
+            _disposable?.Dispose();
+            var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<SpawnMobEvent>().Subscribe(UpdateNewMobView).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Calculate_UpdateMobQuestionNumber>().Subscribe(UpdateMobQuestionNumber)
+                .AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Calculate_MobDefeated>().Subscribe(UpdateMobDefeated).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<MobTurn_UpdateBehaviourNumber>().Subscribe(UpdateMobBehaviourCountDown)
+                .AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<MobTurn_SetMobNewBehaviour>().Subscribe(SetNewMobBehaviour).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_TakeCalculatorButtonsMultiply>()
+                .Subscribe(RecoverByButtonsMultiply).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>()
+                .Subscribe(RecoverByButtonsAddOrSubtract).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_Multiply>().Subscribe(RecoverByMultiply).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_AddOrSubtract>().Subscribe(RecoverByAddOrSubtract)
+                .AddTo(bag);
+            _disposable = bag.Build();
+        }
+
+        protected override void OnDestroy()
+        {
+            _disposable?.Dispose();
+            base.OnDestroy();
         }
 
         #endregion
@@ -150,13 +158,5 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         }
 
         #endregion
-        
-        private IEnumerator Stay()
-        {
-            yield return new WaitForSeconds(1f);
-            var finishedUpdateBehaviourCountDown = new FinishedUpdateBehaviourCountDown();
-            GlobalMessagePipe.GetPublisher<FinishedUpdateBehaviourCountDown>()
-                .Publish(finishedUpdateBehaviourCountDown);
-        }
     }
 }

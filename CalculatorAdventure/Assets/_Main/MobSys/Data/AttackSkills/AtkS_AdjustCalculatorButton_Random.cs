@@ -5,6 +5,7 @@ using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.AttackSkills.Base;
 using _Main.SnoweveToolKit.UtilityFeature;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
 
@@ -14,19 +15,21 @@ namespace _Main.MobSys.Data.AttackSkills
         menuName = "SoSetting/Mob/Skills/AdjustCalculatorButton_Random", order = 1)]
     public class AtkS_AdjustCalculatorButton_Random : AttackSkillData
     {
-        public int randomValueLimitMin;
+        [Title("AtkSkill Info")] public int randomValueLimitMin;
+
         public int randomValueLimitMax;
         public int adjustCount;
+
         public override void Execute()
         {
             var calculatorButtons = TakeCalculatorNumberButtons();
-            
+
             var random = new Random();
             var randomValue = random.Next(randomValueLimitMin, randomValueLimitMax);
-            
-            ButtonSystem.ModifyButtonValueByAttackSkill(calculatorButtons, randomValue);
+
+            ButtonSystem.ModifyNumberButtonValueByAttackSkill(calculatorButtons, randomValue);
         }
-        
+
         private List<CalculatorButton> TakeCalculatorNumberButtons()
         {
             var calculatorButtonsNotClick = CalculatorButtonManager.GetAllNumberButton()
@@ -35,10 +38,7 @@ namespace _Main.MobSys.Data.AttackSkills
             var takeButtons = new List<CalculatorButton>();
 
             calculatorButtonsNotClick.ShuffleList();
-            for (var i = 0; i < adjustCount; i++)
-            {
-                takeButtons.Add(calculatorButtonsNotClick[i]);
-            }
+            for (var i = 0; i < adjustCount; i++) takeButtons.Add(calculatorButtonsNotClick[i]);
 
             return takeButtons;
         }
