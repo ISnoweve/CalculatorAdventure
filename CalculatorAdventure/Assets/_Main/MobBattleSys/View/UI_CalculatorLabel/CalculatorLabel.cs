@@ -33,7 +33,9 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
             for (var i = 0; i < currentCalculatorOperationAndValueCount; i++)
             {
                 labelText.text += "\u25a1";
+                if (i <= 0) labelText.text += "(";
                 labelText.text += 0;
+                if(i >= currentCalculatorOperationAndValueCount-1) labelText.text += ")";
             }
         }
 
@@ -58,7 +60,9 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
             for (var i = 0; i < currentCalculatorOperationAndValueCount; i++)
             {
                 labelText.text += "\u25a1";
+                if (i <= 0) labelText.text += "(";
                 labelText.text += 0;
+                if(i >= currentCalculatorOperationAndValueCount-1) labelText.text += ")";
             }
         }
 
@@ -131,7 +135,9 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
                         throw new ArgumentOutOfRangeException();
                 }
 
+                if (i <= 0) labelText.text += "(";
                 labelText.text += data.NumbersInBox[i];
+                if(i >= data.IndexCount-1) labelText.text += ")";
             }
         }
 

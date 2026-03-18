@@ -2,10 +2,8 @@ using UnityEngine;
 
 namespace _Main.UniqueItemSys.Data.EffectData.Base
 {
-    public class UniqueItemEffectBase : ScriptableObject
+    public abstract class UniqueItemEffectBase : ScriptableObject
     {
-        public virtual void ExecuteEffect()
-        {
-        }
+        public abstract void ExecuteEffect();
     }
 }
