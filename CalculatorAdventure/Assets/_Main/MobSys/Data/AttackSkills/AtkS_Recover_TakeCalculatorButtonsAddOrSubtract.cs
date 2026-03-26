@@ -7,7 +7,7 @@ using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.AttackSkills.Base;
 using _Main.MobSys.Data.AttackSkills.Event;
 using _Main.MobSys.Manager;
-using _Main.SnoweveToolKit.UtilityFeature;
+using _Main.UtilityFeature;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;

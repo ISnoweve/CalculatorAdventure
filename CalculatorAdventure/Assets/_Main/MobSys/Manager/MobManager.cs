@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
+using _Main.MobBattleSys.MobBattleState.Event;
+using _Main.MobBattleSys.Sys.SelectSys;
 using _Main.MobSys.Data;
 using _Main.MobSys.Manager.Event;
 using _Main.MobSys.Manager.RunTime;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine;
 
@@ -17,9 +19,33 @@ namespace _Main.MobSys.Manager
         public MobDataSoList MobDataSoList => mobDataSoList;
         public static Mob CurrentsMob => Instance.currentsMob;
 
-        public static void SpawnMob(int index)
+        protected override void Initialize()
         {
-            var newMob = new Mob(Instance.mobDataSoList.Mobs.First(x => x.Id == index));
+            base.Initialize();
+            SubscribeEvent();
+        }
+
+        private IDisposable _disposable;
+
+        private void SubscribeEvent()
+        {
+            _disposable?.Dispose();
+            var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(SpawnMob).AddTo(bag);
+            _disposable = bag.Build();
+        }
+
+        protected override void Release()
+        {
+            _disposable?.Dispose();
+            base.Release();
+        }
+        
+        public static void SpawnMob(NotifySetMobBattle data)
+        {
+            int dataIndex = SelectMobDataSystem.CurrentSelectMobDataId;
+            
+            var newMob = new Mob(Instance.mobDataSoList.Mobs.First(x => x.Id == dataIndex));
             Instance.currentsMob = newMob;
 
             var spawnMobEvent = new SpawnMobEvent(newMob);

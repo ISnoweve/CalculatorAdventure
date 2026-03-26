@@ -3,20 +3,48 @@ using System.Collections.Generic;
 using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager.Event;
+using _Main.CalculatorSys.Manager.Interface;
 using _Main.CalculatorSys.Manager.Runtime;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.MobBattleSys.MobBattleState.Event;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine;
 
 namespace _Main.CalculatorSys.Manager
 {
     [Serializable]
-    public class CalculatorButtonManager : Singleton<CalculatorButtonManager>
+    public class CalculatorButtonManager : Singleton<CalculatorButtonManager> , IButtonManager
     {
         [SerializeField] private List<CalculatorButton> calculatorButtons;
         [SerializeField] private List<CalculatorButton> numberButtons;
         [SerializeField] private CalculatorButton multiplyButton;
         [SerializeField] private CalculatorButton divideButton;
+
+        #region Life cycle
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+            SubscribeEvent();
+        }
+
+        private IDisposable _disposable;
+
+        private void SubscribeEvent()
+        {
+            _disposable?.Dispose();
+            var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(CallRuntimeButtons).AddTo(bag);
+            _disposable = bag.Build();
+        }
+
+        protected override void Release()
+        {
+            _disposable?.Dispose();
+            base.Release();
+        }
+
+        #endregion
 
         public static void InitializeButtons(CalculatorButtonsData buttonsData)
         {
@@ -37,14 +65,8 @@ namespace _Main.CalculatorSys.Manager
                     Instance.numberButtons.Add(calculatorButton);
             }
         }
-
-        public static void CallRuntimeButtons()
-        {
-            var buttonsSpawn = new ButtonsSpawn(Instance.calculatorButtons);
-            GlobalMessagePipe.GetPublisher<ButtonsSpawn>().Publish(buttonsSpawn);
-        }
-
-        public static List<CalculatorButton> GetAllButton()
+        
+        public List<CalculatorButton> GetAllButton()
         {
             return Instance.calculatorButtons;
         }
@@ -81,6 +103,12 @@ namespace _Main.CalculatorSys.Manager
         public static CalculatorButton GetDivideButton()
         {
             return Instance.divideButton;
+        }
+        
+        public void CallRuntimeButtons(NotifySetMobBattle data)
+        {
+            var buttonsSpawn = new ButtonsSpawn(Instance.calculatorButtons);
+            GlobalMessagePipe.GetPublisher<ButtonsSpawn>().Publish(buttonsSpawn);
         }
     }
 }

@@ -1,6 +1,6 @@
 using System.Runtime.CompilerServices;
 
-namespace _Main.SnoweveToolKit.ResourceSys.Const
+namespace _Main.ResourceSys.Const
 {
     public static class ResourceConstPath
     {

@@ -1,7 +1,7 @@
 using System;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView;
 using _Main.GameSceneSys.Sys.Event;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine;
 

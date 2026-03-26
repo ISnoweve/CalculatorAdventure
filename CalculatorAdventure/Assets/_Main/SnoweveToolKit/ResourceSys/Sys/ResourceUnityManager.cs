@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.ToolKit.SingletonFeature;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
-namespace _Main.SnoweveToolKit.ResourceSys.Sys
+namespace _Main.ResourceSys.Sys
 {
     [Serializable]
     public sealed class ResourceUnityManager : Singleton<ResourceUnityManager>

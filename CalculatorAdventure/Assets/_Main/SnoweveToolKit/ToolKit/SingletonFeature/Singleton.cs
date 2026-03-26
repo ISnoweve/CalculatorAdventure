@@ -1,4 +1,4 @@
-namespace _Main.SnoweveToolKit.ToolKit
+namespace _Main.ToolKit.SingletonFeature
 {
     public abstract class Singleton<T> where T : Singleton<T>, new()
     {

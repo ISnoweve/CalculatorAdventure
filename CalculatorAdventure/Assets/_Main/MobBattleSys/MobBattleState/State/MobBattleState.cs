@@ -10,8 +10,8 @@ using _Main.MobBattleSys.Sys.MobSys.Event;
 using _Main.MobBattleSys.Sys.SelectSys;
 using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
 using _Main.MobSys.Manager;
-using _Main.SnoweveToolKit.ToolKit;
 using _Main.StateSys.GameStateMachineSys.Enum;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine; 
 
@@ -29,7 +29,7 @@ namespace _Main.MobBattleSys.MobBattleState.State
         {
             detectGameState = GameState.InMobBattle;
             SubscribeEvent();
-            base.Initialize();
+            base.Initialize(); 
         }
 
         private IDisposable _disposable;
@@ -60,11 +60,8 @@ namespace _Main.MobBattleSys.MobBattleState.State
         private void SetMobBattle(AfterSceneChange data)
         {
             if (data.CurrentGameState != detectGameState) return;
-            CalculatorButtonManager.CallRuntimeButtons();
-            ButtonSystem.ResetNumberButtonToOriginalValue();
-            ButtonSystem.ResetRecordUsedNumberIndexWhenGameStart();
-            MobManager.SpawnMob(SelectMobDataSystem.CurrentSelectMobDataId);
-            ChallengeSystem.InitChallenge();
+            NotifySetMobBattle notifySetMobBattle = new NotifySetMobBattle();
+            GlobalMessagePipe.GetPublisher<NotifySetMobBattle>().Publish(notifySetMobBattle);
         }
 
         private void StartGame(Event_FadeOutAnimationEnd data)
@@ -111,9 +108,6 @@ namespace _Main.MobBattleSys.MobBattleState.State
 
         private void StateEnter_BattleResult(Calculate_MobDefeated data)
         {
-            ButtonSystem.ResetNumberButtonToOriginalValue();
-            ButtonSystem.ResetRecordUsedNumberIndexWhenGameStart();
-            ChallengeSystem.ResetChallenge();
             mobBattleStateEnum = MobBattleStateEnum.BattleResult;
             CallNewState();
         }

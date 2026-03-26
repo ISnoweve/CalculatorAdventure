@@ -6,7 +6,9 @@ using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Control;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Event;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.MobBattleSys.MobBattleState.Enum;
+using _Main.MobBattleSys.MobBattleState.Event;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine;
 
@@ -16,6 +18,7 @@ namespace _Main.CalculatorSys.Sys.Button
     public class ButtonSystem : Singleton<ButtonSystem>
     {
         [SerializeField] private List<byte> recordUsedNumberIndex;
+        
 
         #region Lify cycle
 
@@ -33,14 +36,48 @@ namespace _Main.CalculatorSys.Sys.Button
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ButtonOnClick>().Subscribe(DetectButtonClickAble).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(SettingButtonSystem).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<NotifyMobBattleNewState>().Subscribe(ResetAfterBattle).AddTo(bag);
             _disposable = bag.Build();
         }
 
         protected override void Release()
         {
             _disposable?.Dispose();
-            base.Release();
+            base.Release(); 
         }
+
+        #region Initial Setting
+
+        private void SettingButtonSystem(NotifySetMobBattle data)
+        {
+            ResetNumberButtonToOriginalValue();
+            ResetRecordUsedNumberIndexWhenGameStart();
+        }
+
+        private void ResetAfterBattle(NotifyMobBattleNewState data)
+        {
+            if(data.NewState != MobBattleStateEnum.BattleResult)return;
+            ResetNumberButtonToOriginalValue();
+            ResetRecordUsedNumberIndexWhenGameStart();
+        }
+
+        private void ResetNumberButtonToOriginalValue()
+        {
+            foreach (var calculatorButton in CalculatorButtonManager.GetAllActivateNumberButton())
+                calculatorButton.ResetCurrentValue();
+
+            var calculatorButtons = CalculatorButtonManager.GetAllActivateNumberButton();
+            var buttonValueModify = new ButtonValueModify(calculatorButtons);
+            GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
+        }
+
+        private void ResetRecordUsedNumberIndexWhenGameStart()
+        {
+            Instance.recordUsedNumberIndex.Clear();
+        }
+
+        #endregion
 
         #endregion
 
@@ -162,21 +199,6 @@ namespace _Main.CalculatorSys.Sys.Button
 
             var buttonValueModify = new ButtonValueModify(takeButtons);
             GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
-        }
-
-        public static void ResetNumberButtonToOriginalValue()
-        {
-            foreach (var calculatorButton in CalculatorButtonManager.GetAllActivateNumberButton())
-                calculatorButton.ResetCurrentValue();
-
-            var calculatorButtons = CalculatorButtonManager.GetAllActivateNumberButton();
-            var buttonValueModify = new ButtonValueModify(calculatorButtons);
-            GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
-        }
-
-        public static void ResetRecordUsedNumberIndexWhenGameStart()
-        {
-            Instance.recordUsedNumberIndex.Clear();
         }
 
         public static void SetOperatorButtonClickAble(CalculatorOperator calculatorOperator)

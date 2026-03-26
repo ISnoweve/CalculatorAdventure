@@ -1,6 +1,7 @@
+using _Main.ToolKit.SingletonFeature;
 using UnityEngine;
 
-namespace _Main.SnoweveToolKit.ToolKit.UI_LoadPanel
+namespace _Main.ToolKit.UI_LoadPanel
 {
     public class EachLoadPanel : SingletonMonoBehaviour<EachLoadPanel>
     {

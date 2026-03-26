@@ -18,7 +18,11 @@ namespace _Main.MobSys.Data
 
         #region Basic Info
 
-        [Title("Basic Info")] [SerializeField] private string name;
+        [Title("Basic Info")] 
+        
+        [SerializeField] private string mobId;
+        
+        [SerializeField] private string name;
 
         [TextArea] [SerializeField] private string description;
         public string Name => name;

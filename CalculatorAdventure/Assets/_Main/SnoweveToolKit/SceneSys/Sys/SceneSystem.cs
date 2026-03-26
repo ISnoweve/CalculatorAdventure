@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.ToolKit.SingletonFeature;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _Main.SnoweveToolKit.SceneSys.Sys
+namespace _Main.SceneSys.Sys
 {
     public class SceneSystem : Singleton<SceneSystem>
     {

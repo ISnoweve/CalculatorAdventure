@@ -6,7 +6,9 @@ using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.ChallengeSys.Data;
 using _Main.ChallengeSys.Enum;
 using _Main.ChallengeSys.Sys.Event;
-using _Main.SnoweveToolKit.ToolKit;
+using _Main.MobBattleSys.MobBattleState.Enum;
+using _Main.MobBattleSys.MobBattleState.Event;
+using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -36,6 +38,8 @@ namespace _Main.ChallengeSys.Sys
         {
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(InitChallenge).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<NotifyMobBattleNewState>().Subscribe(ResetChallengeAfterBattle).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(CheckChallengePass).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<CalculateResultNotify>().Subscribe(CheckChallengePass).AddTo(bag);
             _disposable = bag.Build();
@@ -47,6 +51,31 @@ namespace _Main.ChallengeSys.Sys
             base.Release();
         }
 
+        #region Initial
+
+        public void InitChallenge(NotifySetMobBattle data)
+        {
+            Instance.ResetChallenge();
+            Instance.SetChallenge();
+        }
+        
+        private void ResetChallenge()
+        {
+            Instance.currentChallengeData = null;
+            Instance.challengeToGoalCount = 0;
+            Instance.currentChallengeIndex = 0;
+        }
+        
+        private void ResetChallengeAfterBattle(NotifyMobBattleNewState data)
+        {
+            if(data.NewState != MobBattleStateEnum.BattleResult)return;
+            Instance.currentChallengeData = null;
+            Instance.challengeToGoalCount = 0;
+            Instance.currentChallengeIndex = 0;
+        }
+
+        #endregion
+
         #endregion
 
         #region Behaviour
@@ -56,17 +85,7 @@ namespace _Main.ChallengeSys.Sys
             challengeAllData = challengeDataSoList;
         }
 
-        public static void ResetChallenge()
-        {
-            Instance.currentChallengeData = null;
-            Instance.challengeToGoalCount = 0;
-            Instance.currentChallengeIndex = 0;
-        }
-
-        public static void InitChallenge()
-        {
-            Instance.SetChallenge();
-        }
+        
 
         [Button]
         public void SetChallenge()
@@ -103,6 +122,8 @@ namespace _Main.ChallengeSys.Sys
 
         private void CheckChallengePass(CalculateResultNotify data)
         {
+            Debug.Log("asd");
+            
             if (currentChallengeData == null) return;
 
             if (!currentChallengeData.CheckIsChallengePass(data.Result)) return;

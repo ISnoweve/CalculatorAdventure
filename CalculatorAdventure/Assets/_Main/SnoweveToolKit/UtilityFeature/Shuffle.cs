@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace _Main.SnoweveToolKit.UtilityFeature
+namespace _Main.UtilityFeature
 {
     public static class Shuffle
     {

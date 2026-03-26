@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace _Main.SnoweveToolKit.ToolKit
+namespace _Main.ToolKit.SingletonFeature
 {
     [DisallowMultipleComponent]
     public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : SingletonMonoBehaviour<T>
