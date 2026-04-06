@@ -5,6 +5,7 @@ using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.MobBattleSys.Sys.MobSys.Event;
 using _Main.MobSys.Manager;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
 
 namespace _Main.MobBattleSys.Sys.MobSys
@@ -28,6 +29,7 @@ namespace _Main.MobBattleSys.Sys.MobSys
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<CalculateResultNotify>().Subscribe(CalculatePlayerSendResult).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<NotifyMobBattleNewState>().Subscribe(MobBehaviorTurn).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_ExecuteCalculateToMobBeforePlayerRound>().Subscribe(UniqueItemModifyQuestionNumber).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -80,28 +82,22 @@ namespace _Main.MobBattleSys.Sys.MobSys
 
         #endregion
 
-        #region Calculate Player Send Result
+        #region Modify Mob Question Number By other System
 
+        private void UniqueItemModifyQuestionNumber(Event_ExecuteCalculateToMobBeforePlayerRound data)
+        {
+            MobManager.CurrentsMob.ModifyQuestionNumber(data.ModifyNumber, data.CalculatorOperator);
+            var calculateUpdateMobNumber = new UniqueItem_UpdateMobQuestionNumber(
+                    MobManager.CurrentsMob.CurrentQuestionNumber, data.ModifyNumber, data.CalculatorOperator);
+            GlobalMessagePipe.GetPublisher<UniqueItem_UpdateMobQuestionNumber>().Publish(calculateUpdateMobNumber);
+        }
+        
         private void CalculatePlayerSendResult(CalculateResultNotify data)
         {
             MobManager.CurrentsMob.ModifyQuestionNumber(data.Result, data.FirstOperator);
-            DetectMobDefeated();
-        }
-
-        private void DetectMobDefeated()
-        {
-            if (MobManager.CurrentsMob.CurrentQuestionNumber == 0)
-            {
-                var calculateMobDefeated = new Calculate_MobDefeated(MobManager.CurrentsMob.CurrentQuestionNumber);
-                GlobalMessagePipe.GetPublisher<Calculate_MobDefeated>().Publish(calculateMobDefeated);
-            }
-            else
-            {
-                var calculateUpdateMobQuestionNumber =
-                    new Calculate_UpdateMobQuestionNumber(MobManager.CurrentsMob.CurrentQuestionNumber);
-                GlobalMessagePipe.GetPublisher<Calculate_UpdateMobQuestionNumber>()
-                    .Publish(calculateUpdateMobQuestionNumber);
-            }
+            var calculateUpdateMobNumber = new Calculate_UpdateMobQuestionNumber(
+                MobManager.CurrentsMob.CurrentQuestionNumber, data.Result, data.FirstOperator);
+            GlobalMessagePipe.GetPublisher<Calculate_UpdateMobQuestionNumber>().Publish(calculateUpdateMobNumber);
         }
 
         #endregion

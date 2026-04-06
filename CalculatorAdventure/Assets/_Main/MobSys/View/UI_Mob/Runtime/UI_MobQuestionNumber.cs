@@ -1,3 +1,12 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using _Main.MobBattleSys.Sys.MobSys.Event;
+using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
+using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
+using _Main.MobSys.Manager;
+using DG.Tweening;
+using MessagePipe;
 using TMPro;
 using UnityEngine;
 
@@ -7,6 +16,12 @@ namespace _Main.MobBattleSys.View.UI_Mob.Runtime
     {
         [SerializeField] private TMP_Text questionNumberText;
         [SerializeField] private int currentQuestionNumber;
+        
+        [SerializeField] private List<int> modifyQueue = new();
+        
+        [SerializeField] private float impactAnimationDuration = 1f;
+        [SerializeField] private Vector3 impactAnimationStrength = new(5f, 5f, 0f);
+        private Coroutine animationCoroutine;
 
         #region Life Cycle
 
@@ -30,11 +45,47 @@ namespace _Main.MobBattleSys.View.UI_Mob.Runtime
             UpdateQuestionNumberText();
         }
 
-        public void UpdateNewQuestionNumber(int questionNumber)
+        public void UpdateNewQuestionNumber(int questionNumber,Action onFinish = null)
         {
-            InitializeCurrentQuestionNumber(questionNumber);
+            modifyQueue.Add(questionNumber);
+            if (animationCoroutine != null)
+            {
+                return;
+            }
+            animationCoroutine = StartCoroutine(UpdateNewQuestionNumberAnimation(onFinish));
         }
 
+        private IEnumerator UpdateNewQuestionNumberAnimation(Action onFinish = null)
+        {
+            currentQuestionNumber = modifyQueue[0];
+            modifyQueue.RemoveAt(0);
+            UpdateQuestionNumberText();
+            questionNumberText.transform.DOShakePosition(impactAnimationDuration, impactAnimationStrength);
+            yield return new WaitForSeconds(impactAnimationDuration);
+            animationCoroutine = null;
+            
+            if (CheckModifyQueue())
+            {
+                StartCoroutine(UpdateNewQuestionNumberAnimation());
+            }
+            else
+            {
+                if (currentQuestionNumber == 0)
+                {
+                    var calculateMobDefeated = new Calculate_MobDefeated();
+                    GlobalMessagePipe.GetPublisher<Calculate_MobDefeated>().Publish(calculateMobDefeated);
+                }
+                else
+                {
+                    onFinish?.Invoke();
+                }
+            }
+        }
+        
+        private bool CheckModifyQueue()
+        {
+            return modifyQueue.Count >= 1;
+        }
         #endregion
     }
 }

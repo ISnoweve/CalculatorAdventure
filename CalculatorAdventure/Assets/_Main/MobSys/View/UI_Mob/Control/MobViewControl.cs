@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using _Main.MobBattleSys.Sys.MobSys.Event;
 using _Main.MobBattleSys.View.UI_Mob.Runtime;
+using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
 using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
 using _Main.MobSys.Data.AttackSkills.Event;
 using _Main.MobSys.Manager.Event;
@@ -19,58 +20,7 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         [SerializeField] private UI_MobAtkSkillCountDown uiMobAtkSkillCountDown;
         [SerializeField] private UI_MobAtkSkillDescription uiMobAtkSkillDescription;
         [SerializeField] private UI_MobGetDefeated uiMobGetDefeated;
-
-        #region InitialView
-
-        private void UpdateNewMobView(SpawnMobEvent data)
-        {
-            uiMobView.Initialize(data.Mob);
-            uiMobQuestionNumber.Initialize(data.Mob.CurrentQuestionNumber);
-            uiMobAtkSkillCountDown.Initialize(data.Mob.NextAttackSkill);
-            uiMobAtkSkillDescription.SetDescription(data.Mob.NextAttackSkill.Description);
-        }
-
-        #endregion
-
-        #region Update By MobQuestionNumber Calculate Result
-
-        private void UpdateMobQuestionNumber(Calculate_UpdateMobQuestionNumber data)
-        {
-            uiMobQuestionNumber.UpdateNewQuestionNumber(data.QuestionNumber);
-            var finishedUpdateNewNumber = new FinishedUpdateNewNumber();
-            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
-        }
-
-        #endregion
-
-        #region Mob Defeated
-
-        private void UpdateMobDefeated(Calculate_MobDefeated data)
-        {
-            uiMobQuestionNumber.UpdateNewQuestionNumber(0);
-            uiMobGetDefeated.ShowDefeatedPanel();
-        }
-
-        #endregion
-
-        #region Update By Mob Behaviour CountDown
-
-        private void UpdateMobBehaviourCountDown(MobTurn_UpdateBehaviourNumber data)
-        {
-            uiMobAtkSkillCountDown.UpdateNewCountDown(data.MobAttackSkillCountDown);
-            StartCoroutine(Stay());
-        }
-
-        #endregion
-
-        private IEnumerator Stay()
-        {
-            yield return new WaitForSeconds(1f);
-            var finishedUpdateBehaviourCountDown = new FinishedUpdateBehaviourCountDown();
-            GlobalMessagePipe.GetPublisher<FinishedUpdateBehaviourCountDown>()
-                .Publish(finishedUpdateBehaviourCountDown);
-        }
-
+        
         #region Life cycle
 
         protected override void Awake()
@@ -99,6 +49,8 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
             GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_Multiply>().Subscribe(RecoverByMultiply).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Event_AtkS_Recover_AddOrSubtract>().Subscribe(RecoverByAddOrSubtract)
                 .AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<UniqueItem_UpdateMobQuestionNumber>().Subscribe(UpdateMobQuestionNumber).
+                AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -109,8 +61,46 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
         }
 
         #endregion
+        
+        #region InitialView
 
-        #region Update Mob By AttackSkill
+        private void UpdateNewMobView(SpawnMobEvent data)
+        {
+            uiMobView.Initialize(data.Mob);
+            uiMobQuestionNumber.Initialize(data.Mob.CurrentQuestionNumber);
+            uiMobAtkSkillCountDown.Initialize(data.Mob.NextAttackSkill);
+            uiMobAtkSkillDescription.SetDescription(data.Mob.NextAttackSkill.Description);
+        }
+
+        #endregion
+
+        #region Update By MobQuestionNumber Calculate Result
+
+        private void UpdateMobQuestionNumber(Calculate_UpdateMobQuestionNumber data)
+        {
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.QuestionNumber,FinishUpdateNumberByCalculateResult);
+        }
+
+        private void UpdateMobQuestionNumber(UniqueItem_UpdateMobQuestionNumber data)
+        {
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.QuestionNumber,FinishUpdateNumberByUniqueItem);
+        }
+        
+        private void FinishUpdateNumberByUniqueItem()
+        {
+            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByUniqueItem);
+            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
+        }
+        
+        private void FinishUpdateNumberByCalculateResult()
+        {
+            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByCalculateResult);
+            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
+        }
+
+        #endregion
+
+        #region Update Mob Behaviour 
 
         private void SetNewMobBehaviour(MobTurn_SetMobNewBehaviour data)
         {
@@ -118,31 +108,60 @@ namespace _Main.MobBattleSys.View.UI_Mob.Control
             uiMobAtkSkillDescription.SetDescription(data.AtkSData.Description);
             StartCoroutine(Stay());
         }
+        
+        private void UpdateMobBehaviourCountDown(MobTurn_UpdateBehaviourNumber data)
+        {
+            uiMobAtkSkillCountDown.UpdateNewCountDown(data.MobAttackSkillCountDown);
+            StartCoroutine(Stay());
+        }
+        
+        private IEnumerator Stay()
+        {
+            yield return new WaitForSeconds(1f);
+            var finishedUpdateBehaviourCountDown = new FinishedUpdateBehaviourCountDown();
+            GlobalMessagePipe.GetPublisher<FinishedUpdateBehaviourCountDown>()
+                .Publish(finishedUpdateBehaviourCountDown);
+        }
+
+        #endregion
+        
+        #region Update Mob By AttackSkill
 
         private void RecoverByButtonsMultiply(Event_AtkS_Recover_TakeCalculatorButtonsMultiply data)
         {
-            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber);
-            StartCoroutine(Stay());
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber,FinishUpdateNumberByAttackSkillRecover);
         }
 
         private void RecoverByButtonsAddOrSubtract(Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract data)
         {
             var index = 0;
-            foreach (var VARIABLE in data.TakeButtons) index += VARIABLE.CurrentValue;
-            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber);
-            StartCoroutine(Stay());
+            foreach (var variable in data.TakeButtons) index += variable.CurrentValue;
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber,FinishUpdateNumberByAttackSkillRecover);
         }
 
         private void RecoverByMultiply(Event_AtkS_Recover_Multiply data)
         {
-            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber);
-            StartCoroutine(Stay());
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber,FinishUpdateNumberByAttackSkillRecover);
         }
 
         private void RecoverByAddOrSubtract(Event_AtkS_Recover_AddOrSubtract data)
         {
-            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber);
-            StartCoroutine(Stay());
+            uiMobQuestionNumber.UpdateNewQuestionNumber(data.MobNewQuestionNumber,FinishUpdateNumberByAttackSkillRecover);
+        }
+        
+        private void FinishUpdateNumberByAttackSkillRecover()
+        {
+            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByAttackSkillRecover);
+            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
+        }
+
+        #endregion
+        
+        #region Mob Defeated
+
+        private void UpdateMobDefeated(Calculate_MobDefeated data)
+        {
+            uiMobGetDefeated.ShowDefeatedPanel();
         }
 
         #endregion

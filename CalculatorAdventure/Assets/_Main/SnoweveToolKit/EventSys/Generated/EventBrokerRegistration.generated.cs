@@ -34,6 +34,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.Calculate_UpdateMobQuestionNumber>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.MobTurn_SetMobNewBehaviour>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.MobTurn_UpdateBehaviourNumber>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.Sys.MobSys.Event.UniqueItem_UpdateMobQuestionNumber>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.View.UI_Mob.Runtime.Event.FinishedUpdateBehaviourCountDown>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.View.UI_Mob.Runtime.Event.FinishedUpdateNewNumber>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.AttackSkills.Event.Event_AtkS_Recover_AddOrSubtract>();
@@ -44,10 +45,10 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.Sys.Event.GameStateMachineChangeState>();
             builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.View.Event.SetNewGameState>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_ExecuteCalculateToMobBeforePlayerRound>();
-            builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_ExecuteCalculatorAfterPlayerSendResult>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_GiveCalculatorNumber>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_GivePlayerMoneyEverySpot>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_IncreaseCalculatorBoxLimit>();
+            builder.AddMessageBroker<global::_Main.UniqueItemSys.Sys.Event.NoUniqueItemTrigger>();
         }
     }
 }

@@ -12,6 +12,9 @@ using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.StateSys.GameStateMachineSys.Sys;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Data;
+using _Main.UniqueItemSys.Manager;
+using _Main.UniqueItemSys.Sys;
 
 namespace _Main.InitGameSys.Sys
 {
@@ -28,8 +31,11 @@ namespace _Main.InitGameSys.Sys
         public SelectMobDataSystem selectMobDataSystem;
         public MobBattleState mobBattleState;
         public ChallengeSystem challengeSystem;
+        public UniqueItemManager uniqueItemManager;
+        public UniqueItemSystem uniqueItemSystem;
 
         public ChallengeDataSoList challengeDataSoList;
+        public UniqueItemDataSoList uniqueItemDataSoList;
         public PlayerData DefaultData;
         protected override bool IsDontDestroyOnLoad => true;
 
@@ -67,11 +73,14 @@ namespace _Main.InitGameSys.Sys
             selectMobDataSystem = SelectMobDataSystem.Instance;
             mobBattleState = MobBattleState.Instance;
             challengeSystem = ChallengeSystem.Instance;
+            uniqueItemManager = UniqueItemManager.Instance;
+            uniqueItemSystem = UniqueItemSystem.Instance;
         }
 
         private void LoadSystem()
         {
             challengeSystem.SetChallengeSoList(challengeDataSoList);
+            uniqueItemSystem.SetUniqueItemDataSoList(uniqueItemDataSoList);
         }
 
         private bool TryGetPlayerSaveData()
@@ -98,6 +107,8 @@ namespace _Main.InitGameSys.Sys
             SelectMobDataSystem.ClearInstance();
             MobBattleState.ClearInstance();
             ChallengeSystem.ClearInstance();
+            UniqueItemManager.ClearInstance();
+            UniqueItemSystem.ClearInstance();
         }
 
         #endregion

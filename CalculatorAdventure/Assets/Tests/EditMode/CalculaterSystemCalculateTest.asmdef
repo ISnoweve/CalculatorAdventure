@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "_Main.CalculatorSys",
-        "_Main.ToolKit"
+        "_Main.ToolKit",
+        "_Main.CalculatorSys.Enum"
     ],
     "includePlatforms": [
         "Editor"

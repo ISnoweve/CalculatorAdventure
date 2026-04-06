@@ -30,7 +30,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(14, result, "2+3+4+5 should equal 14");
         }
         
@@ -57,7 +57,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(3, result, "9-1-2-3 should equal 3");
         }
         
@@ -84,7 +84,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(-2, result, "3-1+2-6 should equal -2");
         }
         
@@ -109,7 +109,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(336, result, "7+8*6 should equal 336");
         }
         
@@ -136,7 +136,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(672, result, "7+8*6*2 should equal 672");
         }
         
@@ -165,7 +165,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(1344, result, "7+8*6*2*2 should equal 1344");
         }
         
@@ -190,7 +190,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(55, result, "7+8+6 should equal 55");
         }
         
@@ -215,7 +215,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(32, result, "8+4*6 should equal 32");
         }
         
@@ -240,7 +240,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(-16, result, "8-4*6 should equal -16");
         }
         
@@ -265,7 +265,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(26, result, "8*4-6 should equal 26");
         }
         
@@ -292,7 +292,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(1, result, "127÷11÷5÷2 should equal 1");
         }
         
@@ -315,7 +315,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(1, result, "2/2 should equal 1");
         }
         
@@ -340,7 +340,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(1, result, "7/8+1 should equal 1");
         }
 
@@ -365,7 +365,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(11, result, "7+8/2 should equal 11");
         }
         
@@ -390,7 +390,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(75, result, "80-40/8 should equal 75");
         }
         
@@ -415,7 +415,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(-2, result, "2/2-3 should equal -2");
         }
         
@@ -442,7 +442,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(-2, result, "99/11-33/3 should equal -2");
         }
         
@@ -471,7 +471,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(34, result, "45/3+74/4+2 should equal 34");
         }
         
@@ -498,7 +498,7 @@ namespace Tests.EditMode
             calculatorSystem.SetCurrentOperators(operators);
             calculatorSystem.SetNumbersInBox(numbers);
             
-            int result = calculatorSystem.SetEqualTest();
+            int result = calculatorSystem.GetEqual();
             Assert.AreEqual(616, result, "630-7÷3x7 should equal 616");
         }
     }

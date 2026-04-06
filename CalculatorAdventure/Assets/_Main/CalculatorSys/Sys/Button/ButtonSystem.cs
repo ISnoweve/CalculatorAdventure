@@ -130,6 +130,11 @@ namespace _Main.CalculatorSys.Sys.Button
         {
             recordUsedNumberIndex.Clear();
         }
+        
+        public static void SetButtonActivate(byte index, int newValue)
+        {
+            CalculatorButtonManager.GetButtonByIndex(index).SetValueAndType(newValue);
+        }
 
         #endregion
 
@@ -181,7 +186,7 @@ namespace _Main.CalculatorSys.Sys.Button
                 Instance.RecordUsedNumberIndex(calculatorButton.Index);
             }
 
-            //之後要改
+            // 這裡的
             if (Instance.DetectAllNumberButtonClickAble())
             {
                 var buttonClickRecover = new AllNumberButtonClickRecover();

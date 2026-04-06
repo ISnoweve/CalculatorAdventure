@@ -31,7 +31,6 @@ namespace _Main.MobBattleSys.View.UI_Mob.Runtime
 
         private void UpdateAttackSkillCountDown(int countDown)
         {
-            //if (currentAttackSkillCountDown <= 0) return;
             currentAttackSkillCountDown = countDown;
             UpdateCountDownText();
         }

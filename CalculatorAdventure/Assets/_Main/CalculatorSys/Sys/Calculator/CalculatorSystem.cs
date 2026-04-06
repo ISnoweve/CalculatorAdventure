@@ -378,8 +378,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
                 var leftIndex = GetPreviousValidIndex(i - 1, recordSkipNumber);
 
-                //if (leftIndex == 0) Debug.Log("Left index is 0, which means no valid operator found for index: " + i);
-
                 if (op == CalculatorOperator.Multiply)
                     numbersInBox[leftIndex] *= numbersInBox[i];
                 else
@@ -475,9 +473,9 @@ namespace _Main.CalculatorSys.Sys.Calculator
             DeleteOperator();
         }
 
-        public int SetEqualTest()
+        public int GetEqual()
         {
-            return CalculateMultiNumber();
+            return DetectAllBoxFilled() ? 0 : CalculateMultiNumber();
         }
 
         #endregion

@@ -122,8 +122,6 @@ namespace _Main.ChallengeSys.Sys
 
         private void CheckChallengePass(CalculateResultNotify data)
         {
-            Debug.Log("asd");
-            
             if (currentChallengeData == null) return;
 
             if (!currentChallengeData.CheckIsChallengePass(data.Result)) return;

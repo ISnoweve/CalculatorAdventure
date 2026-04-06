@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
@@ -38,15 +40,20 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorCoverPanelView
 
         private void SetActiveCoverPanel(NotifyMobBattleNewState data)
         {
-            Debug.Log(data.NewState);
             if (data.NewState == MobBattleStateEnum.PlayerTurn)
             {
-                coverPanel.SetActive(false);
-                buttonCoverPanel.SetActive(false);
+                StartCoroutine(Stay());
                 return;
             }
-
+            
             coverPanel.SetActive(true);
+        }
+        
+        private IEnumerator Stay()
+        {
+            yield return new WaitForSeconds(0.1f);
+            coverPanel.SetActive(false);
+            buttonCoverPanel.SetActive(false);
         }
 
         private void UpdateButtonCloseClick(CalculatorNotifyIsLastNumberAfterRecover data)

@@ -1,9 +1,8 @@
 namespace _Main.UniqueItemSys.Data.Enum
 {
-    public enum UniqueItemTriggerType
+    public enum UniqueItemType
     {
         BeforePlayerTurn,
-        AfterPlayerSendResult,
         Internal,
         WhenArrivalEveryMapSpot
     }

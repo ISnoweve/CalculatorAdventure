@@ -1,6 +1,3 @@
-using System.Collections.Generic;
-using _Main.CalculatorSys.Manager.Runtime;
-
 namespace _Main.CalculatorSys.Manager.Interface
 {
     public interface IButtonManager

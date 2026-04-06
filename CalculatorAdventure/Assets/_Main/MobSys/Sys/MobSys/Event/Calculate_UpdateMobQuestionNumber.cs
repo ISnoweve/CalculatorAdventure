@@ -1,14 +1,23 @@
+using _Main.CalculatorSys.Enum;
 using EventSys.Interface;
 
 namespace _Main.MobBattleSys.Sys.MobSys.Event
 {
     public readonly struct Calculate_UpdateMobQuestionNumber : IEventData
     {
-        public int QuestionNumber { get; }
+        private readonly int _questionNumber;
+        private readonly int _result;
+        private readonly CalculatorOperator _firstOperator;
+        public int QuestionNumber => _questionNumber;
+        public int Result => _result;
+        public CalculatorOperator FirstOperator => _firstOperator;
+        
 
-        public Calculate_UpdateMobQuestionNumber(int questionNumber)
+        public Calculate_UpdateMobQuestionNumber(int questionNumber, int result, CalculatorOperator firstOperator)
         {
-            QuestionNumber = questionNumber;
+            _questionNumber = questionNumber;
+            _firstOperator = firstOperator;
+            _result = result;
         }
     }
 }

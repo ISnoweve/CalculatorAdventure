@@ -54,6 +54,19 @@ namespace _Main.CalculatorSys.Manager.Runtime
         public CalculatorFeature CalculatorFeature => calculatorFeature;
         public bool IsClick => isClick;
 
+        #region Set Value
+
+        public void SetValueAndType(int value)
+        {
+            if (calculatorButtonType != CalculatorButtonType.NumberNotActivate) return;
+            calculatorButtonType = CalculatorButtonType.NumberActivate;
+            originalValue = value;
+            currentValue = value;
+            isClick = false;
+        }
+
+        #endregion
+        
         #region Click Feature
 
         public void RecoverButtonClickAble()

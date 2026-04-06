@@ -7408,7 +7408,12 @@ MonoBehaviour:
     currentChallengeData: {fileID: 0}
     challengeToGoalCount: 0
     currentChallengeIndex: 0
+  uniqueItemManager:
+    uniqueItems: []
+  uniqueItemSystem:
+    uniqueItemDataSoList: {fileID: 0}
   challengeDataSoList: {fileID: 11400000, guid: 7f8c102f83612014693160323b0e9a3c, type: 2}
+  uniqueItemDataSoList: {fileID: 11400000, guid: 37dcaf72a76e40f438221ca127024541, type: 2}
   DefaultData: {fileID: 11400000, guid: f92f495a615cc6c448454b4e78f574b9, type: 2}
 --- !u!1 &4891188793242772570
 GameObject:

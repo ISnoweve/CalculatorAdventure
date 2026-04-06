@@ -15,6 +15,7 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
     {
         [SerializeField] private TMP_Text labelText;
         [SerializeField] private TMP_Text warningText;
+        [SerializeField] private TMP_Text previewResultText;
         [SerializeField] private int currentCalculatorOperationAndValueCount;
 
         [SerializeField] private string warningTextForEmptyNumber = "No number in box for delete.";
@@ -29,6 +30,7 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
 
             ClearDisplay();
             ClearWarning();
+            previewResultText.text = "0";
 
             for (var i = 0; i < currentCalculatorOperationAndValueCount; i++)
             {
@@ -53,6 +55,7 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
         {
             ClearDisplay();
             ClearWarning();
+            previewResultText.text = "0";
 
             currentCalculatorOperationAndValueCount = CalculatorSystem.Instance.CurrentCalculatorOperationAndValueCount;
 
@@ -113,30 +116,39 @@ namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
 
             for (var i = 0; i < data.IndexCount; i++)
             {
-                switch (data.CurrentOperators[i])
-                {
-                    case CalculatorOperator.Add:
-                        labelText.text += "+";
-                        break;
-                    case CalculatorOperator.Subtract:
-                        labelText.text += "-";
-                        break;
-                    case CalculatorOperator.Multiply:
-                        labelText.text += "x";
-                        break;
-                    case CalculatorOperator.Divide:
-                        labelText.text += "/";
-                        break;
-                    case CalculatorOperator.None:
-                        labelText.text += "\u25a1";
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
+                labelText.text += GetOperatorString(data.CurrentOperators[i]);
 
                 if (i <= 0) labelText.text += "(";
                 labelText.text += data.NumbersInBox[i];
                 if(i >= data.IndexCount-1) labelText.text += ")";
+            }
+
+            if (CalculatorSystem.Instance.GetEqual() != 0)
+            {
+                previewResultText.text = GetOperatorString(data.CurrentOperators[0])+CalculatorSystem.Instance.GetEqual().ToString();
+            }
+            else
+            {
+                previewResultText.text = "0";
+            }
+        }
+
+        private string GetOperatorString(CalculatorOperator data)
+        {
+            switch (data)
+            {
+                case CalculatorOperator.Add:
+                    return "+";
+                case CalculatorOperator.Subtract:
+                    return "-";
+                case CalculatorOperator.Multiply:
+                    return "x";
+                case CalculatorOperator.Divide:
+                    return "/";
+                case CalculatorOperator.None:
+                    return "\u25a1";
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 

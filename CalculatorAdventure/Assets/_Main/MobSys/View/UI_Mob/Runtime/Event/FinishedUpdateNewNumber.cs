@@ -1,8 +1,16 @@
+using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
 using EventSys.Interface;
 
 namespace _Main.MobBattleSys.View.UI_Mob.Runtime.Event
 {
     public readonly struct FinishedUpdateNewNumber : IEventData
     {
+        private readonly FinishedUpdateNewNumberType _finishedUpdateNewNumberType; 
+        public FinishedUpdateNewNumberType FinishedUpdateNewNumberType => _finishedUpdateNewNumberType;
+        
+        public FinishedUpdateNewNumber(FinishedUpdateNewNumberType finishedUpdateNewNumberType)
+        {
+            _finishedUpdateNewNumberType = finishedUpdateNewNumberType;
+        }
     }
 }
