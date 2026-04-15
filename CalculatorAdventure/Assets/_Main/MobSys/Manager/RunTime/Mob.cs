@@ -1,7 +1,8 @@
 using System;
 using _Main.CalculatorSys.Enum;
 using _Main.MobSys.Data;
-using _Main.MobSys.Data.AttackSkills.Base;
+using _Main.MobSys.Data.Mob;
+using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using _Main.MobSys.Enum;
 using UnityEngine;
 using Random = System.Random;

@@ -4,10 +4,12 @@ using _Main.CalculatorSys.Sys.Calculator;
 using _Main.ChallengeSys.Data;
 using _Main.ChallengeSys.Sys;
 using _Main.GameSceneSys.Sys;
-using _Main.MobBattleSys.MobBattleState.State;
-using _Main.MobBattleSys.Sys.MobSys;
-using _Main.MobBattleSys.Sys.SelectSys;
+using _Main.MobBattleSys.MobBattleState.Sys;
+using _Main.MobBattleSys.MobReward.Data.MobReward;
+using _Main.MobBattleSys.MobReward.Sys.MobRewardSys;
 using _Main.MobSys.Manager;
+using _Main.MobSys.Sys.MobSys;
+using _Main.MobSys.Sys.SelectSys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.StateSys.GameStateMachineSys.Sys;
@@ -33,9 +35,11 @@ namespace _Main.InitGameSys.Sys
         public ChallengeSystem challengeSystem;
         public UniqueItemManager uniqueItemManager;
         public UniqueItemSystem uniqueItemSystem;
+        public MobBattleRewardSystem mobBattleRewardSystem;
 
         public ChallengeDataSoList challengeDataSoList;
         public UniqueItemDataSoList uniqueItemDataSoList;
+        public MobRewardDataSoList mobRewardDataSoList;
         public PlayerData DefaultData;
         protected override bool IsDontDestroyOnLoad => true;
 
@@ -75,12 +79,14 @@ namespace _Main.InitGameSys.Sys
             challengeSystem = ChallengeSystem.Instance;
             uniqueItemManager = UniqueItemManager.Instance;
             uniqueItemSystem = UniqueItemSystem.Instance;
+            mobBattleRewardSystem = MobBattleRewardSystem.Instance;
         }
 
         private void LoadSystem()
         {
             challengeSystem.SetChallengeSoList(challengeDataSoList);
             uniqueItemSystem.SetUniqueItemDataSoList(uniqueItemDataSoList);
+            mobBattleRewardSystem.SetMobRewardDataSoList(mobRewardDataSoList);
         }
 
         private bool TryGetPlayerSaveData()
@@ -109,6 +115,7 @@ namespace _Main.InitGameSys.Sys
             ChallengeSystem.ClearInstance();
             UniqueItemManager.ClearInstance();
             UniqueItemSystem.ClearInstance();
+            MobBattleRewardSystem.ClearInstance();
         }
 
         #endregion

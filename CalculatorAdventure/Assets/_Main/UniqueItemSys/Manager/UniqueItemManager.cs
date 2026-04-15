@@ -14,11 +14,10 @@ namespace _Main.UniqueItemSys.Manager
     {
         [SerializeField] private List<UniqueItem> uniqueItems = new();
         
-        [Button]
-        private void SpawnUniqueItem(UniqueItemData data)
+        public static void SpawnUniqueItem(UniqueItemData data)
         {
             UniqueItem newItem = new UniqueItem(data);
-            uniqueItems.Add(newItem);
+            Instance.uniqueItems.Add(newItem);
         }
         
         public static List<UniqueItem> GetAllUniqueItems()
@@ -29,6 +28,11 @@ namespace _Main.UniqueItemSys.Manager
         public static List<UniqueItem> GetUniqueItemsByType(UniqueItemType type)
         {
             return Instance.uniqueItems.FindAll(item => item.Type == type);
+        }
+        
+        public static UniqueItem GetUniqueItemById(int id)
+        {
+            return Instance.uniqueItems.Find(item => item.Id == id);
         }
     }
 }

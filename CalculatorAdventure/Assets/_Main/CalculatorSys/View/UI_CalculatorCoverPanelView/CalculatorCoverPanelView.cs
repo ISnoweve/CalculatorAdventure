@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
@@ -8,7 +7,7 @@ using _Main.MobBattleSys.MobBattleState.Event;
 using MessagePipe;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorCoverPanelView
+namespace _Main.CalculatorSys.View.UI_CalculatorCoverPanelView
 {
     public class CalculatorCoverPanelView : MonoBehaviour
     {

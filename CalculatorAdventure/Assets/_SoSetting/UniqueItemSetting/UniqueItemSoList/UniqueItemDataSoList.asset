@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03739dcbe86e4fc5831c4d3d3bfce1f7, type: 3}
   m_Name: UniqueItemDataSoList
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemDataSoList
-  uniqueItemDataArray: []
+  uniqueItemDataList:
+  - {fileID: 11400000, guid: de2549c8647dc3c4bbaf33ef08e6f441, type: 2}

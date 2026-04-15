@@ -2,13 +2,13 @@ using System;
 using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
-using _Main.MobBattleSys.Sys.MobSys.Event;
 using _Main.MobSys.Manager;
+using _Main.MobSys.Sys.MobSys.Event;
 using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
 
-namespace _Main.MobBattleSys.Sys.MobSys
+namespace _Main.MobSys.Sys.MobSys
 {
     [Serializable]
     public class MobSystem : Singleton<MobSystem>

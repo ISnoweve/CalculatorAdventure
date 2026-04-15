@@ -1,7 +1,7 @@
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
+using _Main.MobSys.View.UI_Mob.Runtime.Enum;
 using EventSys.Interface;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Runtime.Event
+namespace _Main.MobSys.View.UI_Mob.Runtime.Event
 {
     public readonly struct FinishedUpdateNewNumber : IEventData
     {

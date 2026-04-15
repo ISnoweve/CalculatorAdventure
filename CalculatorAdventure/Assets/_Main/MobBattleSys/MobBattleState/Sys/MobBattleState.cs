@@ -1,23 +1,18 @@
 using System;
-using _Main.CalculatorSys.Manager;
-using _Main.CalculatorSys.Sys.Button;
-using _Main.ChallengeSys.Sys;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using _Main.GameSceneSys.Sys.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
-using _Main.MobBattleSys.Sys.MobSys.Event;
-using _Main.MobBattleSys.Sys.SelectSys;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
-using _Main.MobSys.Manager;
+using _Main.MobSys.Sys.MobSys.Event;
+using _Main.MobSys.View.UI_Mob.Runtime.Enum;
+using _Main.MobSys.View.UI_Mob.Runtime.Event;
 using _Main.StateSys.GameStateMachineSys.Enum;
 using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Sys.Event;
 using MessagePipe;
-using UnityEngine; 
+using UnityEngine;
 
-namespace _Main.MobBattleSys.MobBattleState.State
+namespace _Main.MobBattleSys.MobBattleState.Sys
 {
     [Serializable]
     public class MobBattleState : Singleton<MobBattleState>

@@ -2,7 +2,7 @@ using System;
 using _Main.ToolKit.SingletonFeature;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.Sys.SelectSys
+namespace _Main.MobSys.Sys.SelectSys
 {
     [Serializable]
     public class SelectMobDataSystem : Singleton<SelectMobDataSystem>

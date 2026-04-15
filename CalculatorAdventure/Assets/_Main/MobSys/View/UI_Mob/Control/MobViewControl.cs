@@ -1,16 +1,16 @@
 using System;
 using System.Collections;
-using _Main.MobBattleSys.Sys.MobSys.Event;
-using _Main.MobBattleSys.View.UI_Mob.Runtime;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
-using _Main.MobSys.Data.AttackSkills.Event;
+using _Main.MobSys.Data.Mob.AttackSkills.Event;
 using _Main.MobSys.Manager.Event;
+using _Main.MobSys.Sys.MobSys.Event;
+using _Main.MobSys.View.UI_Mob.Runtime;
+using _Main.MobSys.View.UI_Mob.Runtime.Enum;
+using _Main.MobSys.View.UI_Mob.Runtime.Event;
 using _Main.ToolKit.SingletonFeature;
 using MessagePipe;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Control
+namespace _Main.MobSys.View.UI_Mob.Control
 {
     public class MobViewControl : SingletonMonoBehaviour<MobViewControl>
     {

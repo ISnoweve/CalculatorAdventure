@@ -9,6 +9,7 @@ using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.Sys.Calculator.Enum;
 using _Main.CalculatorSys.Sys.Calculator.Event;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
 using UnityEngine;
 
@@ -44,8 +45,8 @@ namespace _Main.CalculatorSys.Sys.Calculator
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(GetButtonClick).AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<AllNumberButtonClickRecover>().Subscribe(NotifyIsLastNumberInBox)
-                .AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<AllNumberButtonClickRecover>().Subscribe(NotifyIsLastNumberInBox).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_IncreaseCalculatorBoxLimit>().Subscribe(SetCurrentCalculatorOperationAndValueCount).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -460,6 +461,12 @@ namespace _Main.CalculatorSys.Sys.Calculator
         public void SetCurrentCalculatorOperationAndValueCount(int count)
         {
             currentCalculatorOperationAndValueCount = count;
+            ArrayResize();
+        }
+        
+        public void SetCurrentCalculatorOperationAndValueCount(Event_IncreaseCalculatorBoxLimit count)
+        {
+            currentCalculatorOperationAndValueCount = count.IncreaseLimit;
             ArrayResize();
         }
 

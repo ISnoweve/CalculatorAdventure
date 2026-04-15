@@ -2,7 +2,7 @@ using _Main.MobSys.Manager.RunTime;
 using TMPro;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Runtime
+namespace _Main.MobSys.View.UI_Mob.Runtime
 {
     public class UI_MobView : MonoBehaviour
     {

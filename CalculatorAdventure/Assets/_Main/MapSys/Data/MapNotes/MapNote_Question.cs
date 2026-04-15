@@ -1,3 +1,5 @@
+using _Main.MapSys.Data.Base;
+
 namespace _Main.MapSys.Data.MapNotes
 {
     public class MapNote_Question : MapNoteBaseData

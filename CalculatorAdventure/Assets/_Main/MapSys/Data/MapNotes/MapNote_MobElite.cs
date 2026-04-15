@@ -1,4 +1,6 @@
+using _Main.MapSys.Data.Base;
 using _Main.MobSys.Data;
+using _Main.MobSys.Data.Mob;
 using UnityEngine;
 
 namespace _Main.MapSys.Data.MapNotes

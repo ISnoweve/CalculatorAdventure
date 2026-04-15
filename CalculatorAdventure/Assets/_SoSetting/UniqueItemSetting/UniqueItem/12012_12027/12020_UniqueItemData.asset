@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4ea802bc8f44066a27e0f836563245d, type: 3}
+  m_Name: 12020_UniqueItemData
+  m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemData
+  id: 12020
+  dataName: 
+  description: 
+  effectData: {fileID: 11400000, guid: 4e4bf1a2446dc7f4198457d22240c924, type: 2}
+  type: 1

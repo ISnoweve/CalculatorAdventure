@@ -9,7 +9,7 @@ using MessagePipe;
 using TMPro;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.MobBattleState.View.UI_CalculatorLabel
+namespace _Main.CalculatorSys.View.UI_CalculatorLabel
 {
     public class CalculatorLabel : MonoBehaviour
     {

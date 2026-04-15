@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Runtime
+namespace _Main.MobSys.View.UI_Mob.Runtime
 {
     public class UI_MobAtkSkillDescription : MonoBehaviour
     {

@@ -1,7 +1,7 @@
-using _Main.MobSys.Data.AttackSkills.Base;
+using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using EventSys.Interface;
 
-namespace _Main.MobBattleSys.Sys.MobSys.Event
+namespace _Main.MobSys.Sys.MobSys.Event
 {
     public readonly struct MobTurn_SetMobNewBehaviour : IEventData
     {

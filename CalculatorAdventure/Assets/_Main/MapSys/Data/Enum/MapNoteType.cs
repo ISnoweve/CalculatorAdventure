@@ -1,10 +1,11 @@
-﻿using System;
-
-public enum MapNoteType
+﻿namespace _Main.MapSys.Data.Enum
 {
-    BirthPoint,
-    MobNormal,
-    MobElite,
-    Store,
-    Question
+    public enum MapNoteType
+    {
+        BirthPoint,
+        MobNormal,
+        MobElite,
+        Store,
+        Question
+    }
 }

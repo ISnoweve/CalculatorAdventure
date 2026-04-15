@@ -1,16 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using _Main.MobBattleSys.Sys.MobSys.Event;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Enum;
-using _Main.MobBattleSys.View.UI_Mob.Runtime.Event;
-using _Main.MobSys.Manager;
+using _Main.MobSys.Sys.MobSys.Event;
 using DG.Tweening;
 using MessagePipe;
 using TMPro;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Runtime
+namespace _Main.MobSys.View.UI_Mob.Runtime
 {
     public class UI_MobQuestionNumber : MonoBehaviour
     {

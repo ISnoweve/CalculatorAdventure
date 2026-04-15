@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.ToolKit.SingletonFeature;
@@ -8,6 +9,7 @@ using _Main.UniqueItemSys.Data.Enum;
 using _Main.UniqueItemSys.Manager;
 using _Main.UniqueItemSys.Manager.Runtime;
 using _Main.UniqueItemSys.Sys.Event;
+using DG.DemiEditor;
 using MessagePipe;
 using UnityEngine;
 
@@ -88,9 +90,69 @@ namespace _Main.UniqueItemSys.Sys
         #endregion
 
         #region Random UniqueItem For Battle Reward
+        public List<UniqueItem> TryGetNewUniqueItemIdForBattleReward()
+        {
+            List<UniqueItemData> allUniqueItemData = uniqueItemDataSoList.UniqueItemDataList;
+            allUniqueItemData.Shuffle();
+            if (allUniqueItemData.Count == 0) return null;
+            
+            List<int> newUniqueItemIds = new List<int>();
+            
+            List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
+            if (allUniqueItemInManager.Count <= 0)
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    UniqueItemData data = allUniqueItemData[i];
+                    if (data.IncreaseCalculatorBox) DetectIncreaseCalculatorBox(data);
+                    UniqueItemManager.SpawnUniqueItem(data);
+                    newUniqueItemIds.Add(data.Id);
+                }
+            }
+            else
+            {
+                newUniqueItemIds = SpawnNewUniqueItemWithDetect(allUniqueItemData, allUniqueItemInManager);
+            }
 
+            return GetUniqueItemsByIds(newUniqueItemIds);
+        }
+
+        private List<int> SpawnNewUniqueItemWithDetect(List<UniqueItemData> allUniqueItemData, List<UniqueItem> allUniqueItemInManager)
+        {
+            int index = 0;
+            List<int> newUniqueItemIds = new List<int>();
+            foreach (var uniqueItemData in allUniqueItemData)
+            {
+                if(index==2)break;
+                bool alreadyHave = allUniqueItemInManager.Exists(item => item.Id == uniqueItemData.Id);
+                if (alreadyHave) continue;
+                if (uniqueItemData.IncreaseCalculatorBox) DetectIncreaseCalculatorBox(uniqueItemData);
+                UniqueItemManager.SpawnUniqueItem(uniqueItemData);
+                index++;
+                newUniqueItemIds.Add(uniqueItemData.Id);
+            }
+
+            return newUniqueItemIds;
+        }
+
+        private UniqueItemData DetectIncreaseCalculatorBox(UniqueItemData data)
+        {
+            List<UniqueItemData> increaseCalculatorBox = uniqueItemDataSoList.IncreaseCalculatorBoxList;
+            if (increaseCalculatorBox.Count == 0) return null;
+
+            List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
+
+            return increaseCalculatorBox.
+                FirstOrDefault(uniqueItemData => !allUniqueItemInManager.
+                    Exists(item => item.Id == uniqueItemData.Id));
+        }
         
-
+        private List<UniqueItem> GetUniqueItemsByIds(List<int> uniqueItemIds)
+        {
+            List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
+            return allUniqueItemInManager.Where(item => uniqueItemIds.Contains(item.Id)).ToList();
+        }
+        
         #endregion
     }
 }

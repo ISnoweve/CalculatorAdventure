@@ -1,9 +1,9 @@
-using _Main.MobSys.Data.AttackSkills.Base;
-using _Main.MobSys.Data.AttackSkills.Enum;
+using _Main.MobSys.Data.Mob.AttackSkills.Base;
+using _Main.MobSys.Data.Mob.AttackSkills.Enum;
 using TMPro;
 using UnityEngine;
 
-namespace _Main.MobBattleSys.View.UI_Mob.Runtime
+namespace _Main.MobSys.View.UI_Mob.Runtime
 {
     public class UI_MobAtkSkillCountDown : MonoBehaviour
     {

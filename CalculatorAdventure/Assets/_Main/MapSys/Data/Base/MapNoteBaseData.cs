@@ -1,11 +1,14 @@
-﻿using Sirenix.OdinInspector;
-using System;
+﻿using _Main.MapSys.Data.Enum;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public abstract class MapNoteBaseData : ScriptableObject
+namespace _Main.MapSys.Data.Base
 {
-    [Title("ID")][SerializeField] private int id;
-    [SerializeField] MapNoteType mapNoteType;
+    public abstract class MapNoteBaseData : ScriptableObject
+    {
+        [Title("ID")][SerializeField] private int id;
+        [SerializeField] MapNoteType mapNoteType;
 
-    public abstract void TriggerMapNote();
+        public abstract void TriggerMapNote();
+    }
 }
