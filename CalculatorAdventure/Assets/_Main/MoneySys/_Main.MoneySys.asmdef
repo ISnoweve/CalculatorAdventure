@@ -1,0 +1,21 @@
+{
+    "name": "_Main.MoneySys",
+    "rootNamespace": "",
+    "references": [
+        "GUID:cb209e4719ca48bf902671da17691565",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:b02a6fc8e91d4fe097a7104a6d9a2794",
+        "GUID:ad2520470db64da199fc48ef0fd2e99c",
+        "GUID:c2832d01be4148bca8c33c0c530e65f6"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

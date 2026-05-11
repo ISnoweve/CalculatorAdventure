@@ -26,6 +26,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
         public TMP_Text ButtonText => _buttonText;
         public CalculatorButtonType CalculatorButtonType => _calculatorButtonType;
         public CalculatorOperator CalculatorOperator => calculatorOperator;
+        public bool canClick = true;
 
         #region Behaviour
 
@@ -110,6 +111,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
         private void OnButtonClick()
         {
+            if(!canClick)return;
             var buttonOnClick = new ButtonOnClick(_index);
             GlobalMessagePipe.GetPublisher<ButtonOnClick>().Publish(buttonOnClick);
         }

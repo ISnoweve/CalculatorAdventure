@@ -1,3 +1,4 @@
+using _Main.CalculatorSys.Data;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Calculator;
@@ -10,6 +11,7 @@ using _Main.MobBattleSys.MobReward.Sys.MobRewardSys;
 using _Main.MobSys.Manager;
 using _Main.MobSys.Sys.MobSys;
 using _Main.MobSys.Sys.SelectSys;
+using _Main.MoneySys.Sys;
 using _Main.PlayerSys.Data;
 using _Main.PlayerSys.Sys;
 using _Main.StateSys.GameStateMachineSys.Sys;
@@ -17,6 +19,7 @@ using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Data;
 using _Main.UniqueItemSys.Manager;
 using _Main.UniqueItemSys.Sys;
+using UnityEngine;
 
 namespace _Main.InitGameSys.Sys
 {
@@ -36,11 +39,13 @@ namespace _Main.InitGameSys.Sys
         public UniqueItemManager uniqueItemManager;
         public UniqueItemSystem uniqueItemSystem;
         public MobBattleRewardSystem mobBattleRewardSystem;
+        public MoneySystem moneySystem;
 
         public ChallengeDataSoList challengeDataSoList;
         public UniqueItemDataSoList uniqueItemDataSoList;
         public MobRewardDataSoList mobRewardDataSoList;
         public PlayerData DefaultData;
+        [SerializeField] private CalculatorGameSettingSoList calculatorGameSettingSoList;
         protected override bool IsDontDestroyOnLoad => true;
 
         /*
@@ -80,6 +85,7 @@ namespace _Main.InitGameSys.Sys
             uniqueItemManager = UniqueItemManager.Instance;
             uniqueItemSystem = UniqueItemSystem.Instance;
             mobBattleRewardSystem = MobBattleRewardSystem.Instance;
+            moneySystem = MoneySystem.Instance;
         }
 
         private void LoadSystem()
@@ -87,6 +93,9 @@ namespace _Main.InitGameSys.Sys
             challengeSystem.SetChallengeSoList(challengeDataSoList);
             uniqueItemSystem.SetUniqueItemDataSoList(uniqueItemDataSoList);
             mobBattleRewardSystem.SetMobRewardDataSoList(mobRewardDataSoList);
+            var calculatorGameSetting = calculatorGameSettingSoList.CalculatorGameSettings[0];
+            CalculatorButtonManager.InitializeButtons(calculatorGameSetting.ButtonsData);
+            CalculatorSystem.InitializeSystem(calculatorGameSetting.CalculatorSystemData);
         }
 
         private bool TryGetPlayerSaveData()
@@ -116,6 +125,7 @@ namespace _Main.InitGameSys.Sys
             UniqueItemManager.ClearInstance();
             UniqueItemSystem.ClearInstance();
             MobBattleRewardSystem.ClearInstance();
+            MoneySystem.ClearInstance();
         }
 
         #endregion

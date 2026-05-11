@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 11003-1_MobData
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.MobData
   id: 11003
+  mobId: 
   name: 
   description: 
   prefab: {fileID: 4370785298172453683, guid: d8d38212eb3fd394dbc9d01400529571, type: 3}
-  originalQuestionNumber: 67
+  originalQuestionNumber: 17
   attackSkills:
   - {fileID: 11400000, guid: a2c2921bfe8c1a848b1148c45a11f7cd, type: 2}
   - {fileID: 11400000, guid: 76519ea33543c3a4f9e41055c5431744, type: 2}

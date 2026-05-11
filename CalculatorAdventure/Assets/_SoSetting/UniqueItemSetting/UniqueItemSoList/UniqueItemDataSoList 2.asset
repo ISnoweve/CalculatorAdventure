@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03739dcbe86e4fc5831c4d3d3bfce1f7, type: 3}
+  m_Name: UniqueItemDataSoList 2
+  m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemDataSoList
+  uniqueItemDataList:
+  - {fileID: 11400000, guid: 476608a9d3628ea4cb2f5aaa7418ffa7, type: 2}
+  - {fileID: 11400000, guid: 309d7ec01d7437b4e8972d45fd1e8ab8, type: 2}
+  - {fileID: 11400000, guid: 6f97cfe32b9e7444e8fd8865d40436a3, type: 2}
+  IncreaseCalculatorBox:
+  - {fileID: 11400000, guid: 6f97cfe32b9e7444e8fd8865d40436a3, type: 2}
+  - {fileID: 11400000, guid: 309d7ec01d7437b4e8972d45fd1e8ab8, type: 2}

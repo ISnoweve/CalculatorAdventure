@@ -58,7 +58,6 @@ namespace _Main.CalculatorSys.Manager.Runtime
 
         public void SetValueAndType(int value)
         {
-            if (calculatorButtonType != CalculatorButtonType.NumberNotActivate) return;
             calculatorButtonType = CalculatorButtonType.NumberActivate;
             originalValue = value;
             currentValue = value;

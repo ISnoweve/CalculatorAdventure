@@ -6,10 +6,10 @@ namespace _Main.MobBattleSys.MobReward.Sys.MobRewardSys.Event
 {
     public readonly struct OutPutUniqueItemReward : IEventData
     {
-        private readonly List<UniqueItem> _uniqueItemIdList;
-        public List<UniqueItem> UniqueItemIdList => _uniqueItemIdList;
+        private readonly List<int> _uniqueItemIdList;
+        public List<int> UniqueItemIdList => _uniqueItemIdList;
 
-        public OutPutUniqueItemReward(List<UniqueItem> uniqueItemIdList)
+        public OutPutUniqueItemReward(List<int> uniqueItemIdList)
         {
             _uniqueItemIdList = uniqueItemIdList;
         }

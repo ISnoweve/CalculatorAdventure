@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
+using _Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event;
 using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Data;
 using _Main.UniqueItemSys.Data.Enum;
 using _Main.UniqueItemSys.Manager;
 using _Main.UniqueItemSys.Manager.Runtime;
 using _Main.UniqueItemSys.Sys.Event;
-using DG.DemiEditor;
+using _Main.UtilityFeature;
 using MessagePipe;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace _Main.UniqueItemSys.Sys
@@ -19,6 +21,12 @@ namespace _Main.UniqueItemSys.Sys
     public class UniqueItemSystem : Singleton<UniqueItemSystem>
     {
         [SerializeField] private UniqueItemDataSoList uniqueItemDataSoList;
+        
+        [Button]
+        private void TriggerUniqueItemEffectForTest(UniqueItemData data)
+        {
+            data.EffectData.ExecuteTrigger();
+        }
         
         public void SetUniqueItemDataSoList(UniqueItemDataSoList soList)
         {
@@ -40,6 +48,7 @@ namespace _Main.UniqueItemSys.Sys
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<NotifyMobBattleNewState>().Subscribe(TriggerItemBeforePlayerTurn).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<ChooseUniqueReward>().Subscribe(TryTriggerUniqueItemByGetItem).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -54,6 +63,17 @@ namespace _Main.UniqueItemSys.Sys
         
         #region Trigger Unique Item Effect
 
+        private void TryTriggerUniqueItemByGetItem(ChooseUniqueReward data)
+        {
+            UniqueItem item = UniqueItemManager.GetUniqueItemById(data.RewardIndex);
+            UniqueItemManager.AddUniqueItemToPlayerInventory(item);
+            
+            if (item.Type == UniqueItemType.Internal)
+            {
+                item.ExecuteEffect();
+            }
+        }
+
         private void TriggerItemBeforePlayerTurn(NotifyMobBattleNewState data)
         {
             if (data.NewState == MobBattleStateEnum.BeforePlayerTurn)
@@ -62,18 +82,13 @@ namespace _Main.UniqueItemSys.Sys
             }
         }
 
-        private void TriggerInternalItem()
-        {
-            TryTriggerUniqueItemEffectByType(UniqueItemType.Internal);
-        }
-
         private void TriggerItemWhenArrivalEveryMapSpot()
         {
             TryTriggerUniqueItemEffectByType(UniqueItemType.WhenArrivalEveryMapSpot);
         }
         private void TryTriggerUniqueItemEffectByType(UniqueItemType type)
         {
-            List<UniqueItem> items = UniqueItemManager.GetUniqueItemsByType(type);
+            List<UniqueItem> items = UniqueItemManager.GetUniqueItemsInPlayerInventoryByType(type);
             if (items.Count == 0)
             {
                 NoUniqueItemTrigger trigger = new();
@@ -81,7 +96,7 @@ namespace _Main.UniqueItemSys.Sys
                 return;
             }
             
-            foreach (var item in items)
+            foreach (var item in items.Where(item => item.Type == UniqueItemType.BeforePlayerTurn))
             {
                 item.ExecuteEffect();
             }
@@ -92,59 +107,62 @@ namespace _Main.UniqueItemSys.Sys
         #region Random UniqueItem For Battle Reward
         public List<UniqueItem> TryGetNewUniqueItemIdForBattleReward()
         {
+            // shuffle uniqueitemSO list
             List<UniqueItemData> allUniqueItemData = uniqueItemDataSoList.UniqueItemDataList;
-            allUniqueItemData.Shuffle();
+            allUniqueItemData.ShuffleList();
             if (allUniqueItemData.Count == 0) return null;
             
+            //return list
             List<int> newUniqueItemIds = new List<int>();
             
+            //manager data
             List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
-            if (allUniqueItemInManager.Count <= 0)
+            
+            int index = 0;
+            bool haveIncreaseCalculatorBoxItem = false;
+            foreach (var uniqueItemData in allUniqueItemData)
             {
-                for (int i = 0; i < 3; i++)
+                if(allUniqueItemInManager.Exists(itemData => itemData.Id == uniqueItemData.Id))continue;
+                
+                if (uniqueItemData.IncreaseCalculatorBox)
                 {
-                    UniqueItemData data = allUniqueItemData[i];
-                    if (data.IncreaseCalculatorBox) DetectIncreaseCalculatorBox(data);
-                    UniqueItemManager.SpawnUniqueItem(data);
-                    newUniqueItemIds.Add(data.Id);
+                    if (haveIncreaseCalculatorBoxItem)
+                    {
+                        continue;
+                    }
+                    UniqueItemData newData = DetectIncreaseCalculatorBox();
+                    if(newData ==null)continue;
+                    UniqueItemManager.SpawnUniqueItem(newData);
+                    newUniqueItemIds.Add(newData.Id);
+                    haveIncreaseCalculatorBoxItem = true;
                 }
+                else
+                {
+                    UniqueItemManager.SpawnUniqueItem(uniqueItemData);
+                    newUniqueItemIds.Add(uniqueItemData.Id);
+                }
+                
+                index++;
+                if(index==2)break;
             }
-            else
-            {
-                newUniqueItemIds = SpawnNewUniqueItemWithDetect(allUniqueItemData, allUniqueItemInManager);
-            }
-
+            
             return GetUniqueItemsByIds(newUniqueItemIds);
         }
 
-        private List<int> SpawnNewUniqueItemWithDetect(List<UniqueItemData> allUniqueItemData, List<UniqueItem> allUniqueItemInManager)
-        {
-            int index = 0;
-            List<int> newUniqueItemIds = new List<int>();
-            foreach (var uniqueItemData in allUniqueItemData)
-            {
-                if(index==2)break;
-                bool alreadyHave = allUniqueItemInManager.Exists(item => item.Id == uniqueItemData.Id);
-                if (alreadyHave) continue;
-                if (uniqueItemData.IncreaseCalculatorBox) DetectIncreaseCalculatorBox(uniqueItemData);
-                UniqueItemManager.SpawnUniqueItem(uniqueItemData);
-                index++;
-                newUniqueItemIds.Add(uniqueItemData.Id);
-            }
-
-            return newUniqueItemIds;
-        }
-
-        private UniqueItemData DetectIncreaseCalculatorBox(UniqueItemData data)
+        private UniqueItemData DetectIncreaseCalculatorBox()
         {
             List<UniqueItemData> increaseCalculatorBox = uniqueItemDataSoList.IncreaseCalculatorBoxList;
             if (increaseCalculatorBox.Count == 0) return null;
 
             List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
 
-            return increaseCalculatorBox.
-                FirstOrDefault(uniqueItemData => !allUniqueItemInManager.
-                    Exists(item => item.Id == uniqueItemData.Id));
+            foreach (var uniqueItemData in increaseCalculatorBox)
+            {
+                if(allUniqueItemInManager.Exists(item => item.Id == uniqueItemData.Id)) continue;
+                return uniqueItemData;
+            }
+
+            return null;
         }
         
         private List<UniqueItem> GetUniqueItemsByIds(List<int> uniqueItemIds)

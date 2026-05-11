@@ -161,7 +161,7 @@ namespace _Main.MobSys.View.UI_Mob.Control
 
         private void UpdateMobDefeated(Calculate_MobDefeated data)
         {
-            uiMobGetDefeated.ShowDefeatedPanel();
+            // 更新  mob 被打倒的圖片
         }
 
         #endregion

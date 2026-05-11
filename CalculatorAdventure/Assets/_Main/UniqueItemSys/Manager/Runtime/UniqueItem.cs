@@ -35,6 +35,8 @@ namespace _Main.UniqueItemSys.Manager.Runtime
             description = data.Description;
             effectData = data.EffectData;
             type = data.Type;
+            increaseCalculatorBox = data.IncreaseCalculatorBox;
+            icon = data.Icon;
         }
 
         public void ExecuteEffect()

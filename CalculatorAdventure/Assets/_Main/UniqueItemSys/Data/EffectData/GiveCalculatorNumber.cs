@@ -13,7 +13,7 @@ namespace _Main.UniqueItemSys.Data.EffectData
         public int GiveNumber => giveNumber;
         public override void ExecuteTrigger()
         {
-            Event_GiveCalculatorNumber eventData = new Event_GiveCalculatorNumber(giveNumber);
+            Event_GiveCalculatorNumber eventData = new Event_GiveCalculatorNumber(GiveNumber);
             GlobalMessagePipe.GetPublisher<Event_GiveCalculatorNumber>().Publish(eventData);
         }
     }

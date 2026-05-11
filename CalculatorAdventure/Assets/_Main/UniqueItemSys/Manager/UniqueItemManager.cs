@@ -12,12 +12,23 @@ namespace _Main.UniqueItemSys.Manager
     [Serializable]
     public class UniqueItemManager : Singleton<UniqueItemManager>
     {
+        [SerializeField] private List<UniqueItem> uniqueItemInPlayerInventory = new();
         [SerializeField] private List<UniqueItem> uniqueItems = new();
         
         public static void SpawnUniqueItem(UniqueItemData data)
         {
             UniqueItem newItem = new UniqueItem(data);
             Instance.uniqueItems.Add(newItem);
+        }
+        
+        public static void AddUniqueItemToPlayerInventory(UniqueItem item)
+        {
+            Instance.uniqueItemInPlayerInventory.Add(item);
+        }
+        
+        public static void RemoveUniqueItemFromPlayerInventory(UniqueItem item)
+        {
+            Instance.uniqueItemInPlayerInventory.Remove(item);
         }
         
         public static List<UniqueItem> GetAllUniqueItems()
@@ -33,6 +44,11 @@ namespace _Main.UniqueItemSys.Manager
         public static UniqueItem GetUniqueItemById(int id)
         {
             return Instance.uniqueItems.Find(item => item.Id == id);
+        }
+        
+        public static List<UniqueItem> GetUniqueItemsInPlayerInventoryByType(UniqueItemType type)
+        {
+            return Instance.uniqueItemInPlayerInventory.FindAll(item => item.Type == type);
         }
     }
 }

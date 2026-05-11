@@ -1,0 +1,16 @@
+{
+    "name": "_Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event",
+    "rootNamespace": "",
+    "references": [
+        "GUID:b02a6fc8e91d4fe097a7104a6d9a2794"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

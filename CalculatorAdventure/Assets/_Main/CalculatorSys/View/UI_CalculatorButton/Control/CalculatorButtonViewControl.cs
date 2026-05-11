@@ -6,6 +6,7 @@ using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Runtime;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
             GlobalMessagePipe.GetSubscriber<ButtonSetClickRecover>().Subscribe(UpdateButtonRecover).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonRecoverOldNumber>().Subscribe(UpdateOldButton).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonValueModify>().Subscribe(UpdateButtonValueModify).AddTo(bag);
-            _disposable = bag.Build();
+          _disposable = bag.Build();
         }
 
         protected override void OnDestroy()

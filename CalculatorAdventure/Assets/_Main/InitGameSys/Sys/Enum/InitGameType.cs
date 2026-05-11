@@ -3,9 +3,9 @@ namespace _Main.InitGameSys.Sys.Enum
     public enum InitGameType
     {
         MainGame,
-        TestMobBattle,
-        TestQuestionSpot,
-        TestMap,
-        TestStoreSpot
+        MobBattle,
+        //TestQuestionSpot,
+        //TestMap,
+        //TestStoreSpot
     }
 }

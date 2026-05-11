@@ -24,7 +24,6 @@ namespace _Main.InitGameSys.View.UI_MobSelect
 
         private void ConfirmMobBattleSetting()
         {
-            SetCalculator();
             SetMobBattle();
             confirmButton.interactable = false;
             playButton.interactable = true;
@@ -36,14 +35,6 @@ namespace _Main.InitGameSys.View.UI_MobSelect
             var data = mobDataSoList.Mobs[index];
             MobManager.SetMobDataSoList(mobDataSoList);
             SelectMobDataSystem.SelectMobData(data.Id);
-        }
-
-        private void SetCalculator()
-        {
-            var index = calculatorSettingDropdown.value;
-            var calculatorGameSetting = calculatorGameSettingSoList.CalculatorGameSettings[index];
-            CalculatorButtonManager.InitializeButtons(calculatorGameSetting.ButtonsData);
-            CalculatorSystem.InitializeSystem(calculatorGameSetting.CalculatorSystemData);
         }
 
         #region Life Cycle

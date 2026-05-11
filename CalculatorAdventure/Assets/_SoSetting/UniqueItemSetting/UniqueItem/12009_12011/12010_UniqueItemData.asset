@@ -14,6 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemData
   id: 12010
   dataName: 
-  description: 
+  description: "\u53EF\u8F38\u5165\u4E4B\u904B\u7B97\u7B26\u865F\u8207\u6578\u5B57\u5404\u589E\u52A0\u4E0A\u9650\u52303"
   effectData: {fileID: 11400000, guid: f3abf1140ac5e524fb49d5b157e4455d, type: 2}
   type: 1
+  increaseCalculatorBox: 1
+  icon: {fileID: 21300000, guid: 74f9c34c5ac060449ac7033d0c33c604, type: 3}

@@ -67,21 +67,33 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
                 case InitGameType.MainGame:
                     labelMainGame.SetActive(true);
                     break;
-                case InitGameType.TestMobBattle:
+                case InitGameType.MobBattle:
                     labelTestMobBattle.SetActive(true);
-                    break;
-                case InitGameType.TestQuestionSpot:
-                    labelTestQuestionSpot.SetActive(true);
-                    break;
-                case InitGameType.TestMap:
-                    labelTestMap.SetActive(true);
-                    break;
-                case InitGameType.TestStoreSpot:
-                    labelTestStoreSpot.SetActive(true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            // switch (selectedType)
+            // {
+            //     case InitGameType.MainGame:
+            //         labelMainGame.SetActive(true);
+            //         break;
+            //     case InitGameType.MobBattle:
+            //         labelTestMobBattle.SetActive(true);
+            //         break;
+            //     case InitGameType.TestQuestionSpot:
+            //         labelTestQuestionSpot.SetActive(true);
+            //         break;
+            //     case InitGameType.TestMap:
+            //         labelTestMap.SetActive(true);
+            //         break;
+            //     case InitGameType.TestStoreSpot:
+            //         labelTestStoreSpot.SetActive(true);
+            //         break;
+            //     default:
+            //         throw new ArgumentOutOfRangeException();
+            // }
         }
 
         private void CloseAllLabel()

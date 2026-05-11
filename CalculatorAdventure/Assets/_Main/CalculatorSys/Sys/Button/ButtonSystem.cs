@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
 using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Control;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Event;
+using _Main.CalculatorSys.View.UI_TriggerByRewardPutNumber.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
 using UnityEngine;
 
@@ -38,6 +41,8 @@ namespace _Main.CalculatorSys.Sys.Button
             GlobalMessagePipe.GetSubscriber<ButtonOnClick>().Subscribe(DetectButtonClickAble).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(SettingButtonSystem).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<NotifyMobBattleNewState>().Subscribe(ResetAfterBattle).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_PutNumber>().Subscribe(SetCalculatorButtonNumber).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_GiveCalculatorNumber>().Subscribe(RecordSetButtonNumber).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -85,8 +90,15 @@ namespace _Main.CalculatorSys.Sys.Button
 
         private void DetectButtonClickAble(ButtonOnClick data)
         {
-            var button = CalculatorButtonManager.GetButtonByIndex(data.Index);
+            CalculatorButton button = CalculatorButtonManager.GetButtonByIndex(data.Index);
+            CalculatorButtonClickInGame(button);
+            
+        }
 
+        #region Game Behaviour
+
+        private void CalculatorButtonClickInGame(CalculatorButton button)
+        {
             if (DetectIsNumberButton(button)) RecordUsedNumberIndex(button.Index);
             button.ClickButton();
             var buttonClickSuccess = new ButtonClickSuccess(button.Index);
@@ -135,6 +147,8 @@ namespace _Main.CalculatorSys.Sys.Button
         {
             CalculatorButtonManager.GetButtonByIndex(index).SetValueAndType(newValue);
         }
+
+        #endregion
 
         #endregion
 
@@ -223,6 +237,25 @@ namespace _Main.CalculatorSys.Sys.Button
                     GlobalMessagePipe.GetPublisher<SetOperatorButton>().Publish(divideButtonSetClickRecover);
                     break;
             }
+        }
+
+        #endregion
+        
+        #region Increase Button Number Behaviour
+
+        public int setNumberValue;
+        
+        private void RecordSetButtonNumber(Event_GiveCalculatorNumber data)
+        {
+            setNumberValue = data.GiveNumber;
+        }
+        
+        private void SetCalculatorButtonNumber(Event_PutNumber data)
+        {
+            CalculatorButtonManager.GetButtonByIndex(data.Index).SetValueAndType(setNumberValue);
+            var calculatorButtons = CalculatorButtonManager.GetAllActivateNumberButton();
+            var buttonValueModify = new ButtonValueModify(calculatorButtons);
+            GlobalMessagePipe.GetPublisher<ButtonValueModify>().Publish(buttonValueModify);
         }
 
         #endregion

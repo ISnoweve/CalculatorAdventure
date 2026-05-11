@@ -187,8 +187,12 @@ namespace _Main.MobBattleSys.MobReward.Sys.MobRewardSys
             float randomRewardValue = Random.Range(0f,1f);;
             if(randomRewardValue > currentMobRewardMoneyValue)
             {
-                List<UniqueItem> uniqueItems = UniqueItemSystem.Instance.TryGetNewUniqueItemIdForBattleReward();
-                OutPutUniqueItemReward outPutUniqueItemReward = new OutPutUniqueItemReward(uniqueItems);
+                List<int> uniqueItemsId = new List<int>();
+                foreach (var uniqueItem in UniqueItemSystem.Instance.TryGetNewUniqueItemIdForBattleReward())
+                {
+                    uniqueItemsId.Add(uniqueItem.Id);
+                }
+                OutPutUniqueItemReward outPutUniqueItemReward = new OutPutUniqueItemReward(uniqueItemsId);
                 GlobalMessagePipe.GetPublisher<OutPutUniqueItemReward>().Publish(outPutUniqueItemReward);
             }
             else

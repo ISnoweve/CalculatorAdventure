@@ -84,11 +84,13 @@ namespace _Main.CalculatorSys.Sys.Calculator
             {
                 Array.Resize(ref currentOperators, currentCalculatorOperationAndValueCount);
                 Array.Resize(ref numbersInBox, currentCalculatorOperationAndValueCount);
+                Array.Resize(ref currentButtonIndexInBox, currentCalculatorOperationAndValueCount);
             }
-            else if (originalCalculatorOperationAndValueCount > currentCalculatorOperationAndValueCount)
+            else if (originalCalculatorOperationAndValueCount == currentCalculatorOperationAndValueCount)
             {
                 Array.Resize(ref currentOperators, originalCalculatorOperationAndValueCount);
                 Array.Resize(ref numbersInBox, originalCalculatorOperationAndValueCount);
+                Array.Resize(ref currentButtonIndexInBox, originalCalculatorOperationAndValueCount);
             }
         }
 
@@ -444,6 +446,17 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         #endregion
 
+        #region Behavior
+
+        public void SetCurrentCalculatorOperationAndValueCount(Event_IncreaseCalculatorBoxLimit count)
+        {
+            originalCalculatorOperationAndValueCount = count.IncreaseLimit;
+            currentCalculatorOperationAndValueCount = count.IncreaseLimit;
+            ArrayResize();
+        }
+
+        #endregion
+
         #endregion
 
         #region Unit Test Feature
@@ -464,12 +477,6 @@ namespace _Main.CalculatorSys.Sys.Calculator
             ArrayResize();
         }
         
-        public void SetCurrentCalculatorOperationAndValueCount(Event_IncreaseCalculatorBoxLimit count)
-        {
-            currentCalculatorOperationAndValueCount = count.IncreaseLimit;
-            ArrayResize();
-        }
-
         public void SetDeleteNumber()
         {
             DeleteNumber();
@@ -482,8 +489,84 @@ namespace _Main.CalculatorSys.Sys.Calculator
 
         public int GetEqual()
         {
-            return DetectAllBoxFilled() ? 0 : CalculateMultiNumber();
+            return DetectAllBoxFilled() ? 0 : CalculatePreviewResult();
         }
+
+        #endregion
+
+        #region Preview Result
+        public int CalculatePreviewResult()
+        {
+            var numbersCopy = (int[])numbersInBox.Clone();
+            return CalculateMultiNumberCore(numbersCopy, currentOperators, currentCalculatorOperationAndValueCount);
+        }
+
+        private int CalculateMultiNumberCore(int[] numbers, CalculatorOperator[] operators, int count)
+        {
+            if (count <=0) return 0;
+            if (count ==1) return numbers[0];
+
+            var skipped = new HashSet<int>();
+
+            CalculateMultiplyAndDivideCore(numbers, operators, count, skipped);
+            return CalculateAddAndSubtractCore(numbers, operators, count, skipped);
+        }
+
+        private void CalculateMultiplyAndDivideCore(
+            int[] numbers,
+            CalculatorOperator[] operators,
+            int count,
+            HashSet<int> skipped)
+        {
+            var arrayIndex = count -1;
+
+            for (var i =1; i <= arrayIndex; i++)
+            {
+                var op = operators[i];
+                if (op != CalculatorOperator.Multiply && op != CalculatorOperator.Divide)
+                    continue;
+
+                var leftIndex = GetPreviousValidIndexCore(i -1, skipped);
+
+                if (op == CalculatorOperator.Multiply)
+                    numbers[leftIndex] *= numbers[i];
+                else numbers[leftIndex] /= numbers[i];
+
+                skipped.Add(i);
+            }
+        }
+
+        private int GetPreviousValidIndexCore(int startIndex, HashSet<int> skipped)
+        {
+            for (var j = startIndex; j >=0; j--)
+                if (!skipped.Contains(j))
+                    return j;
+
+            return 0;
+        }
+
+        private int CalculateAddAndSubtractCore(
+            int[] numbers,
+            CalculatorOperator[] operators,
+            int count,
+            HashSet<int> skipped)
+        {
+            var arrayIndex = count -1;
+            var result = numbers[0];
+
+            for (var i =1; i <= arrayIndex; i++)
+            {
+                if (skipped.Contains(i)) continue;
+
+                if (operators[i] == CalculatorOperator.Add)
+                    result += numbers[i];
+                else if (operators[i] == CalculatorOperator.Subtract)
+                    result -= numbers[i];
+            }
+
+            return result;
+        }
+
 
         #endregion
     }

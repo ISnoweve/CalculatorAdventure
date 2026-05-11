@@ -125,7 +125,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorLabel
 
             if (CalculatorSystem.Instance.GetEqual() != 0)
             {
-                previewResultText.text = GetOperatorString(data.CurrentOperators[0])+CalculatorSystem.Instance.GetEqual().ToString();
+                previewResultText.text = GetOperatorString(data.CurrentOperators[0])+CalculatorSystem.Instance.GetEqual();
             }
             else
             {
