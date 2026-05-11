@@ -7,9 +7,8 @@ using UnityEngine.UI;
 
 namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
 {
-    public class UI_UniqueRewardInfoPanel : MonoBehaviour
+    public class UI_UniqueInfoPanel : MonoBehaviour
     {
-        [SerializeField] private GameObject uniqueRewardInfoPanel;
         [SerializeField] private Image uniqueRewardIcon;
         [SerializeField] private GameObject uniqueRewardBoard;
         [SerializeField] private TMP_Text uniqueRewardDescriptionText;

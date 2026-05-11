@@ -22,12 +22,6 @@ namespace _Main.UniqueItemSys.Sys
     {
         [SerializeField] private UniqueItemDataSoList uniqueItemDataSoList;
         
-        [Button]
-        private void TriggerUniqueItemEffectForTest(UniqueItemData data)
-        {
-            data.EffectData.ExecuteTrigger();
-        }
-        
         public void SetUniqueItemDataSoList(UniqueItemDataSoList soList)
         {
             Instance.uniqueItemDataSoList = soList;
@@ -51,6 +45,14 @@ namespace _Main.UniqueItemSys.Sys
             GlobalMessagePipe.GetSubscriber<ChooseUniqueReward>().Subscribe(TryTriggerUniqueItemByGetItem).AddTo(bag);
             _disposable = bag.Build();
         }
+        
+        public static void SpawnAllUniqueItemInSoList()
+        {
+            foreach (var uniqueItemData in Instance.uniqueItemDataSoList.UniqueItemDataList)
+            {
+                UniqueItemManager.SpawnUniqueItem(uniqueItemData);
+            }
+        }
 
         protected override void Release()
         {
@@ -67,6 +69,9 @@ namespace _Main.UniqueItemSys.Sys
         {
             UniqueItem item = UniqueItemManager.GetUniqueItemById(data.RewardIndex);
             UniqueItemManager.AddUniqueItemToPlayerInventory(item);
+            
+            Event_NewUniqueItemToPlayer trigger = new Event_NewUniqueItemToPlayer(item);
+            GlobalMessagePipe.GetPublisher<Event_NewUniqueItemToPlayer>().Publish(trigger);
             
             if (item.Type == UniqueItemType.Internal)
             {
@@ -107,24 +112,19 @@ namespace _Main.UniqueItemSys.Sys
         #region Random UniqueItem For Battle Reward
         public List<UniqueItem> TryGetNewUniqueItemIdForBattleReward()
         {
-            // shuffle uniqueitemSO list
-            List<UniqueItemData> allUniqueItemData = uniqueItemDataSoList.UniqueItemDataList;
-            allUniqueItemData.ShuffleList();
-            if (allUniqueItemData.Count == 0) return null;
-            
             //return list
             List<int> newUniqueItemIds = new List<int>();
             
             //manager data
-            List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
+            List<UniqueItem> allUniqueItemNotInPlayerInventory = UniqueItemManager.GetAllUniqueItemsNotInPlayerInventory();
+            allUniqueItemNotInPlayerInventory.ShuffleList();
             
             int index = 0;
             bool haveIncreaseCalculatorBoxItem = false;
-            foreach (var uniqueItemData in allUniqueItemData)
+            
+            foreach (var uniqueItem in allUniqueItemNotInPlayerInventory)
             {
-                if(allUniqueItemInManager.Exists(itemData => itemData.Id == uniqueItemData.Id))continue;
-                
-                if (uniqueItemData.IncreaseCalculatorBox)
+                if (uniqueItem.IncreaseCalculatorBox)
                 {
                     if (haveIncreaseCalculatorBoxItem)
                     {
@@ -132,18 +132,16 @@ namespace _Main.UniqueItemSys.Sys
                     }
                     UniqueItemData newData = DetectIncreaseCalculatorBox();
                     if(newData ==null)continue;
-                    UniqueItemManager.SpawnUniqueItem(newData);
                     newUniqueItemIds.Add(newData.Id);
                     haveIncreaseCalculatorBoxItem = true;
                 }
                 else
                 {
-                    UniqueItemManager.SpawnUniqueItem(uniqueItemData);
-                    newUniqueItemIds.Add(uniqueItemData.Id);
+                    newUniqueItemIds.Add(uniqueItem.Id);
                 }
                 
                 index++;
-                if(index==2)break;
+                if(index==2|| allUniqueItemNotInPlayerInventory.Count<=1)break;
             }
             
             return GetUniqueItemsByIds(newUniqueItemIds);
@@ -154,14 +152,13 @@ namespace _Main.UniqueItemSys.Sys
             List<UniqueItemData> increaseCalculatorBox = uniqueItemDataSoList.IncreaseCalculatorBoxList;
             if (increaseCalculatorBox.Count == 0) return null;
 
-            List<UniqueItem> allUniqueItemInManager = UniqueItemManager.GetAllUniqueItems();
+            List<UniqueItem> allUniqueItemInPlayerInventory = UniqueItemManager.GetAllUniqueItemsInPlayerInventory();
 
             foreach (var uniqueItemData in increaseCalculatorBox)
             {
-                if(allUniqueItemInManager.Exists(item => item.Id == uniqueItemData.Id)) continue;
+                if(allUniqueItemInPlayerInventory.Exists(item => item.Id == uniqueItemData.Id)) continue;
                 return uniqueItemData;
             }
-
             return null;
         }
         

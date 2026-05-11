@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using _Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event;
 using _Main.UniqueItemSys.Manager;
 using MessagePipe;
@@ -9,21 +8,19 @@ using UnityEngine.UI;
 
 namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
 {
-    public class UI_UniqueRewardButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
+    public class UI_UniqueRewardButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerClickHandler
     {
         [SerializeField] private Button rewardButton;
         [SerializeField] private int uniqueItemRewardId;
+        
         [SerializeField] private float longPressSeconds = 0.5f;
         private bool isPointerDown;
-
         private Coroutine longPressCoroutine;
         private bool longPressTriggered;
-        private bool suppressNextClick;
 
         private void Awake()
         {
-            rewardButton = GetComponent<Button>();
-            rewardButton.onClick.AddListener(OnButtonClick);
+            if (rewardButton == null) rewardButton = GetComponent<Button>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -31,44 +28,56 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
             isPointerDown = true;
             longPressTriggered = false;
 
-            if (longPressCoroutine != null)
-                StopCoroutine(longPressCoroutine);
-
+            if (longPressCoroutine != null) StopCoroutine(longPressCoroutine);
             longPressCoroutine = StartCoroutine(LongPressRoutine());
-        }
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            isPointerDown = false;
-
-            if (longPressCoroutine != null)
-            {
-                StopCoroutine(longPressCoroutine);
-                longPressCoroutine = null;
-            }
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            isPointerDown = false;
+            if (longPressTriggered)
+            {
+                UI_UniqueInfoPanelControl.Instance.OnPointLeftUniqueItem();
+            }
 
+            isPointerDown = false;
             if (longPressCoroutine != null)
             {
                 StopCoroutine(longPressCoroutine);
                 longPressCoroutine = null;
             }
+        }
 
-            if (longPressTriggered)
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (isPointerDown && longPressTriggered)
             {
-                suppressNextClick = true;
-                UI_MobRewardView.Instance.OnPointLeftUniqueItem();
+                UI_UniqueInfoPanelControl.Instance.OnPointLeftUniqueItem();
+            }
+
+            isPointerDown = false;
+            if (longPressCoroutine != null)
+            {
+                StopCoroutine(longPressCoroutine);
+                longPressCoroutine = null;
             }
         }
 
-        public void SetUniqueItemReward(int uniqueItemId)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            uniqueItemRewardId = uniqueItemId;
-            rewardButton.image.sprite = UniqueItemManager.GetUniqueItemById(uniqueItemRewardId).Icon;
+            if (longPressTriggered)
+            {
+                longPressTriggered = false; 
+                return;
+            }
+
+            ExecuteClickLogic();
+        }
+
+        private void ExecuteClickLogic()
+        {
+            UI_MobRewardView.Instance.CloseRewardPanel();
+            var data = new ChooseUniqueReward(uniqueItemRewardId);
+            GlobalMessagePipe.GetPublisher<ChooseUniqueReward>().Publish(data);
         }
 
         private IEnumerator LongPressRoutine()
@@ -78,21 +87,19 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
             if (!isPointerDown) yield break;
 
             longPressTriggered = true;
-            suppressNextClick = true;
-            UI_MobRewardView.Instance.OnPointEnterUniqueItem(uniqueItemRewardId);
+            UI_UniqueInfoPanelControl.Instance.OnPointEnterUniqueItem(uniqueItemRewardId);
         }
 
-        private void OnButtonClick()
+        public void SetUniqueItemReward(int uniqueItemId = 0)
         {
-            if (suppressNextClick)
+            uniqueItemRewardId = uniqueItemId;
+            if (uniqueItemId == 0)
             {
-                suppressNextClick = false;
+                rewardButton.interactable = false;
                 return;
             }
-
-            UI_MobRewardView.Instance.CloseRewardPanel();
-            var data = new ChooseUniqueReward(uniqueItemRewardId);
-            GlobalMessagePipe.GetPublisher<ChooseUniqueReward>().Publish(data);
+            var item = UniqueItemManager.GetUniqueItemById(uniqueItemRewardId);
+            if (item != null)rewardButton.image.sprite = item.Icon;
         }
     }
 }

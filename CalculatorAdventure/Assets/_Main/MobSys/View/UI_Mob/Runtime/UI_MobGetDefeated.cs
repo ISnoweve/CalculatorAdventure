@@ -23,6 +23,7 @@ namespace _Main.MobSys.View.UI_Mob.Runtime
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<ChooseMoneyReward>().Subscribe(ShowDefeatedPanel).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ChooseUniqueReward>().Subscribe(ShowDefeatedPanel).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<NoUniqueRewardToChoose>().Subscribe(ShowDefeatedPanel).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -37,6 +38,11 @@ namespace _Main.MobSys.View.UI_Mob.Runtime
         }
 
         private void ShowDefeatedPanel(ChooseUniqueReward data)
+        {
+            defeatedPanel.SetActive(true);
+        }
+        
+        private void ShowDefeatedPanel(NoUniqueRewardToChoose data)
         {
             defeatedPanel.SetActive(true);
         }

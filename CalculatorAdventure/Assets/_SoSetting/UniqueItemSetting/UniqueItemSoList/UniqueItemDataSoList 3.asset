@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03739dcbe86e4fc5831c4d3d3bfce1f7, type: 3}
-  m_Name: UniqueItemDataSoList 2
+  m_Name: UniqueItemDataSoList 3
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemDataSoList
   uniqueItemDataList:
   - {fileID: 11400000, guid: 476608a9d3628ea4cb2f5aaa7418ffa7, type: 2}

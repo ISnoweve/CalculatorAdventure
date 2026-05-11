@@ -15,7 +15,6 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         [SerializeField] private GameObject moneyRewardCover;
         [SerializeField] private Button moneyRewardView;
         [SerializeField] private UI_UniqueRewardButton  uniqueItemRewardViewOne, uniqueItemRewardViewTwo;
-        [SerializeField] private UI_UniqueRewardInfoPanel uniqueRewardInfoPanel;
         [SerializeField,ReadOnly] private int moneyRewardValue;
         [SerializeField,ReadOnly] private int uniqueItemRewardOneId, uniqueItemRewardTwoId;
         
@@ -77,11 +76,27 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         
         private void OutPutUniqueItemReward(OutPutUniqueItemReward data)
         {
-            rewardPanel.SetActive(true);
-            uniqueItemRewardViewOne.gameObject.SetActive(true);
-            uniqueItemRewardViewTwo.gameObject.SetActive(true);
-            uniqueItemRewardViewOne.SetUniqueItemReward(data.UniqueItemIdList[0]);
-            uniqueItemRewardViewTwo.SetUniqueItemReward(data.UniqueItemIdList[1]);
+            switch (data.UniqueItemIdList.Count)
+            {
+                case <= 0:
+                    NoUniqueRewardToChoose eventData = new NoUniqueRewardToChoose();
+                    GlobalMessagePipe.GetPublisher<NoUniqueRewardToChoose>().Publish(eventData);
+                    break;
+                case 1:
+                    uniqueItemRewardViewOne.SetUniqueItemReward(data.UniqueItemIdList[0]);
+                    uniqueItemRewardViewTwo.SetUniqueItemReward();
+                    rewardPanel.SetActive(true);
+                    uniqueItemRewardViewOne.gameObject.SetActive(true);
+                    uniqueItemRewardViewTwo.gameObject.SetActive(true);
+                    break;
+                default:
+                    uniqueItemRewardViewOne.SetUniqueItemReward(data.UniqueItemIdList[0]);
+                    uniqueItemRewardViewTwo.SetUniqueItemReward(data.UniqueItemIdList[1]);
+                    rewardPanel.SetActive(true);
+                    uniqueItemRewardViewOne.gameObject.SetActive(true);
+                    uniqueItemRewardViewTwo.gameObject.SetActive(true);
+                    break;
+            }
         }
         
         private void CloseUniqueRewardPanel(ChooseUniqueReward data)
@@ -102,16 +117,6 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         public void CloseRewardPanel()
         {
             rewardPanel.SetActive(false);
-        }
-        
-        public void OnPointEnterUniqueItem(int uniqueItemId)
-        {
-            uniqueRewardInfoPanel.ShowUniqueRewardInfo(uniqueItemId);
-        }
-        
-        public void OnPointLeftUniqueItem()
-        {
-            uniqueRewardInfoPanel.HideUniqueRewardInfo();
         }
     }
 }

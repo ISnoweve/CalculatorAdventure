@@ -93,6 +93,7 @@ namespace _Main.InitGameSys.Sys
             challengeSystem.SetChallengeSoList(challengeDataSoList);
             uniqueItemSystem.SetUniqueItemDataSoList(uniqueItemDataSoList);
             mobBattleRewardSystem.SetMobRewardDataSoList(mobRewardDataSoList);
+            UniqueItemSystem.SpawnAllUniqueItemInSoList();
             var calculatorGameSetting = calculatorGameSettingSoList.CalculatorGameSettings[0];
             CalculatorButtonManager.InitializeButtons(calculatorGameSetting.ButtonsData);
             CalculatorSystem.InitializeSystem(calculatorGameSetting.CalculatorSystemData);

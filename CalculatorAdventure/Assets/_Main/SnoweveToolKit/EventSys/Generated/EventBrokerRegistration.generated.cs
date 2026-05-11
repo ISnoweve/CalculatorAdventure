@@ -37,6 +37,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobReward.Sys.MobRewardSys.Event.UpdateRewardRoundAndValue>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event.ChooseMoneyReward>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event.ChooseUniqueReward>();
+            builder.AddMessageBroker<global::_Main.MobBattleSys.MobReward.View.UI_MobRewardView.Event.NoUniqueRewardToChoose>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.Mob.AttackSkills.Event.Event_AtkS_Recover_AddOrSubtract>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.Mob.AttackSkills.Event.Event_AtkS_Recover_Multiply>();
             builder.AddMessageBroker<global::_Main.MobSys.Data.Mob.AttackSkills.Event.Event_AtkS_Recover_TakeCalculatorButtonsAddOrSubtract>();
@@ -57,6 +58,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_GivePlayerMoneyEverySpot>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Data.EffectData.Event.Event_IncreaseCalculatorBoxLimit>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Manager.Event.AddUniqueItemInPlayerInventory>();
+            builder.AddMessageBroker<global::_Main.UniqueItemSys.Sys.Event.Event_NewUniqueItemToPlayer>();
             builder.AddMessageBroker<global::_Main.UniqueItemSys.Sys.Event.NoUniqueItemTrigger>();
         }
     }
