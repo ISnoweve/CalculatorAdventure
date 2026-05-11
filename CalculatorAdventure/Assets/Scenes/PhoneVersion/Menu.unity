@@ -10780,6 +10780,10 @@ PrefabInstance:
       value: -1027.381
       objectReference: {fileID: 0}
     - target: {fileID: 6186687759640860785, guid: c4a02a09ade51a14a86320b08af6b8ba, type: 3}
+      propertyPath: battlePosition.y
+      value: 160
+      objectReference: {fileID: 0}
+    - target: {fileID: 6186687759640860785, guid: c4a02a09ade51a14a86320b08af6b8ba, type: 3}
       propertyPath: instanceViewPrefab
       value: 
       objectReference: {fileID: 8240587422933612877, guid: 10952c1ca99538f48b3c560b99614ff1, type: 3}
