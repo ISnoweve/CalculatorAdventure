@@ -35,6 +35,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d4b9d23e1ee173c49bc77344a2386b1b, type: 2}
   - {fileID: 11400000, guid: 476608a9d3628ea4cb2f5aaa7418ffa7, type: 2}
   - {fileID: 11400000, guid: 73b510257b6654a41b5007c8016b1645, type: 2}
+  - {fileID: 11400000, guid: eb2569382d88719418ee1fc9c4c4d9c9, type: 2}
+  - {fileID: 11400000, guid: e71c5497a8e713a4ba739f7457e189dc, type: 2}
+  - {fileID: 11400000, guid: 05101571d6ee4f648a05a8f5e36be8d2, type: 2}
+  - {fileID: 11400000, guid: 2000ab17b2d94ca43b4bcdbf6b0c3b3f, type: 2}
   IncreaseCalculatorBox:
   - {fileID: 11400000, guid: 6f97cfe32b9e7444e8fd8865d40436a3, type: 2}
   - {fileID: 11400000, guid: 309d7ec01d7437b4e8972d45fd1e8ab8, type: 2}

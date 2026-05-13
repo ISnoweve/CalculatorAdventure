@@ -146,6 +146,18 @@ namespace _Main.UniqueItemSys.Sys
             
             return GetUniqueItemsByIds(newUniqueItemIds);
         }
+        
+        // 寫死
+        public UniqueItem GetOneNewItem()
+        {
+            List<UniqueItem> allUniqueItemNotInPlayerInventory = UniqueItemManager.GetAllUniqueItemsNotInPlayerInventory();
+            allUniqueItemNotInPlayerInventory.ShuffleList();
+
+            if (!allUniqueItemNotInPlayerInventory[0].IncreaseCalculatorBox)
+                return allUniqueItemNotInPlayerInventory.FirstOrDefault();
+            UniqueItemData newData = DetectIncreaseCalculatorBox();
+            return UniqueItemManager.GetAllUniqueItems().Find(item => item.Id == newData.Id);
+        }
 
         private UniqueItemData DetectIncreaseCalculatorBox()
         {

@@ -4,6 +4,7 @@ using System.Linq;
 using _Main.InitGameSys.Sys.Enum;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
 {
@@ -17,6 +18,7 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
         [SerializeField] private GameObject labelTestQuestionSpot;
         [SerializeField] private GameObject labelTestMap;
         [SerializeField] private GameObject labelTestStoreSpot;
+        [SerializeField] private GameObject labelSpinWheel;
 
         #region Life Cycle
 
@@ -70,6 +72,9 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
                 case InitGameType.MobBattle:
                     labelTestMobBattle.SetActive(true);
                     break;
+                case InitGameType.SpinWheel:
+                    labelSpinWheel.SetActive(true);
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -103,6 +108,7 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
             labelTestQuestionSpot.SetActive(false);
             labelTestMap.SetActive(false);
             labelTestStoreSpot.SetActive(false);
+            labelSpinWheel.SetActive(false);
         }
 
         #endregion

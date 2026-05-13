@@ -58,6 +58,7 @@ namespace _Main.CalculatorSys.Sys.Button
         {
             ResetNumberButtonToOriginalValue();
             ResetRecordUsedNumberIndexWhenGameStart();
+            RestButtonIsClick();
         }
 
         private void ResetAfterBattle(NotifyMobBattleNewState data)
@@ -65,6 +66,7 @@ namespace _Main.CalculatorSys.Sys.Button
             if(data.NewState != MobBattleStateEnum.BattleResult)return;
             ResetNumberButtonToOriginalValue();
             ResetRecordUsedNumberIndexWhenGameStart();
+            RestButtonIsClick();
         }
 
         private void ResetNumberButtonToOriginalValue()
@@ -80,6 +82,14 @@ namespace _Main.CalculatorSys.Sys.Button
         private void ResetRecordUsedNumberIndexWhenGameStart()
         {
             Instance.recordUsedNumberIndex.Clear();
+        }
+
+        private void RestButtonIsClick()
+        {
+            foreach (CalculatorButton button in CalculatorButtonManager.GetAllActivateNumberButton())
+            {
+                button.SetButtonClickAble();
+            }
         }
 
         #endregion
@@ -121,8 +131,13 @@ namespace _Main.CalculatorSys.Sys.Button
         private bool DetectAllNumberButtonClickAble()
         {
             foreach (var calculatorButton in CalculatorButtonManager.GetAllNumberButton())
+            {
                 if (calculatorButton.IsClick == false)
-                    return false;
+                {
+                    return false;    
+                }
+            }
+            
 
             RecoverAllNumberButtonClickAble();
             return true;

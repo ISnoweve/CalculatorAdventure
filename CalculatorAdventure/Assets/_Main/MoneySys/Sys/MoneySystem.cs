@@ -12,7 +12,9 @@ namespace _Main.MoneySys.Sys
     public class MoneySystem : Singleton<MoneySystem>
     {
         [SerializeField] private int moneyValue;
-        
+
+        public int MoneyValue => moneyValue;
+
         #region Life cycle
 
         protected override void Initialize()
@@ -44,6 +46,20 @@ namespace _Main.MoneySys.Sys
             moneyValue += data.RewardValue;
 
             ModifyMoney modifyMoney = new ModifyMoney(data.RewardValue, MoneyModifyType.Add);
+            GlobalMessagePipe.GetPublisher<ModifyMoney>().Publish(modifyMoney);
+        }
+
+        public bool TryGetMoney(int value)
+        {
+            if (moneyValue < value) return false;
+            moneyValue -= value;
+            return true;
+        }
+        
+        public void GiveMoney(int value)
+        {
+            moneyValue += value;
+            ModifyMoney modifyMoney = new ModifyMoney(moneyValue, MoneyModifyType.Add);
             GlobalMessagePipe.GetPublisher<ModifyMoney>().Publish(modifyMoney);
         }
     }

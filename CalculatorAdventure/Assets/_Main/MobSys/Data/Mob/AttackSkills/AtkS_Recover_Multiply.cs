@@ -19,7 +19,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
         public override void Execute()
         {
             var random = new Random();
-            var randomValue = random.Next(randomLimitMin, randomLimitMax);
+            var randomValue = random.Next(randomLimitMin, randomLimitMax+1);
 
             MobManager.CurrentsMob.ModifyQuestionNumber(randomValue, CalculatorOperator.Multiply);
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;

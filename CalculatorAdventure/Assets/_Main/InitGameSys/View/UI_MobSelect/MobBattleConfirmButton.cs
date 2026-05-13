@@ -15,7 +15,6 @@ namespace _Main.InitGameSys.View.UI_MobSelect
     public class MobBattleConfirmButton : MonoBehaviour
     {
         [SerializeField] private TMP_Dropdown mobDropdown;
-        [SerializeField] private TMP_Dropdown calculatorSettingDropdown;
         [SerializeField] private Button confirmButton;
         [SerializeField] private Button playButton;
         [SerializeField] private MobDataSoList mobDataSoList;
@@ -57,25 +56,21 @@ namespace _Main.InitGameSys.View.UI_MobSelect
 
         private void InitializeCalculatorSettingDropdown()
         {
-            calculatorSettingDropdown.ClearOptions();
             var options = new List<string>();
             for (var i = 0; i < calculatorGameSettingSoList.CalculatorGameSettings.Length; i++)
                 options.Add((i + 2).ToString());
-            calculatorSettingDropdown.AddOptions(options);
         }
 
         private void Subscribe()
         {
             confirmButton.onClick.AddListener(ConfirmMobBattleSetting);
             mobDropdown.onValueChanged.AddListener(ClosePlayButton);
-            calculatorSettingDropdown.onValueChanged.AddListener(ClosePlayButton);
         }
 
         private void OnDestroy()
         {
             confirmButton.onClick.RemoveListener(ConfirmMobBattleSetting);
             mobDropdown.onValueChanged.RemoveListener(ClosePlayButton);
-            calculatorSettingDropdown.onValueChanged.RemoveListener(ClosePlayButton);
         }
 
         private void ClosePlayButton(int index)

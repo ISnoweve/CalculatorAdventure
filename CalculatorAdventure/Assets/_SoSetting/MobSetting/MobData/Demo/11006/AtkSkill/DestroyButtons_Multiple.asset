@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36dd3f3227bd43fb81078d8673150ede, type: 3}
+  m_Name: DestroyButtons_Multiple
+  m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_Multiple
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u7248\u4E2D\u672A\u4F7F\u7528\u7684\u6309\u9215\uFF0C\u6309\u9215\u7684\u6578\u5B57\u70BA3\u500D\u6578\u9032\u884C\u7834\u58DE\u3002"
+  attackSkillType: 2
+  countDownRound: 2
+  multipleNumbers: 03000000

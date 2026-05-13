@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: AllMobData
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.MobsData
   mobs:
-  - {fileID: 11400000, guid: 3f66f95eb43d9ca44bde78158dc0c417, type: 2}
-  - {fileID: 11400000, guid: 17b455cb39ecbac43bb10a7e4c416a3b, type: 2}
-  - {fileID: 11400000, guid: 67ccc20c35f115743ac3fc1675f3014b, type: 2}
-  - {fileID: 11400000, guid: 05aab0f6ce5a46a439d935bfc0ec516f, type: 2}
-  - {fileID: 11400000, guid: c837efd5f91736c42ae291266aeede7c, type: 2}
-  - {fileID: 11400000, guid: d899001e2f24b73459cad48c89514279, type: 2}
+  - {fileID: 11400000, guid: 4d6fc04686a4fd14fb9dd421f847ca56, type: 2}
+  - {fileID: 11400000, guid: 8d3a4d8e581586e4ba6a741d83539cca, type: 2}
+  - {fileID: 11400000, guid: 5c54719da3f1fe44db7d423242c92e58, type: 2}
+  - {fileID: 11400000, guid: df836cb2d2933a248895b5071e0bbe43, type: 2}
+  - {fileID: 11400000, guid: a3966da39a592fb4ab7f4ba7939cbee2, type: 2}
+  - {fileID: 11400000, guid: 2d90ed7a0d111664ca11918edff72e55, type: 2}
+  - {fileID: 11400000, guid: 8a2fb5c84dd27f8448b5e2a4b90651ac, type: 2}

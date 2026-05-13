@@ -1,4 +1,5 @@
 using _Main.CalculatorSys.View.UI_TriggerByRewardPutNumber.Event;
+using _Main.UniqueItemSys.Manager;
 using MessagePipe;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,11 @@ namespace _Main.CalculatorSys.View.UI_TriggerByRewardPutNumber
         {
             Event_PutNumber eventPutNumber = new Event_PutNumber(index);
             GlobalMessagePipe.GetPublisher<Event_PutNumber>().Publish(eventPutNumber);
+        }
+
+        private void SetButtonIcon()
+        {
+            button.image.sprite = UniqueItemManager.GetUniqueItemById(index).Icon;
         }
     }
 }

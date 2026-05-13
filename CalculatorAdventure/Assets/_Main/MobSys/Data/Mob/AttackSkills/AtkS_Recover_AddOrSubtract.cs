@@ -25,7 +25,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             if (MobManager.CurrentsMob.CurrentQuestionNumber > 0)
                 MobManager.CurrentsMob.ModifyQuestionNumber(randomValue, CalculatorOperator.Add);
             else
-                MobManager.CurrentsMob.ModifyQuestionNumber(-randomValue, CalculatorOperator.Subtract);
+                MobManager.CurrentsMob.ModifyQuestionNumber(randomValue, CalculatorOperator.Subtract);
 
             var currentQuestionNumber = MobManager.CurrentsMob.CurrentQuestionNumber;
 

@@ -2,6 +2,7 @@ using System;
 using _Main.GameSceneSys.Sys.Event;
 using _Main.StateSys.GameStateMachineSys.Enum;
 using _Main.ToolKit.SingletonFeature;
+using _Main.UniqueItemSys.Manager;
 using _Main.UniqueItemSys.Sys.Event;
 using _Main.UniqueItemSys.View.UI_UniqueInstanceView;
 using MessagePipe;
@@ -12,8 +13,6 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
 {
     public class UI_UniqueInstanceListView : SingletonMonoBehaviour<UI_UniqueInstanceListView>
     {
-        protected override bool IsDontDestroyOnLoad => true;
-        
         [SerializeField] private GameObject scrollView,content;
         [SerializeField] private Vector2 menuPosition,battlePosition;
         [SerializeField] private GameObject instanceViewPrefab;
@@ -33,6 +32,7 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
             GlobalMessagePipe.GetSubscriber<AfterSceneChange>().Subscribe(SetPositionBySceneLoad).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<AfterSceneChange>().Subscribe(UpdateAllPlayerUniqueItem).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Event_NewUniqueItemToPlayer>().Subscribe(SetNewUniqueInstanceView).AddTo(bag);
             _disposable = bag.Build();
         }
@@ -50,13 +50,13 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
         [Button]
         private void GetMenuPosition()
         {
-            menuPosition = transform.localPosition;
+            menuPosition = scrollView.transform.localPosition;
         }
 
         [Button]
         private void GetBattlePosition()
         {
-            battlePosition = transform.localPosition;
+            battlePosition = scrollView.transform.localPosition;
         }
         
         private void SetMenuPosition()
@@ -64,6 +64,7 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
             scrollView.transform.localPosition = menuPosition;
         }
         
+        [Button]
         private void SetBattlePosition()
         {
             scrollView.transform.localPosition = battlePosition;
@@ -73,9 +74,6 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
         {
             switch (sceneState.CurrentGameState)
             {
-                case GameState.Menu:
-                    SetMenuPosition();
-                    break;
                 case GameState.InMobBattle:
                     SetBattlePosition();
                     break;
@@ -85,6 +83,16 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
         #endregion
 
         #region Set New Unique Instance View
+
+        private void UpdateAllPlayerUniqueItem(AfterSceneChange sceneState)
+        {
+            foreach (var uniqueItem in UniqueItemManager.GetAllUniqueItemsInPlayerInventory())
+            {
+                GameObject instanceView = Instantiate(instanceViewPrefab, content.transform);
+                UI_UniqueIstanceView view = instanceView.GetComponentInChildren<UI_UniqueIstanceView>();
+                view.SetView(uniqueItem.Id);
+            }
+        }
 
         private void SetNewUniqueInstanceView(Event_NewUniqueItemToPlayer data)
         {

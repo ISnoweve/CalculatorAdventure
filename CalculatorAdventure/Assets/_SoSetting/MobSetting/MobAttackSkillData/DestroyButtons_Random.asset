@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d22fdf9f897435d818b077534d1bf28, type: 3}
   m_Name: DestroyButtons_Random
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_Random
-  name: 
-  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u96A8\u6A5F\u6578\u91CF\u7684\u6309\u9215\uFF0C\u5C0D\u6309\u9215\u9032\u884C\u7834\u58DE\u3002"
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u96A8\u6A5FX\u500B\u672A\u4F7F\u7528\u6309\u9215\u9032\u884C\u7834\u58DE\u3002"
   attackSkillType: 2
   countDownRound: 0
   destroyCount: 0

@@ -4,6 +4,7 @@ namespace _Main.InitGameSys.Sys.Enum
     {
         MainGame,
         MobBattle,
+        SpinWheel,
         //TestQuestionSpot,
         //TestMap,
         //TestStoreSpot

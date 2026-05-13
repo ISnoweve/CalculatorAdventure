@@ -71,7 +71,7 @@ namespace _Main.CalculatorSys.View.UI_TriggerByRewardPutNumber
                     {
                         if(calculatorButton.CalculatorButtonType == CalculatorButtonType.NumberNotActivate)
                         {
-                            calculatorButtonView.ButtonText.text = "";
+                            calculatorButtonView.ButtonText.text = data.GiveNumber.ToString();
                             calculatorButtonView.Button.interactable = true;
                         }
                         else

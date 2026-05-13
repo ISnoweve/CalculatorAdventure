@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: MobRewardData_Elite
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.MobReward.MobRewardData
   mobType: 1
-  mobRewardBlank: 3
-  mobRewardMoneyValue: 0.5
-  mobRewardUniqueItemValue: 0.5
-  mobRewardMoneyValueLimit: 0.9
+  mobRewardBlank: 5
+  mobRewardMoneyValue: 0.3
+  mobRewardUniqueItemValue: 0.7
+  mobRewardMoneyValueLimit: 0.95
   mobRewardModifyValueAfterBlank: 0.05
-  moneyRewardValue: 6
+  moneyRewardValue: 9

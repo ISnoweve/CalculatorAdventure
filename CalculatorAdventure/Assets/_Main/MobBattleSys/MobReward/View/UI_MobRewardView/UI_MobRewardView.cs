@@ -14,6 +14,7 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         [SerializeField] private GameObject rewardPanel;
         [SerializeField] private GameObject moneyRewardCover;
         [SerializeField] private Button moneyRewardView;
+        [SerializeField] private GameObject panel;
         [SerializeField] private UI_UniqueRewardButton  uniqueItemRewardViewOne, uniqueItemRewardViewTwo;
         [SerializeField,ReadOnly] private int moneyRewardValue;
         [SerializeField,ReadOnly] private int uniqueItemRewardOneId, uniqueItemRewardTwoId;
@@ -108,6 +109,7 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         
         private void NotifyAfterChooseMoneyReward()
         {
+            panel.gameObject.SetActive(false);
             moneyRewardView.gameObject.SetActive(false);
             CloseRewardPanel();
             ChooseMoneyReward data = new ChooseMoneyReward(moneyRewardValue);

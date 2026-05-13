@@ -26,7 +26,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var calculatorButtons = TakeCalculatorNumberButtons();
 
             var random = new Random();
-            var randomValue = random.Next(randomValueLimitMin, randomValueLimitMax);
+            var randomValue = random.Next(randomValueLimitMin, randomValueLimitMax+1);
 
             ButtonSystem.ModifyNumberButtonValueByAttackSkill(calculatorButtons, randomValue);
            
