@@ -77,6 +77,7 @@ namespace _Main.MobBattleSys.MobReward.View.UI_MobRewardView
         
         private void OutPutUniqueItemReward(OutPutUniqueItemReward data)
         {
+            
             switch (data.UniqueItemIdList.Count)
             {
                 case <= 0:

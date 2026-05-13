@@ -15,6 +15,13 @@ namespace _Main.UniqueItemSys.Manager
         [SerializeField] private List<UniqueItem> uniqueItemInPlayerInventory = new();
         [SerializeField] private List<UniqueItem> notInPlayerInventoryUniqueItems = new();
         [SerializeField] private List<UniqueItem> uniqueItems = new();
+
+        [Button]
+        private void TestUniqueItem(UniqueItemData data)
+        {
+            Instance.uniqueItemInPlayerInventory.Add(GetUniqueItemById(data.Id));
+            Instance.notInPlayerInventoryUniqueItems.Remove(GetUniqueItemById(data.Id));
+        }
         
         public static void SpawnUniqueItem(UniqueItemData data)
         {

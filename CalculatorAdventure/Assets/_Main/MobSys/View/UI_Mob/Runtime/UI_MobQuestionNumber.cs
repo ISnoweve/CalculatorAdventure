@@ -63,7 +63,7 @@ namespace _Main.MobSys.View.UI_Mob.Runtime
             
             if (CheckModifyQueue())
             {
-                StartCoroutine(UpdateNewQuestionNumberAnimation());
+                StartCoroutine(UpdateNewQuestionNumberAnimation(onFinish));
             }
             else
             {

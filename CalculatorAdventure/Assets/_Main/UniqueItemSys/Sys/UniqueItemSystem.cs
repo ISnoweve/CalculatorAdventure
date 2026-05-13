@@ -140,8 +140,14 @@ namespace _Main.UniqueItemSys.Sys
                     newUniqueItemIds.Add(uniqueItem.Id);
                 }
                 
+                if(allUniqueItemNotInPlayerInventory.Count<=1)
+                {
+                    Debug.Log(uniqueItem.Id);
+                    break;
+                }
+                
                 index++;
-                if(index==2|| allUniqueItemNotInPlayerInventory.Count<=1)break;
+                if(index==2)break;
             }
             
             return GetUniqueItemsByIds(newUniqueItemIds);
