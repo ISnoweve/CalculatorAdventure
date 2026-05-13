@@ -2470,7 +2470,7 @@ MonoBehaviour:
   mobDropdown: {fileID: 523340887}
   confirmButton: {fileID: 1534842243}
   playButton: {fileID: 1046872000}
-  mobDataSoList: {fileID: 11400000, guid: 5ef9f9bb17b351947b01d10d029308d3, type: 2}
+  mobDataSoList: {fileID: 11400000, guid: c607ba97e75f98249b63c08e8fdf5441, type: 2}
   calculatorGameSettingSoList: {fileID: 11400000, guid: f63fe6658c20a9040888845a2bdc4b0c, type: 2}
 --- !u!1 &652732153
 GameObject:
