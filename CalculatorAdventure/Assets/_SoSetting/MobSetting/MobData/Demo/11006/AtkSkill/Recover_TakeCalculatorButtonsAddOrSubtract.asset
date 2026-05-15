@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0136d167d3d48a088f13ecedc0c4bda, type: 3}
   m_Name: Recover_TakeCalculatorButtonsAddOrSubtract
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_Recover_TakeCalculatorButtonsAddOrSubtract
-  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u4E0A2\u500B\u672A\u4F7F\u7528\u6309\u9215\uFF0C\u7528\u6309\u9215\u4E2D\u7684\u6578\u5B57\u5C0D\u81EA\u5DF1\u9032\u884C\u6062\u5FA9\u3002"
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u4E0A5\u500B\u672A\u4F7F\u7528\u6309\u9215\uFF0C\u7528\u6309\u9215\u4E2D\u7684\u6578\u5B57\u5C0D\u81EA\u5DF1\u9032\u884C\u6062\u5FA9\u3002"
   attackSkillType: 4
   countDownRound: 2
-  takeCount: 2
+  takeCount: 5

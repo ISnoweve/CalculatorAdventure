@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemData
   id: 12002
   dataName: 
-  description: "\u6BCF\u5230\u73A9\u5BB6\u56DE\u5408\uFF0C\u5C0D\u751F\u9748\u7684\u6578\u5B57\u9032\u884C20\u7684
+  description: "\u6BCF\u5230\u73A9\u5BB6\u56DE\u5408\uFF0C\u5C0D\u751F\u9748\u7684\u6578\u5B57\u9032\u884C5\u7684
     -\u3002"
   effectData: {fileID: 11400000, guid: 3c21e7c7921359b4ca84b05499a1c369, type: 2}
   type: 0

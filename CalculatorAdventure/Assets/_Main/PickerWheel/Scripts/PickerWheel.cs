@@ -158,7 +158,7 @@ namespace EasyUI.PickerWheelUI {
       }
 
       public void OnSpinEnd (UnityAction<WheelPiece> action) {
-         onSpinEndEvent = action ;
+         onSpinEndEvent += action ;
       }
 
 

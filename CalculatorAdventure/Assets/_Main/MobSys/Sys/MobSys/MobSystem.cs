@@ -7,6 +7,7 @@ using _Main.MobSys.Sys.MobSys.Event;
 using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
+using Sirenix.OdinInspector;
 
 namespace _Main.MobSys.Sys.MobSys
 {
@@ -71,6 +72,7 @@ namespace _Main.MobSys.Sys.MobSys
             MobManager.CurrentsMob.ExecuteNextAttackSkill();
         }
 
+        [Button]
         private void RandomMobNewBehavior()
         {
             MobManager.CurrentsMob.RandomNextAttackSkill();

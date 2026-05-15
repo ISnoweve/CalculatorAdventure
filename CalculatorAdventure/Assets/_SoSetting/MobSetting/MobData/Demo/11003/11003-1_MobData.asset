@@ -21,5 +21,6 @@ MonoBehaviour:
   attackSkills:
   - {fileID: 11400000, guid: a37165891153b9f458ad462a81b2ae99, type: 2}
   - {fileID: 11400000, guid: e8a18a8a26b7aa44ba3c899ff912c3b2, type: 2}
-  - {fileID: 11400000, guid: 60091e581296ff14bac273a419f68fff, type: 2}
+  - {fileID: 11400000, guid: 0c5b5d3512a456e45a5aa2a2f0935c20, type: 2}
+  - {fileID: 11400000, guid: 40e5c87c8e0032f49860210c3acb6532, type: 2}
   mobType: 1

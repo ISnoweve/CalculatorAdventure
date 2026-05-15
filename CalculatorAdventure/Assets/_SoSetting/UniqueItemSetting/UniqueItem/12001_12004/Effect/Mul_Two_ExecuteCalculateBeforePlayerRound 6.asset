@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c932d99cb82242acbf911ab3be3c95eb, type: 3}
-  m_Name: ExecuteCalculateBeforePlayerRound 4
+  m_Name: Mul_Two_ExecuteCalculateBeforePlayerRound 6
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.EffectData.ExecuteCalculateToMobBeforePlayerRound
-  modifyNumber: 50
-  calculatorOperator: 1
+  modifyNumber: 3
+  calculatorOperator: 3

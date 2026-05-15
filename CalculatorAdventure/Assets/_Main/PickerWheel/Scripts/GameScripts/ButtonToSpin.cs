@@ -33,7 +33,9 @@ namespace EasyUI.PickerWheelUI.GameScripts
                 ShowWarningText();
                 return;
             }
-            
+
+            _button.interactable = false;
+            _pickerWheel.OnSpinEnd(_ => _button.interactable = true);
             _pickerWheel.Spin();
             view.UpdateMoneyValue(MoneySystem.Instance.MoneyValue);
         }

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: UniqueItemDataSoList 3
   m_EditorClassIdentifier: _Main.UniqueItemSys::_Main.UniqueItemSys.Data.UniqueItemDataSoList
   uniqueItemDataList:
-  - {fileID: 11400000, guid: 6cdb515d7a8191040ba296c8f9b60a6d, type: 2}
-  IncreaseCalculatorBox: []
+  - {fileID: 11400000, guid: 6f97cfe32b9e7444e8fd8865d40436a3, type: 2}
+  IncreaseCalculatorBox:
+  - {fileID: 11400000, guid: 6f97cfe32b9e7444e8fd8865d40436a3, type: 2}
+  - {fileID: 11400000, guid: 309d7ec01d7437b4e8972d45fd1e8ab8, type: 2}

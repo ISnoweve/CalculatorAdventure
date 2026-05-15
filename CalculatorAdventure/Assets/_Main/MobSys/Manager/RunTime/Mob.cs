@@ -1,9 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using _Main.CalculatorSys.Enum;
 using _Main.MobSys.Data;
 using _Main.MobSys.Data.Mob;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using _Main.MobSys.Enum;
+using _Main.UtilityFeature;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
 
@@ -17,11 +21,13 @@ namespace _Main.MobSys.Manager.RunTime
         [SerializeField] private string description;
         [SerializeField] private GameObject prefab;
         [SerializeField] private int originalQuestionNumber;
-        [SerializeField] private AttackSkillData[] attackSkills;
+        [SerializeField] private List<AttackSkillData> attackSkills;
+        [SerializeField,ReadOnly] private List<AttackSkillData> attackSkillsInGame;
         [SerializeField] private MobType mobType;
         [SerializeField] private int attackSkillCountDown;
         [SerializeField] private int currentQuestionNumber;
         [SerializeField] private AttackSkillData nextAttackSkill;
+        [SerializeField] private AttackSkillData previousAttackSkill;
 
 
         public Mob(MobData data)
@@ -32,7 +38,8 @@ namespace _Main.MobSys.Manager.RunTime
             prefab = data.Prefab;
             originalQuestionNumber = data.OriginalQuestionNumber;
             currentQuestionNumber = originalQuestionNumber;
-            attackSkills = data.AttackSkills;
+            attackSkills = data.AttackSkills.ToList();
+            attackSkillsInGame = attackSkills;
             mobType = data.MobType;
             RandomNextAttackSkill();
         }
@@ -80,10 +87,22 @@ namespace _Main.MobSys.Manager.RunTime
 
         public void RandomNextAttackSkill()
         {
-            if (attackSkills == null || attackSkills.Length <= 0) return;
-            var random = new Random();
-            var randomIndex = random.Next(0, attackSkills.Length);
-            nextAttackSkill = attackSkills[randomIndex];
+            if (attackSkills == null || attackSkills.Count <= 0) return;
+            attackSkillsInGame.ShuffleList();
+            foreach (AttackSkillData attackSkillData in attackSkillsInGame)
+            {
+                if (previousAttackSkill == null)
+                {
+                    previousAttackSkill = attackSkillData;
+                    nextAttackSkill = attackSkillData; 
+                    break;
+                }
+                
+                if(previousAttackSkill.GetEntityId()==attackSkillData.GetEntityId())continue;
+                previousAttackSkill = attackSkillData;
+                nextAttackSkill = attackSkillData;
+                break;
+            }
             attackSkillCountDown = nextAttackSkill.countDownRound;
         }
     }
