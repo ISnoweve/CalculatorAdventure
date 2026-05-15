@@ -5,6 +5,7 @@ using _Main.HealthSys.View.UI_HealthView.Event;
 using DG.Tweening;
 using MessagePipe;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +13,8 @@ namespace _Main.HealthSys.View.UI_HealthView
 {
     public class HealthBarView : MonoBehaviour
     {
-        [Header("UI 元件")] 
+        [Header("UI 元件")]
+        [SerializeField] private TMP_Text healthText;
         [SerializeField] private Button testButton;
         [SerializeField] private Slider healthSlider;
 
@@ -43,6 +45,7 @@ namespace _Main.HealthSys.View.UI_HealthView
         
         private void Initialize(Event_InitialHealth eventData)
         {
+            healthText.text = eventData.Health.ToString();
             healthSlider.maxValue = eventData.MaxHealth;
             healthSlider.value = eventData.Health;
         }
@@ -85,15 +88,14 @@ namespace _Main.HealthSys.View.UI_HealthView
             
             _currentTween = DOTween.To(() => healthSlider.value, x => healthSlider.value = x, newValue, duration)
                 .SetEase(decreaseEase)
-                .OnComplete(HealthUpdateFinished);
-            return;
-
-            void HealthUpdateFinished()
-            {
-                _currentTween = null;
-                Event_UpdateHealthFinished eventData =  new Event_UpdateHealthFinished();
-                GlobalMessagePipe.GetPublisher<Event_UpdateHealthFinished>().Publish(eventData);
-            }
+                .OnComplete(() =>
+                {
+                    _currentTween = null;
+                    UpdateText();
+            
+                    Event_UpdateHealthFinished eventData =  new Event_UpdateHealthFinished();
+                    GlobalMessagePipe.GetPublisher<Event_UpdateHealthFinished>().Publish(eventData);
+                });
         }
 
         private void UpdateHealthEmpty()
@@ -102,15 +104,19 @@ namespace _Main.HealthSys.View.UI_HealthView
             
             _currentTween = DOTween.To(() => healthSlider.value, x => healthSlider.value = x, 0, duration)
                 .SetEase(decreaseEase)
-                .OnComplete(HealthUpdateEmpty);
-            return;
-
-            void HealthUpdateEmpty()
-            {
-                _currentTween = null;
-                Event_UpdateHealthEmpty eventData = new Event_UpdateHealthEmpty();
-                GlobalMessagePipe.GetPublisher<Event_UpdateHealthEmpty>().Publish(eventData);
-            }
+                .OnComplete(() =>
+                {
+                    _currentTween = null;
+                    UpdateText();
+            
+                    Event_UpdateHealthEmpty eventData = new Event_UpdateHealthEmpty();
+                    GlobalMessagePipe.GetPublisher<Event_UpdateHealthEmpty>().Publish(eventData);
+                });
+        }
+        
+        private void UpdateText()
+        {
+            healthText.text = ((int)healthSlider.value).ToString();
         }
 
         #endregion

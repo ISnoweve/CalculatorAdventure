@@ -18,8 +18,8 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
 
             var calculatorButtonsIsPrime = GetPrimes(calculatorButtonsNotClick, out var otherCalculatorButtons);
 
-            ButtonSystem.CloseNumberButtonClickableByAttackSkill(otherCalculatorButtons);
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(otherCalculatorButtons);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(otherCalculatorButtons);
         }
 
         private List<CalculatorButton> GetPrimes(List<CalculatorButton> inputList,

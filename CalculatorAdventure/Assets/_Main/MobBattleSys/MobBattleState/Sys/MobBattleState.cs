@@ -1,6 +1,8 @@
 using System;
 using _Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event;
 using _Main.GameSceneSys.Sys.Event;
+using _Main.HealthSys.Sys.Event;
+using _Main.HealthSys.View.UI_HealthView.Event;
 using _Main.MobBattleSys.MobBattleState.Enum;
 using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.MobSys.Sys.MobSys.Event;
@@ -40,8 +42,11 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
             GlobalMessagePipe.GetSubscriber<Calculate_MobDefeated>().Subscribe(StateEnter_BattleResult).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<FinishedUpdateNewNumber>().Subscribe(StateEnter_MobTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<FinishedUpdateNewNumber>().Subscribe(StateEnter_PlayerTurn).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<FinishedUpdateNewNumber>().Subscribe(StateEnter_BeforePlayerTurn).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_UpdateHealthFinished>().Subscribe(StateEnter_BeforePlayerTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<FinishedUpdateBehaviourCountDown>().Subscribe(StateEnter_BeforePlayerTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<NoUniqueItemTrigger>().Subscribe(StateEnter_PlayerTurn).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<Event_UpdateHealthEmpty>().Subscribe(StateEnter_GetStrike).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -67,19 +72,13 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
             StateEnter_BeforePlayerTurn();
         }
 
-        // private void StateEnterMobBattleStart()
-        // {
-        //     mobBattleStateEnum = MobBattleStateEnum.BattleStart;
-        //     CallNewState();
-        // }
-        //
-        // private void StateEnter_MobSpeak()
-        // {
-        //     mobBattleStateEnum = MobBattleStateEnum.MobSpeak;
-        //     CallNewState();
-        // }
-
         private void StateEnter_BeforePlayerTurn()
+        {
+            mobBattleStateEnum = MobBattleStateEnum.BeforePlayerTurn;
+            CallNewState();
+        }
+        
+        private void StateEnter_BeforePlayerTurn(Event_UpdateHealthFinished data)
         {
             mobBattleStateEnum = MobBattleStateEnum.BeforePlayerTurn;
             CallNewState();
@@ -91,8 +90,16 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
             CallNewState();
         }
         
+        private void StateEnter_BeforePlayerTurn(FinishedUpdateNewNumber data)
+        {
+            if(data.FinishedUpdateNewNumberType != FinishedUpdateNewNumberType.ByAttackSkillRecover)return;
+            mobBattleStateEnum = MobBattleStateEnum.BeforePlayerTurn;
+            CallNewState();
+        }
+        
         private void StateEnter_PlayerTurn(NoUniqueItemTrigger data)
         {
+            
             mobBattleStateEnum = MobBattleStateEnum.PlayerTurn;
             CallNewState();
         }
@@ -114,6 +121,12 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
         private void StateEnter_BattleResult(Calculate_MobDefeated data)
         {
             mobBattleStateEnum = MobBattleStateEnum.BattleResult;
+            CallNewState();
+        }
+        
+        private void StateEnter_GetStrike(Event_UpdateHealthEmpty data)
+        {
+            mobBattleStateEnum = MobBattleStateEnum.GetStrike;
             CallNewState();
         }
 

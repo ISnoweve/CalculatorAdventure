@@ -19,7 +19,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
 
         public override void Execute()
         {
-            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton();
+            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllNumberButton();
 
             var randomIndex = Random.Range(0, squareSpotIndices.Length);
             var randomCenterIndex = squareSpotIndices[randomIndex];
@@ -36,22 +36,22 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
                 if (squareIndexes.Contains(button.Index))
                     buttonsInSquare.Add(button);
 
-            ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInSquare);
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(buttonsInSquare);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInSquare);
         }
 
         private static List<int> GetSquareIndices(int centerIndex, int squareSize, int width = 5, int height = 5)
         {
-            var result = new List<int>();
+            var result = new List<int>(); 
 
             if (width <= 0 || height <= 0 || squareSize <= 0) return result;
             if (centerIndex < 0 || centerIndex >= width * height) return result;
 
-            var centerRow = centerIndex / width;
-            var centerCol = centerIndex % width;
-            var half = squareSize / 2;
+            var centerRow = centerIndex / width; 
+            var centerCol = centerIndex % width; 
+            var half = squareSize / 2; 
 
-            var minRow = Mathf.Max(0, centerRow - half);
+            var minRow = Mathf.Max(0, centerRow - half); 
             var maxRow = Mathf.Min(height - 1, centerRow + half);
             var minCol = Mathf.Max(0, centerCol - half);
             var maxCol = Mathf.Min(width - 1, centerCol + half);

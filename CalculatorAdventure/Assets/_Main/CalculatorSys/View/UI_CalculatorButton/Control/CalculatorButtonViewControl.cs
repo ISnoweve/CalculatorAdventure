@@ -17,6 +17,9 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
     {
         [SerializeField] private List<CalculatorButtonView> _calculatorButtonViews;
         private Dictionary<byte, CalculatorButtonView> CalculatorButtonViews;
+        
+        public Sprite brokenSprite;
+        public Sprite normalSprite;
 
         #region Life cycle
 
@@ -125,7 +128,7 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Control
         {
             foreach (var buttonIndex in buttonIndexes)
                 if (CalculatorButtonViews.ContainsKey(buttonIndex.Index))
-                    CalculatorButtonViews[buttonIndex.Index].ChangeButtonState(false);
+                    CalculatorButtonViews[buttonIndex.Index].ChangeButtonStateByAttack();
         }
 
         #endregion

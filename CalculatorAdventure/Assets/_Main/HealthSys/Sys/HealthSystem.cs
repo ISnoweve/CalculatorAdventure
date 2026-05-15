@@ -13,7 +13,7 @@ namespace _Main.HealthSys.Sys
     [Serializable]
     public class HealthSystem : Singleton<HealthSystem>
     {
-        [SerializeField] private int maxHealth = 100;
+        [SerializeField] private int maxHealth=150;
         [SerializeField,ReadOnly] private int currentHealth;
         public int MaxHealth => maxHealth;
         public int CurrentHealth => currentHealth;
@@ -65,6 +65,7 @@ namespace _Main.HealthSys.Sys
             
             foreach (CalculatorButton calculatorButton in buttons)
             {
+                if(calculatorButton.IsClick)continue;
                 modifyValue += calculatorButton.CurrentValue;
             }
             
@@ -78,8 +79,13 @@ namespace _Main.HealthSys.Sys
         private void ModifyHealth(int value)
         {
             currentHealth += value;
-            if(DetectHealthEmpty())HealthEmpty();
+            if(DetectHealthEmpty())
+            {
+                HealthEmpty();
+                return;
+            }
             HealthUpdate();
+           
         }
 
         private bool DetectHealthEmpty()

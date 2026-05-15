@@ -105,6 +105,14 @@ namespace _Main.MobSys.Manager.RunTime
         public void RandomNextAttackSkill()
         {
             if (attackSkills == null || attackSkills.Count <= 0) return;
+            
+            if(attackSkills.Count <=1)
+            {
+                nextAttackSkill = attackSkills[0];
+                attackSkillCountDown = nextAttackSkill.countDownRound;
+                return;
+            }
+            
             attackSkillsInGame.ShuffleList();
             foreach (AttackSkillData attackSkillData in attackSkillsInGame)
             {

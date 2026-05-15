@@ -25,7 +25,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
 
         public override void Execute()
         {
-            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton();
+            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllNumberButton();
 
             if (rowOrColumn == RowOrColumn.Row)
             {
@@ -47,14 +47,14 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
                 if (list.Contains(button.Index))
                     buttonsInList.Add(button);
 
-            ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInList);
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(buttonsInList);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInList);
         }
 
         [Button]
         private List<int> GetRowIndexes()
         {
-            var indexesList = new List<int> { 0, 5, 10, 15, 20 };
+            var indexesList = new List<int> { 0, 6, 11, 16, 21 };
             var rowIndexList = new List<int>();
             if (isMultiLine)
             {

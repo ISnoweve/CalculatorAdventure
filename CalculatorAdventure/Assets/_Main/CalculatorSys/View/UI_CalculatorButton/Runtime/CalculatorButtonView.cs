@@ -1,6 +1,7 @@
 using System;
 using _Main.CalculatorSys.Enum;
 using _Main.CalculatorSys.Manager.Runtime;
+using _Main.CalculatorSys.View.UI_CalculatorButton.Control;
 using _Main.CalculatorSys.View.UI_CalculatorButton.Event;
 using MessagePipe;
 using Sirenix.OdinInspector;
@@ -118,11 +119,18 @@ namespace _Main.CalculatorSys.View.UI_CalculatorButton.Runtime
 
         public void ChangeButtonState(bool isClickAble)
         {
+            _button.image.sprite = CalculatorButtonViewControl.Instance.normalSprite;
             if (_calculatorButtonType == CalculatorButtonType.NumberNotActivate ||
                 _calculatorButtonType == CalculatorButtonType.Operator ||
                 _calculatorButtonType == CalculatorButtonType.Feature) return;
 
             _button.interactable = isClickAble;
+        }
+
+        public void ChangeButtonStateByAttack()
+        {
+            _button.interactable = false;
+            _button.image.sprite = CalculatorButtonViewControl.Instance.brokenSprite;
         }
 
         public void ChangeOperatorButtonState(bool isClickAble)

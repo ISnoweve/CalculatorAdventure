@@ -66,7 +66,7 @@ namespace _Main.InitGameSys.View.UI_TestFeatureDropDown
 
             switch (selectedType)
             {
-                case InitGameType.MainGame:
+                case InitGameType.Menu:
                     labelMainGame.SetActive(true);
                     break;
                 case InitGameType.MobBattle:

@@ -2,11 +2,8 @@ namespace _Main.InitGameSys.Sys.Enum
 {
     public enum InitGameType
     {
-        MainGame,
+        Menu,
         MobBattle,
         SpinWheel,
-        //TestQuestionSpot,
-        //TestMap,
-        //TestStoreSpot
     }
 }

@@ -21,8 +21,8 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
         {
             var takeButtons = TakeCalculatorClickableButtons();
 
-            ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(takeButtons);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
         }
 
         private List<CalculatorButton> TakeCalculatorClickableButtons()

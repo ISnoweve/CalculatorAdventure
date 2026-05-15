@@ -58,7 +58,7 @@ namespace _Main.CalculatorSys.Sys.Button
         {
             ResetNumberButtonToOriginalValue();
             ResetRecordUsedNumberIndexWhenGameStart();
-            RestButtonIsClick();
+            ResetButtonIsClick();
         }
 
         private void ResetAfterBattle(NotifyMobBattleNewState data)
@@ -66,7 +66,7 @@ namespace _Main.CalculatorSys.Sys.Button
             if(data.NewState != MobBattleStateEnum.BattleResult)return;
             ResetNumberButtonToOriginalValue();
             ResetRecordUsedNumberIndexWhenGameStart();
-            RestButtonIsClick();
+            ResetButtonIsClick();
         }
 
         private void ResetNumberButtonToOriginalValue()
@@ -84,7 +84,7 @@ namespace _Main.CalculatorSys.Sys.Button
             Instance.recordUsedNumberIndex.Clear();
         }
 
-        private void RestButtonIsClick()
+        private void ResetButtonIsClick()
         {
             foreach (CalculatorButton button in CalculatorButtonManager.GetAllActivateNumberButton())
             {

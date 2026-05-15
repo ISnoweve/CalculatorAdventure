@@ -38,7 +38,6 @@ namespace _Main.MobSys.View.UI_Mob.Control
             GlobalMessagePipe.GetSubscriber<SpawnMobEvent>().Subscribe(UpdateNewMobView).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Calculate_UpdateMobQuestionNumber>().Subscribe(UpdateMobQuestionNumber)
                 .AddTo(bag);
-            GlobalMessagePipe.GetSubscriber<Calculate_MobDefeated>().Subscribe(UpdateMobDefeated).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<MobTurn_UpdateBehaviourNumber>().Subscribe(UpdateMobBehaviourCountDown)
                 .AddTo(bag);
             GlobalMessagePipe.GetSubscriber<MobTurn_SetMobNewBehaviour>().Subscribe(SetNewMobBehaviour).AddTo(bag);
@@ -80,6 +79,17 @@ namespace _Main.MobSys.View.UI_Mob.Control
         {
             uiMobQuestionNumber.UpdateNewQuestionNumber(data.QuestionNumber,FinishUpdateNumberByCalculateResult);
         }
+        
+        private void FinishUpdateNumberByCalculateResult()
+        {
+            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(
+                FinishedUpdateNewNumberType.ByCalculateResult);
+            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
+        }
+
+        #endregion
+
+        #region Update By UniqueItem
 
         private void UpdateMobQuestionNumber(UniqueItem_UpdateMobQuestionNumber data)
         {
@@ -88,13 +98,8 @@ namespace _Main.MobSys.View.UI_Mob.Control
         
         private void FinishUpdateNumberByUniqueItem()
         {
-            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByUniqueItem);
-            GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
-        }
-        
-        private void FinishUpdateNumberByCalculateResult()
-        {
-            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByCalculateResult);
+            var finishedUpdateNewNumber = new FinishedUpdateNewNumber(
+                FinishedUpdateNewNumberType.ByUniqueItem);
             GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
         }
 
@@ -106,7 +111,7 @@ namespace _Main.MobSys.View.UI_Mob.Control
         {
             uiMobAtkSkillCountDown.Initialize(data.AtkSData);
             uiMobAtkSkillDescription.SetDescription(data.AtkSData.Description);
-            StartCoroutine(Stay());
+            //StartCoroutine(Stay());
         }
         
         private void UpdateMobBehaviourCountDown(MobTurn_UpdateBehaviourNumber data)
@@ -153,15 +158,6 @@ namespace _Main.MobSys.View.UI_Mob.Control
         {
             var finishedUpdateNewNumber = new FinishedUpdateNewNumber(FinishedUpdateNewNumberType.ByAttackSkillRecover);
             GlobalMessagePipe.GetPublisher<FinishedUpdateNewNumber>().Publish(finishedUpdateNewNumber);
-        }
-
-        #endregion
-        
-        #region Mob Defeated
-
-        private void UpdateMobDefeated(Calculate_MobDefeated data)
-        {
-            // 更新  mob 被打倒的圖片
         }
 
         #endregion

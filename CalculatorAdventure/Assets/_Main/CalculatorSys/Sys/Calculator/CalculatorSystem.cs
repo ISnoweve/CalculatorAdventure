@@ -8,6 +8,7 @@ using _Main.CalculatorSys.Sys.Button;
 using _Main.CalculatorSys.Sys.Button.Event;
 using _Main.CalculatorSys.Sys.Calculator.Enum;
 using _Main.CalculatorSys.Sys.Calculator.Event;
+using _Main.MobBattleSys.MobBattleState.Event;
 using _Main.ToolKit.SingletonFeature;
 using _Main.UniqueItemSys.Data.EffectData.Event;
 using MessagePipe;
@@ -44,6 +45,7 @@ namespace _Main.CalculatorSys.Sys.Calculator
         {
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
+            GlobalMessagePipe.GetSubscriber<NotifySetMobBattle>().Subscribe(ResetBox).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<ButtonClickSuccess>().Subscribe(GetButtonClick).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<AllNumberButtonClickRecover>().Subscribe(NotifyIsLastNumberInBox).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Event_IncreaseCalculatorBoxLimit>().Subscribe(SetCurrentCalculatorOperationAndValueCount).AddTo(bag);
@@ -56,6 +58,10 @@ namespace _Main.CalculatorSys.Sys.Calculator
             base.Release();
         }
 
+        #endregion
+
+        #region Initialize
+
         public static void InitializeSystem(CalculatorSystemData data)
         {
             Instance.originalCalculatorOperationAndValueCount = data.CalculatorOperationAndValueCount;
@@ -63,6 +69,13 @@ namespace _Main.CalculatorSys.Sys.Calculator
             Instance.currentOperators = new CalculatorOperator[Instance.currentCalculatorOperationAndValueCount];
             Instance.numbersInBox = new int[Instance.currentCalculatorOperationAndValueCount];
             Instance.currentButtonIndexInBox = new byte[Instance.currentCalculatorOperationAndValueCount];
+        }
+        
+        private void ResetBox(NotifySetMobBattle data)
+        {
+            Array.Clear(currentButtonIndexInBox,0,currentButtonIndexInBox.Length);
+            Array.Clear(currentOperators, 0, currentOperators.Length);
+            Array.Clear(numbersInBox, 0, numbersInBox.Length);
         }
 
         #endregion

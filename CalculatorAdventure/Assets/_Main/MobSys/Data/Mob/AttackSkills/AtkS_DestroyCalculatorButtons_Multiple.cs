@@ -22,8 +22,8 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var randomMultipleIndex = GetRandomMultipleIndex();
             var multipleButtons = GetMultipleButtons(calculatorButtonsNotClick);
 
-            ButtonSystem.CloseNumberButtonClickableByAttackSkill(multipleButtons);
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(multipleButtons);
+            ButtonSystem.CloseNumberButtonClickableByAttackSkill(multipleButtons);
         }
 
         private int GetRandomMultipleIndex()
