@@ -29,6 +29,11 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.GameSceneSys.LoadPanelSys.UI_ScenePanelView.Event.Event_FadeOutAnimationEnd>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.AfterSceneChange>();
             builder.AddMessageBroker<global::_Main.GameSceneSys.Sys.Event.BeforeSceneChange>();
+            builder.AddMessageBroker<global::_Main.HealthSys.Sys.Event.Event_HealthEmpty>();
+            builder.AddMessageBroker<global::_Main.HealthSys.Sys.Event.Event_HealthUpdate>();
+            builder.AddMessageBroker<global::_Main.HealthSys.Sys.Event.Event_InitialHealth>();
+            builder.AddMessageBroker<global::_Main.HealthSys.View.UI_HealthView.Event.Event_UpdateHealthEmpty>();
+            builder.AddMessageBroker<global::_Main.HealthSys.View.UI_HealthView.Event.Event_UpdateHealthFinished>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobBattleState.Event.NotifyMobBattleNewState>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobBattleState.Event.NotifySetMobBattle>();
             builder.AddMessageBroker<global::_Main.MobBattleSys.MobReward.Sys.MobRewardSys.Event.OutPutMoneyReward>();

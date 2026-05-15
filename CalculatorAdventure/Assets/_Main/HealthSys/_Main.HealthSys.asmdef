@@ -1,0 +1,21 @@
+{
+    "name": "_Main.HealthSys",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:08b38f39e2d9e594389b7a4cf4c2c338",
+        "GUID:b02a6fc8e91d4fe097a7104a6d9a2794",
+        "GUID:cb209e4719ca48bf902671da17691565",
+        "GUID:aa192b54baed40b8a8a9f5ad7578eb31",
+        "GUID:0ec157de3b734ff3ab1a62878ed6148c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

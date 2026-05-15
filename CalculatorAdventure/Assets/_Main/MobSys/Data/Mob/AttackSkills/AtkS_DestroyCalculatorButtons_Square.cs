@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
+using _Main.HealthSys.Sys;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -36,6 +37,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
                     buttonsInSquare.Add(button);
 
             ButtonSystem.CloseNumberButtonClickableByAttackSkill(buttonsInSquare);
+            HealthSystem.Instance.ModifyPlayerHealthByMobAttack(buttonsInSquare);
         }
 
         private static List<int> GetSquareIndices(int centerIndex, int squareSize, int width = 5, int height = 5)

@@ -5,6 +5,7 @@ using _Main.CalculatorSys.Sys.Calculator;
 using _Main.ChallengeSys.Data;
 using _Main.ChallengeSys.Sys;
 using _Main.GameSceneSys.Sys;
+using _Main.HealthSys.Sys;
 using _Main.MobBattleSys.MobBattleState.Sys;
 using _Main.MobBattleSys.MobReward.Data.MobReward;
 using _Main.MobBattleSys.MobReward.Sys.MobRewardSys;
@@ -40,6 +41,7 @@ namespace _Main.InitGameSys.Sys
         public UniqueItemSystem uniqueItemSystem;
         public MobBattleRewardSystem mobBattleRewardSystem;
         public MoneySystem moneySystem;
+        public HealthSystem healthSystem;
 
         public ChallengeDataSoList challengeDataSoList;
         public UniqueItemDataSoList uniqueItemDataSoList;
@@ -86,6 +88,7 @@ namespace _Main.InitGameSys.Sys
             uniqueItemSystem = UniqueItemSystem.Instance;
             mobBattleRewardSystem = MobBattleRewardSystem.Instance;
             moneySystem = MoneySystem.Instance;
+            healthSystem = HealthSystem.Instance;
         }
 
         private void LoadSystem()
@@ -127,6 +130,7 @@ namespace _Main.InitGameSys.Sys
             UniqueItemSystem.ClearInstance();
             MobBattleRewardSystem.ClearInstance();
             MoneySystem.ClearInstance();
+            HealthSystem.ClearInstance();
         }
 
         #endregion

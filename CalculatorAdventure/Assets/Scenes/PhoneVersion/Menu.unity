@@ -1213,7 +1213,6 @@ GameObject:
   - component: {fileID: 371986608}
   - component: {fileID: 371986607}
   - component: {fileID: 371986606}
-  - component: {fileID: 371986605}
   m_Layer: 5
   m_Name: Canvas_UniqueAndMoney
   m_TagString: Untagged
@@ -1221,25 +1220,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &371986605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371986604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 845081fbe3144ef9be3262ba7657d802, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIPanelSlider
-  panelRect: {fileID: 0}
-  toggleButton: {fileID: 0}
-  outPosition: {x: 0, y: 0}
-  inPosition: {x: 0, y: 0}
-  duration: 0.5
-  showEase: 27
-  hideEase: 5
 --- !u!114 &371986606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9856,6 +9836,8 @@ MonoBehaviour:
       currentQuestionNumber: 0
       nextAttackSkill: {fileID: 0}
       previousAttackSkill: {fileID: 0}
+      attackSkillSameLimit: 0
+      attackSkillIndex: 0
   selectMobDataSystem:
     currentSelectMobDataId: 0
   mobBattleState:

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
+using _Main.HealthSys.Sys;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var calculatorButtonsIsPrime = GetPrimes(calculatorButtonsNotClick, out var otherCalculatorButtons);
 
             ButtonSystem.CloseNumberButtonClickableByAttackSkill(otherCalculatorButtons);
+            HealthSystem.Instance.ModifyPlayerHealthByMobAttack(otherCalculatorButtons);
         }
 
         private List<CalculatorButton> GetPrimes(List<CalculatorButton> inputList,

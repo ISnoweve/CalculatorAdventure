@@ -3,6 +3,7 @@ using System.Linq;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
+using _Main.HealthSys.Sys;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using _Main.UtilityFeature;
 using Sirenix.OdinInspector;
@@ -21,6 +22,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var takeButtons = TakeCalculatorClickableButtons();
 
             ButtonSystem.CloseNumberButtonClickableByAttackSkill(takeButtons);
+            HealthSystem.Instance.ModifyPlayerHealthByMobAttack(takeButtons);
         }
 
         private List<CalculatorButton> TakeCalculatorClickableButtons()

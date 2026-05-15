@@ -29,6 +29,8 @@ namespace _Main.MobSys.Manager.RunTime
         [SerializeField] private AttackSkillData nextAttackSkill;
         [SerializeField] private AttackSkillData previousAttackSkill;
 
+        [SerializeField, ReadOnly] private int attackSkillSameLimit = 2;
+        [SerializeField, ReadOnly] private int attackSkillIndex;
 
         public Mob(MobData data)
         {
@@ -72,6 +74,21 @@ namespace _Main.MobSys.Manager.RunTime
                 default:
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
             }
+            
+            DetectHealthIsMax();
+        }
+        
+        private void DetectHealthIsMax()
+        {
+            if (currentQuestionNumber >= 500)
+            {
+                currentQuestionNumber = 500;
+            }
+
+            if (currentQuestionNumber <= -500)
+            {
+                currentQuestionNumber = -500;
+            }
         }
 
         public void DecreaseAttackSkillCountDown()
@@ -95,12 +112,19 @@ namespace _Main.MobSys.Manager.RunTime
                 {
                     previousAttackSkill = attackSkillData;
                     nextAttackSkill = attackSkillData; 
+                    attackSkillIndex++;
                     break;
                 }
                 
-                if(previousAttackSkill.GetEntityId()==attackSkillData.GetEntityId())continue;
+                if(previousAttackSkill==attackSkillData && attackSkillIndex >= attackSkillSameLimit)
+                {
+                    attackSkillIndex = 0;
+                    continue;
+                }
+
                 previousAttackSkill = attackSkillData;
                 nextAttackSkill = attackSkillData;
+                attackSkillIndex++;
                 break;
             }
             attackSkillCountDown = nextAttackSkill.countDownRound;

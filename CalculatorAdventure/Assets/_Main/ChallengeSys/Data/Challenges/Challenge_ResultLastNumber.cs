@@ -17,7 +17,7 @@ namespace _Main.ChallengeSys.Data.Challenges
 
         private bool CheckLastNumber(int number)
         {
-            return number % 10 == lastNumber;
+            return number % 10 == lastNumber || number % 10 == -lastNumber;
         }
     }
 }
