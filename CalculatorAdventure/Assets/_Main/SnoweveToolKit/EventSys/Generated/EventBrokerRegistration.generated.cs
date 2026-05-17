@@ -54,6 +54,7 @@ namespace EventSys.Runtime
             builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.MobTurn_UpdateBehaviourNumber>();
             builder.AddMessageBroker<global::_Main.MobSys.Sys.MobSys.Event.UniqueItem_UpdateMobQuestionNumber>();
             builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateBehaviourCountDown>();
+            builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateModifySkill>();
             builder.AddMessageBroker<global::_Main.MobSys.View.UI_Mob.Runtime.Event.FinishedUpdateNewNumber>();
             builder.AddMessageBroker<global::_Main.MoneySys.Sys.Event.ModifyMoney>();
             builder.AddMessageBroker<global::_Main.StateSys.GameStateMachineSys.Sys.Event.GameStateMachineChangeState>();

@@ -33,7 +33,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var buttonsInSquare = new List<CalculatorButton>();
 
             foreach (var button in buttons)
-                if (squareIndexes.Contains(button.Index))
+                if (squareIndexes.Contains(button.Index)&&!button.IsClick)
                     buttonsInSquare.Add(button);
 
             HealthSystem.Instance.ModifyPlayerHealthByMobAttack(buttonsInSquare);
