@@ -74,8 +74,6 @@ namespace _Main.MobSys.Manager.RunTime
                 default:
                     throw new ArgumentOutOfRangeException(nameof(calculatorOperator), calculatorOperator, null);
             }
-            
-            DetectHealthIsMax();
         }
         
         private void DetectHealthIsMax()
@@ -85,7 +83,7 @@ namespace _Main.MobSys.Manager.RunTime
                 currentQuestionNumber = 500;
             }
 
-            if (currentQuestionNumber <= -500)
+            if (currentQuestionNumber < -500)
             {
                 currentQuestionNumber = -500;
             }

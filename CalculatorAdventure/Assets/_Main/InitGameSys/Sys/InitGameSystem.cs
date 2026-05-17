@@ -67,6 +67,9 @@ namespace _Main.InitGameSys.Sys
 
             if (Instance != this) return;
 
+            QualitySettings.vSyncCount = 0;
+            Application.targetFrameRate = 60;
+
             InitialSystem();
             LoadSystem();
         }

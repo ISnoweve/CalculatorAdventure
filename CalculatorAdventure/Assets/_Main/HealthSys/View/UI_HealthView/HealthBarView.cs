@@ -28,6 +28,7 @@ namespace _Main.HealthSys.View.UI_HealthView
 
         private void Awake()
         {
+            testButton.onClick.AddListener(SetHealth);
             SubscribeEvent();
         }
         
@@ -52,6 +53,7 @@ namespace _Main.HealthSys.View.UI_HealthView
 
         private void OnDestroy()
         {
+            testButton.onClick.RemoveListener(SetHealth);
             _disposable?.Dispose();
         }
 
@@ -127,6 +129,7 @@ namespace _Main.HealthSys.View.UI_HealthView
         {
             HealthSystem.Instance.SetHealth((int)healthSlider.maxValue);
             healthSlider.value = HealthSystem.Instance.CurrentHealth;
+            UpdateText();
         }
 
         #endregion

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36dd3f3227bd43fb81078d8673150ede, type: 3}
   m_Name: DestroyButtons_Multiple
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_DestroyCalculatorButtons_Multiple
-  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u7248\u4E2D\u672A\u4F7F\u7528\u7684\u6309\u9215\uFF0C\u6309\u9215\u7684\u6578\u5B57\u70BA2\u500D\u6578\u9032\u884C\u7834\u58DE\u3002"
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u7248\u4E0A\u672A\u4F7F\u7528\u7684\u6309\u9215\u6578\u5B57\u70BA2\u500D\u6578\u7684\uFF0C\u7528\u4E0A\u9762\u6578\u5B57\u5C0D\u73A9\u5BB6\u9020\u6210\u50B7\u5BB3\u3002"
   attackSkillType: 2
   countDownRound: 2
   multipleNumbers: 02000000

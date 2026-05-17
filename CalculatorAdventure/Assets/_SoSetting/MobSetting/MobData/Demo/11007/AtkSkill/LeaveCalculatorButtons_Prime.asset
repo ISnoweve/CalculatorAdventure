@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ca06bfa7c74283ae8d0049f6a644f6, type: 3}
   m_Name: LeaveCalculatorButtons_Prime
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_LeaveCalculatorButtons_Prime
-  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u6309\u9215\u88E1\u6578\u5B57\u4E0D\u7B49\u65BC\u8CEA\u6578\u7684\u9032\u884C\u7834\u58DE\u3002"
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u6309\u9215\u88E1\u6578\u5B57\u4E0D\u7B49\u65BC\u8CEA\u6578\u7684\uFF0C\u7528\u4E0A\u9762\u6578\u5B57\u5C0D\u73A9\u5BB6\u9020\u6210\u50B7\u5BB3\u3002"
   attackSkillType: 3
   countDownRound: 2
