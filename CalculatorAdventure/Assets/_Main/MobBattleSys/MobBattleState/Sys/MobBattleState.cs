@@ -47,6 +47,7 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
             GlobalMessagePipe.GetSubscriber<FinishedUpdateBehaviourCountDown>().Subscribe(StateEnter_BeforePlayerTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<NoUniqueItemTrigger>().Subscribe(StateEnter_PlayerTurn).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Event_UpdateHealthEmpty>().Subscribe(StateEnter_GetStrike).AddTo(bag);
+            GlobalMessagePipe.GetSubscriber<FinishedUpdateModifySkill>().Subscribe(StateEnter_BeforePlayerTurn).AddTo(bag);
             _disposable = bag.Build();
         }
 
@@ -93,6 +94,12 @@ namespace _Main.MobBattleSys.MobBattleState.Sys
         private void StateEnter_BeforePlayerTurn(FinishedUpdateNewNumber data)
         {
             if(data.FinishedUpdateNewNumberType != FinishedUpdateNewNumberType.ByAttackSkillRecover)return;
+            mobBattleStateEnum = MobBattleStateEnum.BeforePlayerTurn;
+            CallNewState();
+        }
+
+        private void StateEnter_BeforePlayerTurn(FinishedUpdateModifySkill data)
+        {
             mobBattleStateEnum = MobBattleStateEnum.BeforePlayerTurn;
             CallNewState();
         }

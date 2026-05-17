@@ -5,7 +5,9 @@ using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
+using _Main.MobSys.View.UI_Mob.Runtime.Event;
 using _Main.UtilityFeature;
+using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = System.Random;
@@ -29,6 +31,8 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var randomValue = random.Next(randomValueLimitMin, randomValueLimitMax+1);
 
             ButtonSystem.ModifyNumberButtonValueByAttackSkill(calculatorButtons, randomValue);
+            FinishedUpdateModifySkill eventData = new FinishedUpdateModifySkill();
+            GlobalMessagePipe.GetPublisher<FinishedUpdateModifySkill>().Publish(eventData);
         }
 
         private List<CalculatorButton> TakeCalculatorNumberButtons()

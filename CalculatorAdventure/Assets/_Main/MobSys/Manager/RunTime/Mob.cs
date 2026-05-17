@@ -30,7 +30,7 @@ namespace _Main.MobSys.Manager.RunTime
         [SerializeField] private AttackSkillData previousAttackSkill;
 
         [SerializeField, ReadOnly] private int attackSkillSameLimit = 2;
-        [SerializeField, ReadOnly] private int attackSkillIndex;
+        [SerializeField, ReadOnly] private int attackSkillIndex =0;
 
         public Mob(MobData data)
         {
@@ -110,29 +110,37 @@ namespace _Main.MobSys.Manager.RunTime
                 attackSkillCountDown = nextAttackSkill.countDownRound;
                 return;
             }
-            
-            attackSkillsInGame.ShuffleList();
-            foreach (AttackSkillData attackSkillData in attackSkillsInGame)
-            {
-                if (previousAttackSkill == null)
-                {
-                    previousAttackSkill = attackSkillData;
-                    nextAttackSkill = attackSkillData; 
-                    attackSkillIndex++;
-                    break;
-                }
-                
-                if(previousAttackSkill==attackSkillData && attackSkillIndex >= attackSkillSameLimit)
-                {
-                    attackSkillIndex = 0;
-                    continue;
-                }
 
-                previousAttackSkill = attackSkillData;
-                nextAttackSkill = attackSkillData;
-                attackSkillIndex++;
-                break;
+            if (attackSkillIndex >= attackSkillsInGame.Count)
+            {
+                attackSkillIndex = 0;
             }
+            nextAttackSkill = attackSkillsInGame[attackSkillIndex];
+            attackSkillIndex++;
+            
+            
+            //attackSkillsInGame.ShuffleList();
+            // foreach (AttackSkillData attackSkillData in attackSkillsInGame)
+            // {
+            //     if (previousAttackSkill == null)
+            //     {
+            //         previousAttackSkill = attackSkillData;
+            //         nextAttackSkill = attackSkillData; 
+            //         attackSkillIndex++;
+            //         break;
+            //     }
+            //     
+            //     if(previousAttackSkill==attackSkillData && attackSkillIndex >= attackSkillSameLimit)
+            //     {
+            //         attackSkillIndex = 0;
+            //         continue;
+            //     }
+            //
+            //     previousAttackSkill = attackSkillData;
+            //     nextAttackSkill = attackSkillData;
+            //     attackSkillIndex++;
+            //     break;
+            // }
             attackSkillCountDown = nextAttackSkill.countDownRound;
         }
     }

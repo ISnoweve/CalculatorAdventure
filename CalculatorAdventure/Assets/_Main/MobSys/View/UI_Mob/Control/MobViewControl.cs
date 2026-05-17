@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _Main.MobSys.Data.Mob.AttackSkills.Enum;
 using _Main.MobSys.Data.Mob.AttackSkills.Event;
 using _Main.MobSys.Manager.Event;
 using _Main.MobSys.Sys.MobSys.Event;
@@ -111,7 +112,6 @@ namespace _Main.MobSys.View.UI_Mob.Control
         {
             uiMobAtkSkillCountDown.Initialize(data.AtkSData);
             uiMobAtkSkillDescription.SetDescription(data.AtkSData.Description);
-            //StartCoroutine(Stay());
         }
         
         private void UpdateMobBehaviourCountDown(MobTurn_UpdateBehaviourNumber data)

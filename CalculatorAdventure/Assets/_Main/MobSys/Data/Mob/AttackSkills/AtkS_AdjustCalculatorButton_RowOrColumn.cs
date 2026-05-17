@@ -4,7 +4,9 @@ using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
 using _Main.MobSys.Data.Mob.AttackSkills.Base;
 using _Main.MobSys.Data.Mob.AttackSkills.Enum;
+using _Main.MobSys.View.UI_Mob.Runtime.Event;
 using _Main.UtilityFeature;
+using MessagePipe;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -51,6 +53,8 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
             var randomValue = Random.Range(randomValueLimitMin, randomValueLimitMax);
 
             ButtonSystem.ModifyNumberButtonValueByAttackSkill(buttonsInList, randomValue);
+            FinishedUpdateModifySkill eventData = new FinishedUpdateModifySkill();
+            GlobalMessagePipe.GetPublisher<FinishedUpdateModifySkill>().Publish(eventData);
         }
 
         [Button]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using _Main.CalculatorSys.Manager;
 using _Main.CalculatorSys.Manager.Runtime;
 using _Main.CalculatorSys.Sys.Button;
@@ -17,7 +18,7 @@ namespace _Main.MobSys.Data.Mob.AttackSkills
 
         public override void Execute()
         {
-            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton();
+            var calculatorButtonsNotClick = CalculatorButtonManager.GetAllActivateNumberButton().Where(x => x.IsClick == false).ToList();
 
             var randomMultipleIndex = GetRandomMultipleIndex();
             var multipleButtons = GetMultipleButtons(calculatorButtonsNotClick);

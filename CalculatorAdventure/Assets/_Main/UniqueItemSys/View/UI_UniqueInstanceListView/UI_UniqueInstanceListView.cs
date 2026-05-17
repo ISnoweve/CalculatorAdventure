@@ -31,7 +31,6 @@ namespace _Main.UniqueItemSys.View.UI_UniqueInstanceListView
         {
             _disposable?.Dispose();
             var bag = DisposableBag.CreateBuilder();
-            //GlobalMessagePipe.GetSubscriber<AfterSceneChange>().Subscribe(SetPositionBySceneLoad).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<AfterSceneChange>().Subscribe(UpdateAllPlayerUniqueItem).AddTo(bag);
             GlobalMessagePipe.GetSubscriber<Event_NewUniqueItemToPlayer>().Subscribe(SetNewUniqueInstanceView).AddTo(bag);
             _disposable = bag.Build();

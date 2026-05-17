@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 339376ffd83246588299972577e4b7a3, type: 3}
   m_Name: AdjustCalculatorButton_Random
   m_EditorClassIdentifier: _Main.MobSys::_Main.MobSys.Data.AttackSkills.AtkS_AdjustCalculatorButton_Random
-  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u4E0A3\u500B\u6309\u9215\uFF0C\u5C0D\u6309\u9215\u7684\u6578\u5B57\u9032\u884C+1\u5230+3\u7BC4\u570D\u8ABF\u6574\u3002"
+  description: "\u751F\u9748\u6293\u53D6\u6578\u5B57\u677F\u4E0A\u96A8\u6A5F3\u500B\u6309\u9215\uFF0C\u5C0D\u6309\u9215\u7684\u6578\u5B57\u9032\u884C+1\u5230+3\u7BC4\u570D\u8ABF\u6574\u3002"
   attackSkillType: 1
   countDownRound: 3
   randomValueLimitMin: 1

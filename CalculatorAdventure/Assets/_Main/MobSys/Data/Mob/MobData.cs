@@ -49,6 +49,19 @@ namespace _Main.MobSys.Data.Mob
         public int OriginalQuestionNumber => originalQuestionNumber;
         public AttackSkillData[] AttackSkills => attackSkills;
         public MobType MobType => mobType;
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         #endregion
     }
